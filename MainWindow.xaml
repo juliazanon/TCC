@@ -16,6 +16,6 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        <gl:OpenGLControl Grid.Row="1" Grid.Column="1"/>
+        <gl:OpenGLControl x:Name="GLControl" OpenGLDraw="OpenGLDraw" Grid.Row="1" Grid.Column="1"/>
     </Grid>
 </Window>
