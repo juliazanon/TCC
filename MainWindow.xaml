@@ -9,13 +9,60 @@
         Title="TCC" Height="450" Width="800">
     <Grid Margin="12,12,12,12" ShowGridLines="True">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" MinHeight="200"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="4*"/>
-        </Grid.ColumnDefinitions>
-        <gl:OpenGLControl x:Name="GLControl" OpenGLDraw="OpenGLDraw" Grid.Row="1" Grid.Column="1"/>
+		<Grid Grid.Row="0" ShowGridLines="True">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Row="0" Margin="5" Background="#FFF4F4F5">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="28"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="3*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock FontSize="18" Grid.Row="0" Margin="4,4,0,4">Ferramentas</TextBlock>
+				<Grid Grid.Row="1" Grid.Column="0" Margin="4" Background="#FFF0F0F5">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="22px"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<TextBlock FontSize="16" Grid.Row="0" Margin="2">Criar</TextBlock>
+					<Button Grid.Row="1" Grid.Column="0" Margin="2"></Button>
+					<Button Grid.Row="1" Grid.Column="1" Margin="2"></Button>
+					<Button Grid.Row="1" Grid.Column="2" Margin="2"></Button>
+				</Grid>
+				<StackPanel Grid.Row="1" Grid.Column="1">
+					<Button Margin="3">Editar</Button>
+					<Button Margin="3">Excluir</Button>
+				</StackPanel>
+			</Grid>
+			<StackPanel Grid.Row="0" Grid.Column="1" Margin="5" Background="#FFF4F4F5">
+				<TextBlock FontSize="18" Margin="4">Visualização</TextBlock>
+				<Button Margin="4">Zoom In</Button>
+				<Button Margin="4">Zoom Out</Button>
+			</StackPanel>
+		</Grid>
+		<Grid Grid.Row="1" ShowGridLines="True">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="4*"/>
+			</Grid.ColumnDefinitions>
+			<StackPanel Background="#FFF0F0F5">
+				<TextBlock FontSize="18" Margin="4" HorizontalAlignment="Center">Camadas</TextBlock>
+				<StackPanel Margin="4,8,4,8" Background="#FFF4F4F5"></StackPanel>
+			</StackPanel>
+			<gl:OpenGLControl x:Name="GLControl" OpenGLDraw="OpenGLDraw" Grid.Column="1"/>
+		</Grid>
     </Grid>
 </Window>
