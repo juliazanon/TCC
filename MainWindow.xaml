@@ -6,7 +6,8 @@
         xmlns:gl="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="TCC" Height="450" Width="800">
+        Title="TCC" Height="450" Width="800"
+        Keyboard.KeyDown="KeyDown">
     <Grid Margin="12,12,12,12" ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -16,6 +17,6 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        <gl:OpenGLControl Grid.Row="1" Grid.Column="1"/>
+        <gl:OpenGLControl x:Name="GLControl" OpenGLDraw="OpenGLDraw" Grid.Row="1" Grid.Column="1"/>
     </Grid>
 </Window>
