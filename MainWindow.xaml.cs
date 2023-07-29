@@ -69,26 +69,6 @@ namespace TCC
             gl.MatrixMode(MatrixMode.Modelview);
             gl.LoadIdentity();
 
-            // Antialiasing
-            //gl.Enable(OpenGL.GL_POLYGON_SMOOTH);
-
-            gl.ShadeModel(OpenGL.GL_SMOOTH);
-            gl.Enable(OpenGL.GL_DEPTH_TEST);
-            gl.DepthFunc(OpenGL.GL_LEQUAL);
-            gl.ClearDepth(1.0f);
-            gl.Hint(OpenGL.GL_PERSPECTIVE_CORRECTION_HINT, OpenGL.GL_NICEST);
-
-            //gl.Enable(OpenGL.GL_BLEND);
-            gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
-            gl.Enable(OpenGL.GL_POLYGON_SMOOTH);
-            gl.Hint(OpenGL.GL_POLYGON_SMOOTH_HINT, OpenGL.GL_NICEST);
-
-            gl.PixelStore(OpenGL.GL_UNPACK_ALIGNMENT, 4);
-
-            gl.Disable(OpenGL.GL_CULL_FACE);
-            gl.Enable(OpenGL.GL_LINE_SMOOTH);
-            gl.Hint(OpenGL.GL_LINE_SMOOTH_HINT, OpenGL.GL_NICEST);
-
             //  Clear The Screen And The Depth Buffer
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
 
@@ -98,20 +78,49 @@ namespace TCC
 
 
             vec3 rgb = new vec3(111, 112, 112) / 255;
-            CreateCircle(100, 50, 47, rgb);
+            CreateCircle(10000, 50, rgb);
 
             rgb = new vec3(150, 150, 150) / 255;
-            CreateCircle(1000, 44, 41, rgb);
+            CreateCircle(5000, 44, rgb);
 
             rgb = new vec3(120, 120, 120) / 255;
             CreateCircle(1000, 10, 7, rgb);
         }
 
-        private void CreateCircle(int n, float r, float r2, vec3 rgb)
+        private void CreateCircle(int n, float r, vec3 rgb) // create with lines and line width
         {
             OpenGL gl = GLControl.OpenGL;
-            gl.Begin(BeginMode.TriangleString);
-            gl.Color(rgb.x, rgb.y, rgb.z, 0);
+            // Antialiasing
+            gl.Enable(OpenGL.GL_BLEND);
+            gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
+            gl.Enable(OpenGL.GL_LINE_SMOOTH);
+            gl.Hint(OpenGL.GL_LINE_SMOOTH_HINT, OpenGL.GL_NICEST);
+
+            gl.LineWidth(10);
+            gl.Begin(BeginMode.LineLoop);
+            gl.Color(rgb.x, rgb.y, rgb.z, 1);
+
+            double theta;
+
+            for (int i = 0; i < n; i++)
+            {
+                theta = i * 2 * Math.PI / n;
+                gl.Vertex(r * Math.Cos(theta), r * Math.Sin(theta));
+            }
+            gl.End();
+            gl.Flush();
+        }
+
+        private void CreateCircle(int n, float r, float r2, vec3 rgb) // create with triangles and 2 radius
+        {
+            OpenGL gl = GLControl.OpenGL;
+            // Antialiasing
+            gl.Disable(OpenGL.GL_BLEND);
+            gl.Enable(OpenGL.GL_POLYGON_SMOOTH);
+            gl.Hint(OpenGL.GL_POLYGON_SMOOTH_HINT, OpenGL.GL_NICEST);
+
+            gl.Begin(BeginMode.Triangles);
+            gl.Color(rgb.x, rgb.y, rgb.z, 1);
 
             double theta;
 
