@@ -76,71 +76,21 @@ namespace TCC
             vec3 backrgb = new vec3(225, 227, 226) / 255;
             gl.ClearColor(backrgb.x, backrgb.y, backrgb.z, 0);
 
-
+            float prop = w * h / 1000000;
             vec3 rgb = new vec3(111, 112, 112) / 255;
-            CreateCircle(10000, 50, rgb);
+            Circle c1 = new Circle(gl, 10000, 40, 40f * prop, rgb, false);
 
             rgb = new vec3(150, 150, 150) / 255;
-            CreateCircle(5000, 44, rgb);
+            Circle c2 = new Circle(gl, 5000, 30, 30f * prop, rgb, false);
+
+            teste.Text = (40f * prop).ToString();
+
+            // circles with triangles
+            rgb = new vec3(80, 80, 80) / 255;
+            Circle c3 = new Circle(gl, 1000, 20, 17, rgb, true);
 
             rgb = new vec3(120, 120, 120) / 255;
-            CreateCircle(1000, 10, 7, rgb);
-        }
-
-        private void CreateCircle(int n, float r, vec3 rgb) // create with lines and line width
-        {
-            OpenGL gl = GLControl.OpenGL;
-            // Antialiasing
-            gl.Enable(OpenGL.GL_BLEND);
-            gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
-            gl.Enable(OpenGL.GL_LINE_SMOOTH);
-            gl.Hint(OpenGL.GL_LINE_SMOOTH_HINT, OpenGL.GL_NICEST);
-
-            gl.LineWidth(10);
-            gl.Begin(BeginMode.LineLoop);
-            gl.Color(rgb.x, rgb.y, rgb.z, 1);
-
-            double theta;
-
-            for (int i = 0; i < n; i++)
-            {
-                theta = i * 2 * Math.PI / n;
-                gl.Vertex(r * Math.Cos(theta), r * Math.Sin(theta));
-            }
-            gl.End();
-            gl.Flush();
-        }
-
-        private void CreateCircle(int n, float r, float r2, vec3 rgb) // create with triangles and 2 radius
-        {
-            OpenGL gl = GLControl.OpenGL;
-            // Antialiasing
-            gl.Disable(OpenGL.GL_BLEND);
-            gl.Enable(OpenGL.GL_POLYGON_SMOOTH);
-            gl.Hint(OpenGL.GL_POLYGON_SMOOTH_HINT, OpenGL.GL_NICEST);
-
-            gl.Begin(BeginMode.Triangles);
-            gl.Color(rgb.x, rgb.y, rgb.z, 1);
-
-            double theta;
-
-            for (int i = 0; i < n; i++)
-            {
-                // First triangle
-                theta = i * 2 * Math.PI / n;
-                gl.Vertex(r * Math.Cos(theta), r * Math.Sin(theta));
-                gl.Vertex(r2 * Math.Cos(theta), r2 * Math.Sin(theta));
-                theta = (i + 1) * 2 * Math.PI / n;
-                gl.Vertex(r * Math.Cos(theta), r * Math.Sin(theta));
-
-                // Second triangle
-                gl.Vertex(r * Math.Cos(theta), r * Math.Sin(theta));
-                gl.Vertex(r2 * Math.Cos(theta), r2 * Math.Sin(theta));
-                theta = i * 2 * Math.PI / n;
-                gl.Vertex(r2 * Math.Cos(theta), r2 * Math.Sin(theta));
-            }
-            gl.End();
-            gl.Flush();
+            Circle c4 = new Circle(gl, 1000, 10, 7, rgb, true);
         }
 
         private new void KeyDown(object sender, KeyEventArgs e)
