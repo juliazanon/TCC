@@ -83,14 +83,18 @@ namespace TCC
             rgb = new vec3(150, 150, 150) / 255;
             Circle c2 = new Circle(gl, 5000, 30, 30f * prop, rgb, false);
 
-            teste.Text = (40f * prop).ToString();
+            rgb = new vec3(80, 80, 80) / 255;
+            Helicoidal c3 = new Helicoidal(gl, 33, 27, 25, rgb);
+            Helicoidal c4 = new Helicoidal(gl, 30, 24.5f, 22.5f, rgb);
+
+            //teste.Text = "alo";
 
             // circles with triangles
-            rgb = new vec3(80, 80, 80) / 255;
-            Circle c3 = new Circle(gl, 1000, 20, 17, rgb, true);
+            //rgb = new vec3(80, 80, 80) / 255;
+            //Circle c3 = new Circle(gl, 1000, 20, 17, rgb, true);
 
-            rgb = new vec3(120, 120, 120) / 255;
-            Circle c4 = new Circle(gl, 1000, 10, 7, rgb, true);
+            //rgb = new vec3(120, 120, 120) / 255;
+            //Circle c4 = new Circle(gl, 1000, 10, 7, rgb, true);
         }
 
         private new void KeyDown(object sender, KeyEventArgs e)
