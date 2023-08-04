@@ -74,6 +74,8 @@
     <Compile Include="CylindricalLayer.xaml.cs">
       <DependentUpon>CylindricalLayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Circle.cs" />
+    <Compile Include="Helicoidal.cs" />
     <Compile Include="StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
