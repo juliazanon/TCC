@@ -36,6 +36,10 @@ namespace TCC
         public MainWindow()
         {
             InitializeComponent();
+
+            // Sample array of strings
+            string[] dataArray = { "Element 1", "Element 2", "Element 3", "Element 4", "Element 5" };
+            itemsControl.ItemsSource = dataArray;
         }
 
         //  Camera parameters

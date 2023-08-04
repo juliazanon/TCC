@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace TCC
 {
     /// <summary>
-    /// Interaction logic for ParametersWindow.xaml
+    /// Interaction logic for CylindricalLayer.xaml
     /// </summary>
-    public partial class ParametersWindow : Window
+    public partial class HelicalLayer : Window
     {
-        public ParametersWindow()
+        public HelicalLayer()
         {
             InitializeComponent();
         }
