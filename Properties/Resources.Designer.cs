@@ -65,7 +65,7 @@ namespace TCC.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap zoom_in {
             get {
-                object obj = ResourceManager.GetObject("zoom-in", resourceCulture);
+                object obj = ResourceManager.GetObject("zoom_in", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -75,7 +75,7 @@ namespace TCC.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap zoom_out {
             get {
-                object obj = ResourceManager.GetObject("zoom-out", resourceCulture);
+                object obj = ResourceManager.GetObject("zoom_out", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
