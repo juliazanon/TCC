@@ -25,8 +25,6 @@ using System.Runtime.InteropServices;
 using SharpGL.WPF;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 using System.Drawing.Drawing2D;
-using SharpGL.SceneGraph.Assets;
-using TCC.Classes;
 
 namespace TCC
 {
@@ -42,26 +40,6 @@ namespace TCC
             // Sample array of strings
             string[] dataArray = { "Element 1", "Element 2", "Element 3", "Element 4", "Element 5" };
             itemsControl.ItemsSource = dataArray;
-        }
-        //  Menu
-
-        //  Layers
-        private void ButtonNewCylinder(object sender, RoutedEventArgs e)
-        {
-            CylindricalLayer windowCylinder = new CylindricalLayer();
-            windowCylinder.Show();
-        }
-        private void ButtonNewHelix(object sender, RoutedEventArgs e)
-        {
-            HelicalLayer windowHelix = new HelicalLayer();
-            windowHelix.Show();
-        }
-
-        //  Materials
-        private void ButtonNewMaterial(object sender, RoutedEventArgs e)
-        {
-            Materials windowMaterial = new Materials();
-            windowMaterial.Show();
         }
 
         //  Camera parameters
@@ -104,22 +82,20 @@ namespace TCC
 
             float prop = w * h / 1000000;
             vec3 rgb = new vec3(111, 112, 112) / 255;
-            CircleDrawing c1 = new CircleDrawing(gl, 10000, 40, 40f * prop, rgb, false);
+            Circle c1 = new Circle(gl, 10000, 40, 40f * prop, rgb, false);
 
             rgb = new vec3(150, 150, 150) / 255;
-            CircleDrawing c2 = new CircleDrawing(gl, 5000, 30, 30f * prop, rgb, false);
+            Circle c2 = new Circle(gl, 5000, 30, 30f * prop, rgb, false);
 
             rgb = new vec3(80, 80, 80) / 255;
-            HelicoidalDrawing c3 = new HelicoidalDrawing(gl, 33, 27, 25, rgb);
-            HelicoidalDrawing c4 = new HelicoidalDrawing(gl, 30, 24.5f, 22.5f, rgb);
+            Helicoidal c3 = new Helicoidal(gl, 33, 27, 25, rgb);
+            Helicoidal c4 = new Helicoidal(gl, 30, 24.5f, 22.5f, rgb);
 
-            Orthotropic o = new Orthotropic
-            {
-                D = 1.0,
-                ID = 1
-            };
+            Material m = new Material(1.0, 1);
+            m.D = 3.0;
 
-            teste.Text = o.D.ToString();
+            teste,
+            //teste.Text = "alo";
 
             // circles with triangles
             //rgb = new vec3(80, 80, 80) / 255;

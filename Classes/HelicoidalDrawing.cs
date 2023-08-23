@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace TCC
 {
-    internal class Helicoidal
+    internal class HelicoidalDrawing
     {
         private OpenGL gl;
 
-        public Helicoidal(OpenGL gl, int n, float r1, float r2, vec3 rgb)
+        public HelicoidalDrawing(OpenGL gl, int n, float r1, float r2, vec3 rgb)
         {
             this.gl = gl;
 
