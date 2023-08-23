@@ -43,6 +43,26 @@ namespace TCC
             string[] dataArray = { "Element 1", "Element 2", "Element 3", "Element 4", "Element 5" };
             itemsControl.ItemsSource = dataArray;
         }
+        //  Menu
+
+        //  Layers
+        private void ButtonNewCylinder(object sender, RoutedEventArgs e)
+        {
+            CylindricalLayer windowCylinder = new CylindricalLayer();
+            windowCylinder.Show();
+        }
+        private void ButtonNewHelix(object sender, RoutedEventArgs e)
+        {
+            HelicalLayer windowHelix = new HelicalLayer();
+            windowHelix.Show();
+        }
+
+        //  Materials
+        private void ButtonNewMaterial(object sender, RoutedEventArgs e)
+        {
+            Materials windowMaterial = new Materials();
+            windowMaterial.Show();
+        }
 
         //  Camera parameters
 
