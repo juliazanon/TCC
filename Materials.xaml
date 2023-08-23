@@ -5,14 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="Materials" Height="340" Width="510">
+        Title="Materials" Height="320" Width="510">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="120"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*" MinHeight="100"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Margin="6" Background="#E6E6E6">
-            <TextBlock Margin="4">ID: 1</TextBlock>
             <Grid Margin="4">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
