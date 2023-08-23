@@ -71,12 +71,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Classes\Coordinates.cs" />
+    <Compile Include="Classes\Area.cs" />
+    <Compile Include="Classes\Boundaries.cs" />
+    <Compile Include="Classes\Cable.cs" />
+    <Compile Include="Classes\CylinderLayer.cs" />
+    <Compile Include="Classes\CylindricalSection.cs" />
     <Compile Include="Classes\HelixLayer.cs" />
     <Compile Include="Classes\Isotropic.cs" />
+    <Compile Include="Classes\Layer.cs" />
+    <Compile Include="Classes\LayerConnections.cs" />
     <Compile Include="Classes\LayerMaterial.cs" />
     <Compile Include="Classes\Line.cs" />
     <Compile Include="Classes\Orthotropic.cs" />
+    <Compile Include="Classes\RectangularSection.cs" />
+    <Compile Include="Classes\Section.cs" />
     <Compile Include="CylindricalLayer.xaml.cs">
       <DependentUpon>CylindricalLayer.xaml</DependentUpon>
     </Compile>
