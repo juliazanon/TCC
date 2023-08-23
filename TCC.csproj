@@ -90,8 +90,6 @@
     </Compile>
     <Compile Include="Classes\CircleDrawing.cs" />
     <Compile Include="Classes\HelicoidalDrawing.cs" />
-    <Compile Include="Circle.cs" />
-    <Compile Include="Helicoidal.cs" />
     <Compile Include="Materials.xaml.cs">
       <DependentUpon>Materials.xaml</DependentUpon>
     </Compile>

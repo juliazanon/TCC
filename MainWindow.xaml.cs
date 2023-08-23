@@ -119,8 +119,6 @@ namespace TCC
                 ID = 1
             };
 
-            teste.Text = o.D.ToString();
-
             // circles with triangles
             //rgb = new vec3(80, 80, 80) / 255;
             //Circle c3 = new Circle(gl, 1000, 20, 17, rgb, true);
