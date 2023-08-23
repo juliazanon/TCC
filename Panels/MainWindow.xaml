@@ -86,7 +86,6 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-            <TextBlock Name="teste" Grid.Row="0" Grid.Column="2"></TextBlock>
         </Grid>
         <Grid Grid.Row="1" ShowGridLines="True">
             <Grid.ColumnDefinitions>

@@ -10,11 +10,11 @@ using System.Windows.Controls;
 
 namespace TCC
 {
-    class Circle
+    class CircleDrawing
     {
         private OpenGL gl;
 
-        public Circle(OpenGL gl, int n, float r, float rw, vec3 rgb, bool triangles)
+        public CircleDrawing(OpenGL gl, int n, float r, float rw, vec3 rgb, bool triangles)
         {
             this.gl = gl;
 
