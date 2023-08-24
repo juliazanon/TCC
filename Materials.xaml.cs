@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TCC.Classes;
 
 namespace TCC
 {
@@ -19,6 +20,7 @@ namespace TCC
     /// </summary>
     public partial class Materials : Window
     {
+        public LayerMaterial LayerMaterial { get; }
         public Materials()
         {
             InitializeComponent();
@@ -63,10 +65,16 @@ namespace TCC
                 PoissonTextBox.Visibility = Visibility.Collapsed;
             }
         }
-
-        private void GXYTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void SubmitNewMaterial(object sender, RoutedEventArgs e)
         {
+            if (IsotropicRadioButton.IsChecked == true)
+            {
 
+            }
+            else if (OrthotropicRadioButton.IsChecked == true)
+            {
+
+            }
         }
     }
 }
