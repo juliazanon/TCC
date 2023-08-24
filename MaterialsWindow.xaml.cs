@@ -74,18 +74,24 @@ namespace TCC
         {
             if (IsotropicRadioButton.IsChecked == true)
             {
-                layerMaterial = new Isotropic { Density = 1.0, ID = 1, Name = "New Material", Poisson = 1.0, Young = 1.0 };
-                layerMaterial.ID = materials.Count + 1;
-                layerMaterial.Name = NameTextBox.Text;
+                Isotropic layerIsotropic = new Isotropic { Density = 1.0, ID = 1, Name = "New Material", Poisson = 1.0, Young = 1.0 };
+                layerIsotropic.ID = materials.Count + 1;
+                layerIsotropic.Name = NameTextBox.Text;
                 double.TryParse(DensityTextBox.Text, out double result);
-                layerMaterial.Density = result;
+                layerIsotropic.Density = result;
                 double.TryParse(PoissonTextBox.Text, out result);
-                layerMaterial.Poisson = result;
+                layerIsotropic.Poisson = result;
+                double.TryParse(YoungTextBox.Text, out result);
+                layerIsotropic.Young = result;
+
+                layerMaterial = layerIsotropic;
             }
             else if (OrthotropicRadioButton.IsChecked == true)
             {
 
             }
+
+            this.Close();
         }
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
