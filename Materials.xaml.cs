@@ -20,7 +20,7 @@ namespace TCC
     /// </summary>
     public partial class Materials : Window
     {
-        public LayerMaterial LayerMaterial { get; }
+        public float Teste { get; set; }
         public Materials()
         {
             InitializeComponent();
@@ -65,16 +65,10 @@ namespace TCC
                 PoissonTextBox.Visibility = Visibility.Collapsed;
             }
         }
-        private void SubmitNewMaterial(object sender, RoutedEventArgs e)
+
+        private void GXYTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (IsotropicRadioButton.IsChecked == true)
-            {
 
-            }
-            else if (OrthotropicRadioButton.IsChecked == true)
-            {
-
-            }
         }
     }
 }

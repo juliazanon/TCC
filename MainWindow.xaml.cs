@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -27,6 +26,7 @@ using static System.Runtime.CompilerServices.RuntimeHelpers;
 using System.Drawing.Drawing2D;
 using SharpGL.SceneGraph.Assets;
 using TCC.Classes;
+using System.Windows.Documents.DocumentStructures;
 
 namespace TCC
 {
@@ -35,6 +35,7 @@ namespace TCC
     /// </summary>
     public partial class MainWindow : Window
     {
+        Cable cable;
         public MainWindow()
         {
             InitializeComponent();
@@ -42,19 +43,61 @@ namespace TCC
             // Sample array of strings
             string[] dataArray = { "Element 1", "Element 2", "Element 3", "Element 4", "Element 5" };
             itemsControl.ItemsSource = dataArray;
+
+            cable = new Cable
+            {
+                Name = "New Cable",
+                Sections = new Dictionary<int, Section>(),
+                Layers = new Layer[0],
+                LayerConnections = new LayerConnections[0],
+                LayerMaterials = new Dictionary<int, LayerMaterial>()
+            };
         }
         //  Menu
 
         //  Layers
         private void ButtonNewCylinder(object sender, RoutedEventArgs e)
         {
-            CylindricalLayer windowCylinder = new CylindricalLayer();
+            CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow(cable.LayerMaterials);
             windowCylinder.Show();
+
+            CylinderLayer layer = new CylinderLayer
+            {
+                Length = windowCylinder.Length,
+                Radius = windowCylinder.Radius,
+                Thickness = windowCylinder.Thickness,
+                FourierOrder = windowCylinder.FourierOrder,
+                RadialDivisions = windowCylinder.RadialDivisions,
+                AxialDivisions = windowCylinder.AxialDivisions,
+                Areas = windowCylinder.Areas,
+                Name = windowCylinder.Name,
+                Type = windowCylinder.Type,
+                MaterialID = windowCylinder.MaterialID,
+                BodyLoad = windowCylinder.BodyLoad
+            };
+
+            cable.Layers.Append(layer).ToArray();
         }
         private void ButtonNewHelix(object sender, RoutedEventArgs e)
         {
-            HelicalLayer windowHelix = new HelicalLayer();
+            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Sections, cable.LayerMaterials);
             windowHelix.Show();
+
+            HelixLayer layer = new HelixLayer
+            {
+                Line = windowHelix.Line,
+                Length = windowHelix.Length,
+                SectionID = windowHelix.SectionID,
+                LayAngle = windowHelix.LayAngle,
+                InitialAngle = windowHelix.InitialAngle,
+                Divisions = windowHelix.Divisions,
+                Name = windowHelix.Name,
+                Type = windowHelix.Type,
+                MaterialID = windowHelix.MaterialID,
+                BodyLoad = windowHelix.BodyLoad
+            };
+
+            cable.Layers.Append(layer).ToArray();
         }
 
         //  Materials
@@ -65,15 +108,12 @@ namespace TCC
         }
 
         //  Camera parameters
-
         float[] _viewPoint = new float[] { 0.0f, 0.0f, 0.0f };
         float[] _position = new float[] { 0.0f, 0.0f, 10.0f };
         float[] _upVector = new float[] { 0.0f, 1.0f, 0.0f };
-        float _moveDistance = 1.0f;
         float scale = 0.1f;
 
-        int keyCode = 0;
-
+        // Graphics
         private void OpenGLDraw(object sender, SharpGL.WPF.OpenGLRoutedEventArgs args)
         {
             OpenGL gl = GLControl.OpenGL;
@@ -125,56 +165,6 @@ namespace TCC
 
             //rgb = new vec3(120, 120, 120) / 255;
             //Circle c4 = new Circle(gl, 1000, 10, 7, rgb, true);
-        }
-
-        private new void KeyDown(object sender, KeyEventArgs e)
-        {
-            // Key definitions
-            if (e.Key == Key.W || e.Key == Key.Up) { keyCode = 1; }
-            else if (e.Key == Key.S || e.Key == Key.Down) { keyCode = 2; }
-            else if (e.Key == Key.A || e.Key == Key.Left) { keyCode = 3; }
-            else if (e.Key == Key.D || e.Key == Key.Right) { keyCode = 4; }
-            else if (e.Key == Key.Add || e.Key == Key.OemPlus) { keyCode = 5; }
-            else if (e.Key == Key.Subtract || e.Key == Key.OemMinus) { keyCode = 6; }
-            else { keyCode = 0; }
-
-            //  pan
-            //  y axis
-            //  Up
-            if (keyCode == 1)
-            {
-                _viewPoint[1] += _moveDistance;
-                _position[1] += _moveDistance;
-            }
-            //  Down
-            else if (keyCode == 2)
-            {
-                _viewPoint[1] += -_moveDistance;
-                _position[1] += -_moveDistance;
-            }
-
-            //  x axis
-            //  Left
-            else if (keyCode == 3)
-            {
-                _viewPoint[2] += _moveDistance;
-                _position[2] += _moveDistance;
-            }
-            //  Right
-            else if (keyCode == 4)
-            {
-                _viewPoint[2] += -_moveDistance;
-                _position[2] += -_moveDistance;
-            }
-            //  zoom
-            else if (keyCode == 5)
-            {
-                scale += 0.01f;
-            }
-            else if (keyCode == 6)
-            {
-                if (scale > 0.04) { scale -= 0.03f; }
-            }
         }
     }
 }
