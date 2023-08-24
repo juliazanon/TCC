@@ -22,7 +22,7 @@ namespace TCC
     public partial class MaterialsWindow : Window
     {
         private Dictionary<int, LayerMaterial> materials;
-        private Isotropic layerIsotropic = new Isotropic { Density = 1.0, ID = 1, Name = "New Material", Poisson = 1.0, Young = 1.0 };
+        private Isotropic layerIsotropic;
         private Orthotropic layerOrthotropic;
 
         public event EventHandler SubmitButtonClick;
@@ -33,7 +33,7 @@ namespace TCC
             IsotropicRadioButton.IsChecked = true;
         }
         public Isotropic LayerIsotropic { get { return layerIsotropic; } }
-        public LayerMaterial LayerOrthotropic { get { return layerOrthotropic; } }
+        public Orthotropic LayerOrthotropic { get { return layerOrthotropic; } }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -78,6 +78,7 @@ namespace TCC
         {
             if (IsotropicRadioButton.IsChecked == true)
             {
+                layerIsotropic = new Isotropic { Density = 1.0, ID = 1, Name = "New Material" };
                 layerIsotropic.ID = materials.Count + 1;
                 layerIsotropic.Name = NameTextBox.Text;
                 double.TryParse(DensityTextBox.Text, out double result);
@@ -89,7 +90,29 @@ namespace TCC
             }
             else if (OrthotropicRadioButton.IsChecked == true)
             {
-
+                layerOrthotropic = new Orthotropic { Density = 1.0, ID = 1, Name = "New Material" };
+                LayerOrthotropic.ID = materials.Count + 1;
+                LayerOrthotropic.Name = NameTextBox.Text;
+                double.TryParse(DensityTextBox.Text, out double result);
+                layerOrthotropic.Density = result;
+                double.TryParse(EXTextBox.Text, out result);
+                layerOrthotropic.Ex = result;
+                double.TryParse(EYTextBox.Text, out result);
+                layerOrthotropic.Ey = result;
+                double.TryParse(EZTextBox.Text, out result);
+                layerOrthotropic.Ez = result;
+                double.TryParse(NuXYTextBox.Text, out result);
+                layerOrthotropic.Nxy = result;
+                double.TryParse(NuXZTextBox.Text, out result);
+                layerOrthotropic.Nxz = result;
+                double.TryParse(NuYZTextBox.Text, out result);
+                layerOrthotropic.Nyz = result;
+                double.TryParse(GXYTextBox.Text, out result);
+                layerOrthotropic.Gxy = result;
+                double.TryParse(GXZTextBox.Text, out result);
+                layerOrthotropic.Gxz = result;
+                double.TryParse(GYZTextBox.Text, out result);
+                layerOrthotropic.Gyz = result;
             }
 
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);

@@ -105,24 +105,48 @@ namespace TCC
         {
             MaterialsWindow windowMaterial = new MaterialsWindow(cable.LayerMaterials);
 
-            windowMaterial.SubmitButtonClick += SubmitMtaerialButtonClick;
+            windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
             windowMaterial.Show();
         }
 
-        private void SubmitMtaerialButtonClick(object sender, EventArgs e)
+        private void SubmitMaterialButtonClick(object sender, EventArgs e)
         {
             MaterialsWindow windowMaterial = sender as MaterialsWindow;
-            Isotropic materialIsotropic = new Isotropic
+            if (windowMaterial.LayerIsotropic != null)
             {
-                ID = windowMaterial.LayerIsotropic.ID,
-                Name = windowMaterial.LayerIsotropic.Name,
-                Density = windowMaterial.LayerIsotropic.Density,
-                Poisson = windowMaterial.LayerIsotropic.Poisson,
-                Young = windowMaterial.LayerIsotropic.Young
-            };
+                Isotropic materialIsotropic = new Isotropic
+                {
+                    ID = windowMaterial.LayerIsotropic.ID,
+                    Name = windowMaterial.LayerIsotropic.Name,
+                    Density = windowMaterial.LayerIsotropic.Density,
+                    Poisson = windowMaterial.LayerIsotropic.Poisson,
+                    Young = windowMaterial.LayerIsotropic.Young
+                };
 
-            cable.LayerMaterials.Add(materialIsotropic.ID, materialIsotropic);
-            teste.Text = materialIsotropic.Name.ToString();
+                cable.LayerMaterials.Add(materialIsotropic.ID, materialIsotropic);
+            }
+
+            if (windowMaterial.LayerOrthotropic != null)
+            {
+                Orthotropic materialOrthotropic = new Orthotropic
+                {
+                    ID = windowMaterial.LayerOrthotropic.ID,
+                    Name = windowMaterial.LayerOrthotropic.Name,
+                    Density = windowMaterial.LayerOrthotropic.Density,
+                    Ex = windowMaterial.LayerOrthotropic.Ex,
+                    Ey = windowMaterial.LayerOrthotropic.Ey,
+                    Ez = windowMaterial.LayerOrthotropic.Ez,
+                    Nxy = windowMaterial.LayerOrthotropic.Nxy,
+                    Nxz = windowMaterial.LayerOrthotropic.Nxz,
+                    Nyz = windowMaterial.LayerOrthotropic.Nyz,
+                    Gxy = windowMaterial.LayerOrthotropic.Gxy,
+                    Gxz = windowMaterial.LayerOrthotropic.Gxz,
+                    Gyz = windowMaterial.LayerOrthotropic.Gyz,
+                };
+
+                cable.LayerMaterials.Add(materialOrthotropic.ID, materialOrthotropic);
+                teste.Text = materialOrthotropic.Name.ToString();
+            }
         }
 
         //  Sections
