@@ -66,7 +66,7 @@ namespace TCC
             }
         }
 
-        private void GXYTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void SubmitNewMaterial(object sender, RoutedEventArgs e)
         {
 
         }

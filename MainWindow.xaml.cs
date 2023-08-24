@@ -107,6 +107,13 @@ namespace TCC
             windowMaterial.Show();
         }
 
+        //  Sections
+        private void ButtonNewSection(object sender, RoutedEventArgs e)
+        {
+            SectionWindow windowSection = new SectionWindow();
+            windowSection.Show();
+        }
+
         //  Camera parameters
         float[] _viewPoint = new float[] { 0.0f, 0.0f, 0.0f };
         float[] _position = new float[] { 0.0f, 0.0f, 10.0f };
