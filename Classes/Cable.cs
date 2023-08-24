@@ -9,10 +9,10 @@ namespace TCC.Classes
     public class Cable
     {
         public string Name { get; set; }
-        public Section[] Sections { get; set; }
+        public Dictionary<int, Section> Sections { get; set; }
         public Layer[] Layers { get; set; }
         public LayerConnections[] LayerConnections { get; set; }
-        public LayerMaterial[] LayerMaterials { get; set; }
+        public Dictionary<int, LayerMaterial> LayerMaterials { get; set; }
 
     }
 }

@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -27,6 +26,7 @@ using static System.Runtime.CompilerServices.RuntimeHelpers;
 using System.Drawing.Drawing2D;
 using SharpGL.SceneGraph.Assets;
 using TCC.Classes;
+using System.Windows.Documents.DocumentStructures;
 
 namespace TCC
 {
@@ -35,7 +35,7 @@ namespace TCC
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Cable cable;
+        Cable cable;
         public MainWindow()
         {
             InitializeComponent();
@@ -44,20 +44,60 @@ namespace TCC
             string[] dataArray = { "Element 1", "Element 2", "Element 3", "Element 4", "Element 5" };
             itemsControl.ItemsSource = dataArray;
 
-            this.cable = new Cable();
+            cable = new Cable
+            {
+                Name = "New Cable",
+                Sections = new Dictionary<int, Section>(),
+                Layers = new Layer[0],
+                LayerConnections = new LayerConnections[0],
+                LayerMaterials = new Dictionary<int, LayerMaterial>()
+            };
         }
         //  Menu
 
         //  Layers
         private void ButtonNewCylinder(object sender, RoutedEventArgs e)
         {
-            CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow();
+            CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow(cable.LayerMaterials);
             windowCylinder.Show();
+
+            CylinderLayer layer = new CylinderLayer
+            {
+                Length = windowCylinder.Length,
+                Radius = windowCylinder.Radius,
+                Thickness = windowCylinder.Thickness,
+                FourierOrder = windowCylinder.FourierOrder,
+                RadialDivisions = windowCylinder.RadialDivisions,
+                AxialDivisions = windowCylinder.AxialDivisions,
+                Areas = windowCylinder.Areas,
+                Name = windowCylinder.Name,
+                Type = windowCylinder.Type,
+                MaterialID = windowCylinder.MaterialID,
+                BodyLoad = windowCylinder.BodyLoad
+            };
+
+            cable.Layers.Append(layer).ToArray();
         }
         private void ButtonNewHelix(object sender, RoutedEventArgs e)
         {
-            HelicalLayerWindow windowHelix = new HelicalLayerWindow();
+            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Sections, cable.LayerMaterials);
             windowHelix.Show();
+
+            HelixLayer layer = new HelixLayer
+            {
+                Line = windowHelix.Line,
+                Length = windowHelix.Length,
+                SectionID = windowHelix.SectionID,
+                LayAngle = windowHelix.LayAngle,
+                InitialAngle = windowHelix.InitialAngle,
+                Divisions = windowHelix.Divisions,
+                Name = windowHelix.Name,
+                Type = windowHelix.Type,
+                MaterialID = windowHelix.MaterialID,
+                BodyLoad = windowHelix.BodyLoad
+            };
+
+            cable.Layers.Append(layer).ToArray();
         }
 
         //  Materials
@@ -71,7 +111,6 @@ namespace TCC
         float[] _viewPoint = new float[] { 0.0f, 0.0f, 0.0f };
         float[] _position = new float[] { 0.0f, 0.0f, 10.0f };
         float[] _upVector = new float[] { 0.0f, 1.0f, 0.0f };
-        float _moveDistance = 1.0f;
         float scale = 0.1f;
 
         // Graphics

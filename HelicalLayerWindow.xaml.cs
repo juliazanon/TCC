@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using TCC.Classes;
 
 namespace TCC
 {
@@ -19,7 +18,18 @@ namespace TCC
     /// </summary>
     public partial class HelicalLayerWindow : Window
     {
-        public HelicalLayerWindow()
+        public Line Line { get; set; }
+        public double Length { get; set; }
+        public int SectionID { get; set; }
+        public double Radius { get; set; }
+        public double LayAngle { get; set; }
+        public double InitialAngle { get; set; }
+        public int Divisions { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public int MaterialID { get; set; }
+        public float[] BodyLoad { get; set; }
+        public HelicalLayerWindow(Dictionary<int, Section> sections, Dictionary<int, LayerMaterial> materials)
         {
             InitializeComponent();
         }

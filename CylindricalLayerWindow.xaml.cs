@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TCC.Classes;
 
 namespace TCC
 {
@@ -19,7 +20,18 @@ namespace TCC
     /// </summary>
     public partial class CylindricalLayerWindow : Window
     {
-        public CylindricalLayerWindow()
+        public double Length { get; set; }
+        public double Radius { get; set; }
+        public double Thickness { get; set; }
+        public int FourierOrder { get; set; }
+        public int RadialDivisions { get; set; }
+        public int AxialDivisions { get; set; }
+        public Area[] Areas { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public int MaterialID { get; set; }
+        public double[] BodyLoad { get; set; }
+        public CylindricalLayerWindow(Dictionary<int, LayerMaterial> materials)
         {
             InitializeComponent();
         }
