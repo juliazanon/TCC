@@ -22,6 +22,33 @@ namespace TCC
         public SectionWindow()
         {
             InitializeComponent();
+
+            CilyndricalSection.Visibility = Visibility.Collapsed;
+            sectionComboBox.SelectionChanged += SectionComboBox_SelectionChanged;
+        }
+
+        private void SectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+
+            string selectedParameter = ((ComboBoxItem)comboBox.SelectedItem).Content.ToString();
+
+            if (selectedParameter == "Section Rectangular")
+            {
+                // Show Rectangular
+                RectangularSection.Visibility = Visibility.Visible;
+
+                // Hide Cilyndrical
+                CilyndricalSection.Visibility = Visibility.Collapsed;
+            }
+            else if (selectedParameter == "Section Cylindrical")
+            {
+                // Show Cilyndrical
+                CilyndricalSection.Visibility = Visibility.Visible;
+
+                // Hide Rectangular
+                RectangularSection.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }
