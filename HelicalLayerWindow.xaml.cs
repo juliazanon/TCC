@@ -25,7 +25,7 @@ namespace TCC
         public double LayAngle { get; set; }
         public double InitialAngle { get; set; }
         public int Divisions { get; set; }
-        public string Name { get; set; }
+        public string Label { get; set; }
         public string Type { get; set; }
         public int MaterialID { get; set; }
         public float[] BodyLoad { get; set; }

@@ -70,7 +70,7 @@ namespace TCC
                 RadialDivisions = windowCylinder.RadialDivisions,
                 AxialDivisions = windowCylinder.AxialDivisions,
                 Areas = windowCylinder.Areas,
-                Name = windowCylinder.Name,
+                Name = windowCylinder.Label,
                 Type = windowCylinder.Type,
                 MaterialID = windowCylinder.MaterialID,
                 BodyLoad = windowCylinder.BodyLoad
@@ -91,7 +91,7 @@ namespace TCC
                 LayAngle = windowHelix.LayAngle,
                 InitialAngle = windowHelix.InitialAngle,
                 Divisions = windowHelix.Divisions,
-                Name = windowHelix.Name,
+                Name = windowHelix.Label,
                 Type = windowHelix.Type,
                 MaterialID = windowHelix.MaterialID,
                 BodyLoad = windowHelix.BodyLoad
@@ -103,7 +103,7 @@ namespace TCC
         //  Materials
         private void ButtonNewMaterial(object sender, RoutedEventArgs e)
         {
-            Materials windowMaterial = new Materials();
+            MaterialsWindow windowMaterial = new MaterialsWindow(cable.LayerMaterials);
             windowMaterial.Show();
         }
 
@@ -155,7 +155,7 @@ namespace TCC
 
             Orthotropic o = new Orthotropic
             {
-                D = 1.0,
+                Density = 1.0,
                 ID = 1
             };
 

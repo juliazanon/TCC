@@ -8,7 +8,8 @@ namespace TCC.Classes
 {
     public class LayerMaterial
     {
-        public double D { get; set; }
+        public double Density { get; set; }
         public int ID { get; set; }
+        public string Name { get; set; }
     }
 }

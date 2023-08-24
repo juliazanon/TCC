@@ -12,20 +12,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TCC.Classes;
+using System.Text.RegularExpressions;
 
 namespace TCC
 {
     /// <summary>
-    /// Interaction logic for Materials.xaml
+    /// Interaction logic for MaterialsWindow.xaml
     /// </summary>
-    public partial class Materials : Window
+    public partial class MaterialsWindow : Window
     {
-        public LayerMaterial LayerMaterial { get; }
-        public Materials()
+        private Dictionary<int, LayerMaterial> materials;
+        private LayerMaterial layerMaterial;
+        public MaterialsWindow(Dictionary<int, LayerMaterial> materials)
         {
             InitializeComponent();
+            this.materials = materials;
             IsotropicRadioButton.IsChecked = true;
         }
+        public LayerMaterial LayerMaterial { get { return layerMaterial; } }
+
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             if (IsotropicRadioButton.IsChecked == true)
@@ -69,11 +74,26 @@ namespace TCC
         {
             if (IsotropicRadioButton.IsChecked == true)
             {
-
+                layerMaterial = new Isotropic { Density = 1.0, ID = 1, Name = "New Material", Poisson = 1.0, Young = 1.0 };
+                layerMaterial.ID = materials.Count + 1;
+                layerMaterial.Name = NameTextBox.Text;
+                double.TryParse(DensityTextBox.Text, out double result);
+                layerMaterial.Density = result;
+                double.TryParse(PoissonTextBox.Text, out result);
+                layerMaterial.Poisson = result;
             }
             else if (OrthotropicRadioButton.IsChecked == true)
             {
 
+            }
+        }
+        private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            bool isNumeric = Regex.IsMatch(e.Text, @"^\d+$");
+            // Check if the entered text is not a digit
+            if (!isNumeric)
+            {
+                e.Handled = true; // Block non-numeric input
             }
         }
     }

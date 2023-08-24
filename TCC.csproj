@@ -93,8 +93,8 @@
     <Compile Include="HelicalLayerWindow.xaml.cs">
       <DependentUpon>HelicalLayerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Materials.xaml.cs">
-      <DependentUpon>Materials.xaml</DependentUpon>
+    <Compile Include="MaterialsWindow.xaml.cs">
+      <DependentUpon>MaterialsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
@@ -119,7 +119,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Materials.xaml">
+    <Page Include="MaterialsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

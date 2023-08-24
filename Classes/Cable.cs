@@ -14,5 +14,9 @@ namespace TCC.Classes
         public LayerConnections[] LayerConnections { get; set; }
         public Dictionary<int, LayerMaterial> LayerMaterials { get; set; }
 
+        private void SaveFile()
+        {
+
+        }
     }
 }

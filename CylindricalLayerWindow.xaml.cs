@@ -27,7 +27,7 @@ namespace TCC
         public int RadialDivisions { get; set; }
         public int AxialDivisions { get; set; }
         public Area[] Areas { get; set; }
-        public string Name { get; set; }
+        public string Label { get; set; }
         public string Type { get; set; }
         public int MaterialID { get; set; }
         public double[] BodyLoad { get; set; }
