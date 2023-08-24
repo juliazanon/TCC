@@ -104,7 +104,32 @@ namespace TCC
         private void ButtonNewMaterial(object sender, RoutedEventArgs e)
         {
             MaterialsWindow windowMaterial = new MaterialsWindow(cable.LayerMaterials);
+
+            windowMaterial.SubmitButtonClick += SubmitMtaerialButtonClick;
             windowMaterial.Show();
+        }
+
+        private void SubmitMtaerialButtonClick(object sender, EventArgs e)
+        {
+            MaterialsWindow windowMaterial = sender as MaterialsWindow;
+            Isotropic materialIsotropic = new Isotropic
+            {
+                ID = windowMaterial.LayerIsotropic.ID,
+                Name = windowMaterial.LayerIsotropic.Name,
+                Density = windowMaterial.LayerIsotropic.Density,
+                Poisson = windowMaterial.LayerIsotropic.Poisson,
+                Young = windowMaterial.LayerIsotropic.Young
+            };
+
+            cable.LayerMaterials.Add(materialIsotropic.ID, materialIsotropic);
+            teste.Text = materialIsotropic.Name.ToString();
+        }
+
+        //  Sections
+        private void ButtonNewSection(object sender, RoutedEventArgs e)
+        {
+            SectionWindow windowSection = new SectionWindow();
+            windowSection.Show();
         }
 
         //  Camera parameters

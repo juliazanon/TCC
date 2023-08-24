@@ -22,14 +22,18 @@ namespace TCC
     public partial class MaterialsWindow : Window
     {
         private Dictionary<int, LayerMaterial> materials;
-        private LayerMaterial layerMaterial;
+        private Isotropic layerIsotropic = new Isotropic { Density = 1.0, ID = 1, Name = "New Material", Poisson = 1.0, Young = 1.0 };
+        private Orthotropic layerOrthotropic;
+
+        public event EventHandler SubmitButtonClick;
         public MaterialsWindow(Dictionary<int, LayerMaterial> materials)
         {
             InitializeComponent();
             this.materials = materials;
             IsotropicRadioButton.IsChecked = true;
         }
-        public LayerMaterial LayerMaterial { get { return layerMaterial; } }
+        public Isotropic LayerIsotropic { get { return layerIsotropic; } }
+        public LayerMaterial LayerOrthotropic { get { return layerOrthotropic; } }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -74,7 +78,6 @@ namespace TCC
         {
             if (IsotropicRadioButton.IsChecked == true)
             {
-                Isotropic layerIsotropic = new Isotropic { Density = 1.0, ID = 1, Name = "New Material", Poisson = 1.0, Young = 1.0 };
                 layerIsotropic.ID = materials.Count + 1;
                 layerIsotropic.Name = NameTextBox.Text;
                 double.TryParse(DensityTextBox.Text, out double result);
@@ -83,14 +86,13 @@ namespace TCC
                 layerIsotropic.Poisson = result;
                 double.TryParse(YoungTextBox.Text, out result);
                 layerIsotropic.Young = result;
-
-                layerMaterial = layerIsotropic;
             }
             else if (OrthotropicRadioButton.IsChecked == true)
             {
 
             }
 
+            SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
         }
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

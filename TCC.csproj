@@ -96,6 +96,9 @@
     <Compile Include="MaterialsWindow.xaml.cs">
       <DependentUpon>MaterialsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SectionWindow.xaml.cs">
+      <DependentUpon>SectionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
@@ -120,6 +123,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MaterialsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

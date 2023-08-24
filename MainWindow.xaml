@@ -18,6 +18,7 @@
                 <ColumnDefinition Width="330"/>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Row="0" Margin="15" Background="#FFF4F4F5">
@@ -109,6 +110,33 @@
                         <TextBlock>List of Materials</TextBlock>
                     </StackPanel>
                 </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="3" Margin="15" Background="#FFF4F4F5">
+                <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold">Sections</TextBlock>
+                <Button Margin="36, 5" BorderThickness="1" Click="ButtonNewSection">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock>New Section</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Margin="36, 5" BorderThickness="1">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock>List of Sections</TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="4" Margin="15" Background="#FFF4F4F5">
+                <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold">Console Log</TextBlock>
+                <TextBox Name="teste" />
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" ShowGridLines="True">
