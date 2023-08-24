@@ -19,6 +19,7 @@ namespace TCC
     /// </summary>
     public partial class Materials : Window
     {
+        public float Teste { get; set; }
         public Materials()
         {
             InitializeComponent();
@@ -62,11 +63,6 @@ namespace TCC
                 YoungTextBox.Visibility = Visibility.Collapsed;
                 PoissonTextBox.Visibility = Visibility.Collapsed;
             }
-        }
-
-        private void GXYTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }
