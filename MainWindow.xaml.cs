@@ -85,6 +85,7 @@ namespace TCC
 
             HelixLayer layer = new HelixLayer
             {
+                Wire = windowHelix.Wires,
                 Line = windowHelix.Line,
                 Length = windowHelix.Length,
                 SectionID = windowHelix.SectionID,
@@ -124,6 +125,7 @@ namespace TCC
                 };
 
                 cable.LayerMaterials.Add(materialIsotropic.ID, materialIsotropic);
+                teste.Text = materialIsotropic.Poisson.ToString("F5", new CultureInfo("en-US"));
             }
 
             if (windowMaterial.LayerOrthotropic != null)
@@ -145,7 +147,6 @@ namespace TCC
                 };
 
                 cable.LayerMaterials.Add(materialOrthotropic.ID, materialOrthotropic);
-                teste.Text = materialOrthotropic.ID.ToString();
             }
         }
 
@@ -201,12 +202,6 @@ namespace TCC
             rgb = new vec3(80, 80, 80) / 255;
             HelicoidalDrawing c3 = new HelicoidalDrawing(gl, 33, 27, 25, rgb);
             HelicoidalDrawing c4 = new HelicoidalDrawing(gl, 30, 24.5f, 22.5f, rgb);
-
-            Orthotropic o = new Orthotropic
-            {
-                Density = 1.0,
-                ID = 1
-            };
 
             // circles with triangles
             //rgb = new vec3(80, 80, 80) / 255;

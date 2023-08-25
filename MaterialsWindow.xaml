@@ -72,6 +72,7 @@
                     <Label Margin="4,0,0,0" Name="GYZLabel" Content="GYZ" MinWidth="50"/>
                     <TextBox Margin="4,0,0,0" Name="GYZTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
                 </StackPanel>
+                <TextBox Name="teste"></TextBox>
             </StackPanel>
             <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">
                 <Button Margin="8,4,8,4" Click="SubmitNewMaterial">

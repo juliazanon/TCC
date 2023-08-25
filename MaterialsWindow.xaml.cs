@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TCC.Classes;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace TCC
 {
@@ -91,11 +92,11 @@ namespace TCC
             else if (OrthotropicRadioButton.IsChecked == true)
             {
                 layerOrthotropic = new Orthotropic { Density = 1.0, ID = 1, Name = "New Material" };
-                LayerOrthotropic.ID = materials.Count + 1;
-                LayerOrthotropic.Name = NameTextBox.Text;
-                double.TryParse(DensityTextBox.Text, out double result);
-                layerOrthotropic.Density = result;
-                double.TryParse(EXTextBox.Text, out result);
+                layerOrthotropic.ID = materials.Count + 1;
+                layerOrthotropic.Name = NameTextBox.Text;
+                //double.TryParse(DensityTextBox.Text, out double result);
+                layerOrthotropic.Density = double.Parse(DensityTextBox.Text, System.Globalization.CultureInfo.InvariantCulture);
+                double.TryParse(EXTextBox.Text, out double result);
                 layerOrthotropic.Ex = result;
                 double.TryParse(EYTextBox.Text, out result);
                 layerOrthotropic.Ey = result;
@@ -118,13 +119,27 @@ namespace TCC
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
         }
+        private double ParseDouble(string input)
+        {
+            // Create a custom culture with a dot as the decimal separator
+            var customCulture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+
+            // Use the custom culture for parsing
+            return double.Parse(input, NumberStyles.AllowDecimalPoint, customCulture);
+        }
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            bool isNumeric = Regex.IsMatch(e.Text, @"^\d+$");
-            // Check if the entered text is not a digit
-            if (!isNumeric)
+            // Check if the entered character is a digit or a dot
+            if (!char.IsDigit(e.Text, 0) && e.Text != ".")
             {
-                e.Handled = true; // Block non-numeric input
+                e.Handled = true; // Prevent the character from being entered
+            }
+
+            // Check if the text already contains a dot, and if so, prevent entering another dot
+            if (e.Text == "." && ((TextBox)sender).Text.Contains("."))
+            {
+                e.Handled = true;
             }
         }
     }
