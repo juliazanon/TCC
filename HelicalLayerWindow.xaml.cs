@@ -41,26 +41,51 @@ namespace TCC
         {
             InitializeComponent();
 
-            List<string> materialNames = materials.Values.Select(material => material.Name).ToList();
+            //  Section comboBox
+            if (sections.Count == 0)
+            {
+                List<Section> sectionList = new List<Section>
+                {
+                    new Section { ID = 0, Name = "No Section Created" },
+                };
+                SectionComboBox.ItemsSource = sectionList;
+                SectionComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                SectionComboBox.ItemsSource = sections.Values;
+                SectionComboBox.SelectedIndex = 0;
+            }
+
+            //  Materials comboBox
             if (materials.Count == 0)
             {
-                MaterialComboBox.ItemsSource = new List<string> { "No Material" };
+                List<LayerMaterial> materialList = new List<LayerMaterial>
+                {
+                    new LayerMaterial { ID = 0, Name = "No Material Created" },
+                };
+                MaterialComboBox.ItemsSource = materialList;
                 MaterialComboBox.SelectedIndex = 0;
             }
             else
             {
-                List<LayerMaterial> materialList = materials.Values.ToList();
-                MaterialComboBox.ItemsSource = materialList;
+                MaterialComboBox.ItemsSource = materials.Values;
+                MaterialComboBox.SelectedIndex = 0;
             }
+            
+            // Hide Cylindrical Coordinates elements
             TextBlockCilyndricalCoord1Start.Visibility = Visibility.Collapsed;
             TextBlockCilyndricalCoord2Start.Visibility = Visibility.Collapsed;
             TextBlockCilyndricalCoord1End.Visibility = Visibility.Collapsed;
             TextBlockCilyndricalCoord2End.Visibility = Visibility.Collapsed;
-            CoordinateComboBoxStart.SelectionChanged += SectionComboBox_SelectionChanged_CoordinateStart;
-            CoordinateComboBoxEnd.SelectionChanged += SectionComboBox_SelectionChanged_CoordinateEnd;
+            
+            //  Handle the ComboBox SelectionChange
+            CoordinateComboBoxStart.SelectionChanged += ComboBox_SelectionChanged_CoordinateStart;
+            CoordinateComboBoxEnd.SelectionChanged += ComboBox_SelectionChanged_CoordinateEnd;
         }
 
-        private void SectionComboBox_SelectionChanged_CoordinateStart(object sender, SelectionChangedEventArgs e)
+        //  Combobox coordinate
+        private void ComboBox_SelectionChanged_CoordinateStart(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
 
@@ -88,7 +113,7 @@ namespace TCC
             }
         }
 
-        private void SectionComboBox_SelectionChanged_CoordinateEnd(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_SelectionChanged_CoordinateEnd(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
 
@@ -142,7 +167,11 @@ namespace TCC
             helixLayer.Name = NameTextBox.Text;
             helixLayer.Type = "helix";
 
+            LayerMaterial selectedMaterial = (LayerMaterial)MaterialComboBox.SelectedItem;
+            helixLayer.MaterialID = selectedMaterial.ID;
 
+            Section selectedSection = (Section)SectionComboBox.SelectedItem;
+            helixLayer.SectionID = selectedSection.ID;
 
             double.TryParse(BodyLoadXTextBox.Text, out double xresult);
             double.TryParse(BodyLoadYTextBox.Text, out double yresult);

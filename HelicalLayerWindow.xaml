@@ -37,15 +37,14 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock Margin="4,0,2,0" VerticalAlignment="Center">Section:</TextBlock>
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5">
-                            <!-- Example -->
-                            <ComboBoxItem Content="Rectangular" IsSelected="True"/>
-                            <ComboBoxItem Content="Cylindrical"/>
+                        <ComboBox Name="SectionComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
+                                  DisplayMemberPath="Name" SelectedValuePath="ID">
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock VerticalAlignment="Center">Material</TextBlock>
-                        <ComboBox Name="MaterialComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5">
+                        <ComboBox Name="MaterialComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
+                                  DisplayMemberPath="Name" SelectedValuePath="ID">
                         </ComboBox>
                     </StackPanel>
                 </StackPanel>
@@ -335,7 +334,7 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="3" HorizontalAlignment="Right">
-                <Button Click="SubmitNewLayer">Submit</Button>
+                <Button Click="SubmitNewLayer">Create</Button>
             </StackPanel>
         </Grid>
     </ScrollViewer>
