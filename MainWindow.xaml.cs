@@ -145,7 +145,7 @@ namespace TCC
                 };
 
                 cable.LayerMaterials.Add(materialOrthotropic.ID, materialOrthotropic);
-                teste.Text = materialOrthotropic.Name.ToString();
+                teste.Text = materialOrthotropic.ID.ToString();
             }
         }
 
