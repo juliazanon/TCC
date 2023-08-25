@@ -70,7 +70,7 @@ namespace TCC
                 RadialDivisions = windowCylinder.RadialDivisions,
                 AxialDivisions = windowCylinder.AxialDivisions,
                 Areas = windowCylinder.Areas,
-                Name = windowCylinder.Name,
+                Name = windowCylinder.Label,
                 Type = windowCylinder.Type,
                 MaterialID = windowCylinder.MaterialID,
                 BodyLoad = windowCylinder.BodyLoad
@@ -85,13 +85,14 @@ namespace TCC
 
             HelixLayer layer = new HelixLayer
             {
+                Wire = windowHelix.Wires,
                 Line = windowHelix.Line,
                 Length = windowHelix.Length,
                 SectionID = windowHelix.SectionID,
                 LayAngle = windowHelix.LayAngle,
                 InitialAngle = windowHelix.InitialAngle,
                 Divisions = windowHelix.Divisions,
-                Name = windowHelix.Name,
+                Name = windowHelix.Label,
                 Type = windowHelix.Type,
                 MaterialID = windowHelix.MaterialID,
                 BodyLoad = windowHelix.BodyLoad
@@ -103,8 +104,50 @@ namespace TCC
         //  Materials
         private void ButtonNewMaterial(object sender, RoutedEventArgs e)
         {
-            Materials windowMaterial = new Materials();
+            MaterialsWindow windowMaterial = new MaterialsWindow(cable.LayerMaterials);
+
+            windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
             windowMaterial.Show();
+        }
+
+        private void SubmitMaterialButtonClick(object sender, EventArgs e)
+        {
+            MaterialsWindow windowMaterial = sender as MaterialsWindow;
+            if (windowMaterial.LayerIsotropic != null)
+            {
+                Isotropic materialIsotropic = new Isotropic
+                {
+                    ID = windowMaterial.LayerIsotropic.ID,
+                    Name = windowMaterial.LayerIsotropic.Name,
+                    Density = windowMaterial.LayerIsotropic.Density,
+                    Poisson = windowMaterial.LayerIsotropic.Poisson,
+                    Young = windowMaterial.LayerIsotropic.Young
+                };
+
+                cable.LayerMaterials.Add(materialIsotropic.ID, materialIsotropic);
+                teste.Text = materialIsotropic.Density.ToString("F5", new CultureInfo("en-US"));
+            }
+
+            if (windowMaterial.LayerOrthotropic != null)
+            {
+                Orthotropic materialOrthotropic = new Orthotropic
+                {
+                    ID = windowMaterial.LayerOrthotropic.ID,
+                    Name = windowMaterial.LayerOrthotropic.Name,
+                    Density = windowMaterial.LayerOrthotropic.Density,
+                    Ex = windowMaterial.LayerOrthotropic.Ex,
+                    Ey = windowMaterial.LayerOrthotropic.Ey,
+                    Ez = windowMaterial.LayerOrthotropic.Ez,
+                    Nxy = windowMaterial.LayerOrthotropic.Nxy,
+                    Nxz = windowMaterial.LayerOrthotropic.Nxz,
+                    Nyz = windowMaterial.LayerOrthotropic.Nyz,
+                    Gxy = windowMaterial.LayerOrthotropic.Gxy,
+                    Gxz = windowMaterial.LayerOrthotropic.Gxz,
+                    Gyz = windowMaterial.LayerOrthotropic.Gyz,
+                };
+
+                cable.LayerMaterials.Add(materialOrthotropic.ID, materialOrthotropic);
+            }
         }
 
         //  Sections
@@ -159,12 +202,6 @@ namespace TCC
             rgb = new vec3(80, 80, 80) / 255;
             HelicoidalDrawing c3 = new HelicoidalDrawing(gl, 33, 27, 25, rgb);
             HelicoidalDrawing c4 = new HelicoidalDrawing(gl, 30, 24.5f, 22.5f, rgb);
-
-            Orthotropic o = new Orthotropic
-            {
-                D = 1.0,
-                ID = 1
-            };
 
             // circles with triangles
             //rgb = new vec3(80, 80, 80) / 255;

@@ -136,6 +136,7 @@
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="4" Margin="15" Background="#FFF4F4F5">
                 <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold">Console Log</TextBlock>
+                <TextBox Name="teste" Language="en-US"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" ShowGridLines="True">

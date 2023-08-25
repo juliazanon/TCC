@@ -18,6 +18,7 @@ namespace TCC
     /// </summary>
     public partial class HelicalLayerWindow : Window
     {
+        public int Wires { get; set; }
         public Line Line { get; set; }
         public double Length { get; set; }
         public int SectionID { get; set; }
@@ -25,7 +26,7 @@ namespace TCC
         public double LayAngle { get; set; }
         public double InitialAngle { get; set; }
         public int Divisions { get; set; }
-        public string Name { get; set; }
+        public string Label { get; set; }
         public string Type { get; set; }
         public int MaterialID { get; set; }
         public float[] BodyLoad { get; set; }

@@ -8,6 +8,7 @@ namespace TCC.Classes
 {
     public class HelixLayer : Layer
     {
+        public int Wire { get; set; }
         public Line Line { get; set; }
         public double Length { get; set; }
         public int SectionID { get; set; }
