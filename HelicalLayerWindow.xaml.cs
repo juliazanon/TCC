@@ -65,5 +65,10 @@ namespace TCC
                 TextBlockCartesianCoord2.Visibility = Visibility.Collapsed;
             }
         }
+
+        private void SubmitNewLayer(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

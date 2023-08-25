@@ -125,7 +125,6 @@ namespace TCC
                 };
 
                 cable.LayerMaterials.Add(materialIsotropic.ID, materialIsotropic);
-                teste.Text = materialIsotropic.Density.ToString("F5", new CultureInfo("en-US"));
             }
 
             if (windowMaterial.LayerOrthotropic != null)

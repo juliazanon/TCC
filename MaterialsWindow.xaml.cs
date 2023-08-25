@@ -119,15 +119,7 @@ namespace TCC
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
         }
-        private double ParseDouble(string input)
-        {
-            // Create a custom culture with a dot as the decimal separator
-            var customCulture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
-            customCulture.NumberFormat.NumberDecimalSeparator = ".";
 
-            // Use the custom culture for parsing
-            return double.Parse(input, NumberStyles.AllowDecimalPoint, customCulture);
-        }
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Check if the entered character is a digit or a dot
