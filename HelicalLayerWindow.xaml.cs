@@ -34,6 +34,22 @@ namespace TCC
         {
             InitializeComponent();
 
+            //  Section comboBox
+            if (sections.Count == 0)
+            {
+                List<Section> sectionList = new List<Section>
+                {
+                    new Section { ID = 0, Name = "No Section Created" },
+                };
+                SectionComboBox.ItemsSource = sectionList;
+                SectionComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                SectionComboBox.ItemsSource = sections.Values;
+                SectionComboBox.SelectedIndex = 0;
+            }
+
             //  Materials comboBox
             if (materials.Count == 0)
             {
@@ -57,8 +73,8 @@ namespace TCC
             TextBlockCilyndricalCoord2End.Visibility = Visibility.Collapsed;
             
             //  Handle the ComboBox SelectionChange
-            coordinateComboBoxStart.SelectionChanged += SectionComboBox_SelectionChanged_CoordinateStart;
-            coordinateComboBoxEnd.SelectionChanged += SectionComboBox_SelectionChanged_CoordinateEnd;
+            coordinateComboBoxStart.SelectionChanged += ComboBox_SelectionChanged_CoordinateStart;
+            coordinateComboBoxEnd.SelectionChanged += ComboBox_SelectionChanged_CoordinateEnd;
         }
 
         //  Material
@@ -70,7 +86,7 @@ namespace TCC
                 LayerMaterial selectedMaterial = (LayerMaterial)MaterialComboBox.SelectedItem;
 
                 // Access the selected ID and Name.
-                int selectedID = selectedMaterial.ID;
+                int selectedMaterialID = selectedMaterial.ID;
                 
                 // USE THIS VALUE AS MATERIAL ID
 
@@ -78,8 +94,25 @@ namespace TCC
             }
         }
 
+        //  Section
+        private void SectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SectionComboBox.SelectedItem != null)
+            {
+                // Get the selected Material instance.
+                Section selectedSection = (Section)SectionComboBox.SelectedItem;
+
+                // Access the selected ID and Name.
+                int selectedSectionID = selectedSection.ID;
+
+                // USE THIS VALUE AS MATERIAL ID
+
+                // teste.Text = selectedID.ToString();
+            }
+        }
+
         //  Combobox coordinate
-        private void SectionComboBox_SelectionChanged_CoordinateStart(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_SelectionChanged_CoordinateStart(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
 
@@ -107,7 +140,7 @@ namespace TCC
             }
         }
 
-        private void SectionComboBox_SelectionChanged_CoordinateEnd(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_SelectionChanged_CoordinateEnd(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
 

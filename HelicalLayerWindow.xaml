@@ -37,10 +37,8 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock Margin="4,0,2,0" VerticalAlignment="Center">Section:</TextBlock>
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5">
-                            <!-- Example -->
-                            <ComboBoxItem Content="Rectangular" IsSelected="True"/>
-                            <ComboBoxItem Content="Cylindrical"/>
+                        <ComboBox Name="SectionComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
+                                  DisplayMemberPath="Name" SelectedValuePath="ID" SelectionChanged="SectionComboBox_SelectionChanged">
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
