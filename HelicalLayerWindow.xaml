@@ -45,7 +45,8 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock VerticalAlignment="Center">Material</TextBlock>
-                        <ComboBox Name="MaterialComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5">
+                        <ComboBox Name="MaterialComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
+                                  DisplayMemberPath="Name" SelectedValuePath="ID" SelectionChanged="MaterialComboBox_SelectionChanged">
                         </ComboBox>
                     </StackPanel>
                 </StackPanel>

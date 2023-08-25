@@ -34,25 +34,51 @@ namespace TCC
         {
             InitializeComponent();
 
-            List<string> materialNames = materials.Values.Select(material => material.Name).ToList();
+            //  Materials comboBox
             if (materials.Count == 0)
             {
-                MaterialComboBox.ItemsSource = new List<string> { "No Material" };
+                List<LayerMaterial> materialList = new List<LayerMaterial>
+                {
+                    new LayerMaterial { ID = 0, Name = "No Material Created" },
+                };
+                MaterialComboBox.ItemsSource = materialList;
                 MaterialComboBox.SelectedIndex = 0;
             }
             else
             {
-                List<LayerMaterial> materialList = materials.Values.ToList();
-                MaterialComboBox.ItemsSource = materialList;
+                MaterialComboBox.ItemsSource = materials.Values;
+                MaterialComboBox.SelectedIndex = 0;
             }
+            
+            // Hide Cylindrical Coordinates elements
             TextBlockCilyndricalCoord1Start.Visibility = Visibility.Collapsed;
             TextBlockCilyndricalCoord2Start.Visibility = Visibility.Collapsed;
             TextBlockCilyndricalCoord1End.Visibility = Visibility.Collapsed;
             TextBlockCilyndricalCoord2End.Visibility = Visibility.Collapsed;
+            
+            //  Handle the ComboBox SelectionChange
             coordinateComboBoxStart.SelectionChanged += SectionComboBox_SelectionChanged_CoordinateStart;
             coordinateComboBoxEnd.SelectionChanged += SectionComboBox_SelectionChanged_CoordinateEnd;
         }
 
+        //  Material
+        private void MaterialComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MaterialComboBox.SelectedItem != null)
+            {
+                // Get the selected Material instance.
+                LayerMaterial selectedMaterial = (LayerMaterial)MaterialComboBox.SelectedItem;
+
+                // Access the selected ID and Name.
+                int selectedID = selectedMaterial.ID;
+                
+                // USE THIS VALUE AS MATERIAL ID
+
+                // teste.Text = selectedID.ToString();
+            }
+        }
+
+        //  Combobox coordinate
         private void SectionComboBox_SelectionChanged_CoordinateStart(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
