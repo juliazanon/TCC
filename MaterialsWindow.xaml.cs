@@ -94,9 +94,9 @@ namespace TCC
                 layerOrthotropic = new Orthotropic { Density = 1.0, ID = 1, Name = "New Material" };
                 layerOrthotropic.ID = materials.Count + 1;
                 layerOrthotropic.Name = NameTextBox.Text;
-                //double.TryParse(DensityTextBox.Text, out double result);
-                layerOrthotropic.Density = double.Parse(DensityTextBox.Text, System.Globalization.CultureInfo.InvariantCulture);
-                double.TryParse(EXTextBox.Text, out double result);
+                double.TryParse(DensityTextBox.Text, out double result);
+                layerOrthotropic.Density = result;
+                double.TryParse(EXTextBox.Text, out result);
                 layerOrthotropic.Ex = result;
                 double.TryParse(EYTextBox.Text, out result);
                 layerOrthotropic.Ey = result;
