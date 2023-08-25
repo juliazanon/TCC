@@ -83,20 +83,7 @@ namespace TCC
             HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Sections, cable.LayerMaterials);
             windowHelix.Show();
 
-            HelixLayer layer = new HelixLayer
-            {
-                Wire = windowHelix.Wires,
-                Line = windowHelix.Line,
-                Length = windowHelix.Length,
-                SectionID = windowHelix.SectionID,
-                LayAngle = windowHelix.LayAngle,
-                InitialAngle = windowHelix.InitialAngle,
-                Divisions = windowHelix.Divisions,
-                Name = windowHelix.Label,
-                Type = windowHelix.Type,
-                MaterialID = windowHelix.MaterialID,
-                BodyLoad = windowHelix.BodyLoad
-            };
+            HelixLayer layer = windowHelix.HelixLayer;
 
             cable.Layers.Append(layer).ToArray();
         }

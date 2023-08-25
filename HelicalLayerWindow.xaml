@@ -18,22 +18,22 @@
             <TextBlock Grid.Row="0" FontSize="16" Margin="10" FontWeight="DemiBold">Create new Helical Layer</TextBlock>
             <StackPanel Grid.Row="1" Margin="4" Background="#E6E6E6">
                 <TextBlock Margin="4,4,4,0">Name:</TextBlock>
-                <TextBox Margin="4"></TextBox>
+                <TextBox Margin="4" Name="NameTextBox"></TextBox>
                 <TextBlock Margin="4,2,2,0">Wires:</TextBlock>
-                <TextBox Margin="4,2,4,2"></TextBox>
+                <TextBox Margin="4,2,4,2" Name="WiresTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
                 <TextBlock Margin="4" FontWeight="DemiBold">Geometric Parameters</TextBlock>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock Margin="4,0,2,0">Radius:</TextBlock>
-                        <TextBox Width="100"></TextBox>
+                        <TextBox Width="100" Name="RadiusTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                         <TextBlock Margin="4,0,2,0">Length:</TextBlock>
-                        <TextBox Width="150"></TextBox>
+                        <TextBox Width="150" Name="LengthTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock Margin="4,0,2,0">Lay Angle:</TextBlock>
-                        <TextBox Width="70"></TextBox>
+                        <TextBox Width="70" Name="LayAngleTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                         <TextBlock Margin="4,0,2,0">Initial Angle:</TextBlock>
-                        <TextBox Width="70"></TextBox>
+                        <TextBox Width="70" Name="InitialAngleTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock Margin="4,0,2,0" VerticalAlignment="Center">Section:</TextBlock>
@@ -57,26 +57,26 @@
                 <TextBlock Margin="4" FontWeight="DemiBold">Simulation Parameters</TextBlock>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock Margin="4,2,4,2">Divisions</TextBlock>
-                    <TextBox Width="150"></TextBox>
+                    <TextBox Width="150" Name="DivisionsTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock Margin="4,2,4,2">Fourier Order</TextBlock>
-                    <TextBox Width="150"></TextBox>
+                    <TextBox Width="150" Name="FourierTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
                 </StackPanel>
                 <TextBlock Margin="4,2,4,2" FontWeight="DemiBold">Body loads</TextBlock>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock Margin="0,0,2,0">X:</TextBlock>
-                    <TextBox Width="100"></TextBox>
+                    <TextBox Width="100" Name="BodyLoadXTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="0.0"></TextBox>
                     <TextBlock Margin="8,0,2,0">Y:</TextBlock>
-                    <TextBox Width="100"></TextBox>
+                    <TextBox Width="100" Name="BodyLoadYTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="0.0"></TextBox>
                     <TextBlock Margin="8,0,2,0">Z:</TextBlock>
-                    <TextBox Width="100"></TextBox>
+                    <TextBox Width="100" Name="BodyLoadZTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="0.0"></TextBox>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Margin="4" FontWeight="DemiBold">Element: Line</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
-                        <ComboBox Name="coordinateComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
+                        <ComboBox Name="CoordinateComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
                             <ComboBoxItem Content="Cartesian" IsSelected="True"/>
                             <ComboBoxItem Content="Cylindrical"/>
                         </ComboBox>
@@ -171,7 +171,7 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="3" HorizontalAlignment="Right">
-                <Button>Submit</Button>
+                <Button Click="SubmitNewLayer">Submit</Button>
             </StackPanel>
         </Grid>
     </ScrollViewer>

@@ -18,25 +18,32 @@ namespace TCC
     /// </summary>
     public partial class HelicalLayerWindow : Window
     {
-        public int Wires { get; set; }
-        public Line Line { get; set; }
-        public double Length { get; set; }
-        public int SectionID { get; set; }
-        public double Radius { get; set; }
-        public double LayAngle { get; set; }
-        public double InitialAngle { get; set; }
-        public int Divisions { get; set; }
-        public string Label { get; set; }
-        public string Type { get; set; }
-        public int MaterialID { get; set; }
-        public float[] BodyLoad { get; set; }
+        //private int wires;
+        //private Line line;
+        //private double length;
+        //private int sectionID;
+        //private double radius;
+        //private double layAngle;
+        //private double initialAngle;
+        //private int divisions;
+        //private string label;
+        //private string type;
+        //private int materialID;
+        //private float[] bodyLoad;
+
+        private HelixLayer helixLayer;
+
+        public event EventHandler SubmitButtonClick;
+
         public HelicalLayerWindow(Dictionary<int, Section> sections, Dictionary<int, LayerMaterial> materials)
         {
             InitializeComponent();
             TextBlockCilyndricalCoord1.Visibility = Visibility.Collapsed;
             TextBlockCilyndricalCoord2.Visibility = Visibility.Collapsed;
-            coordinateComboBox.SelectionChanged += SectionComboBox_SelectionChanged_Coordinate;
+            CoordinateComboBox.SelectionChanged += SectionComboBox_SelectionChanged_Coordinate;
         }
+
+        public HelixLayer HelixLayer { get { return helixLayer; } }
 
         private void SectionComboBox_SelectionChanged_Coordinate(object sender, SelectionChangedEventArgs e)
         {
@@ -68,7 +75,67 @@ namespace TCC
 
         private void SubmitNewLayer(object sender, RoutedEventArgs e)
         {
+            helixLayer = new HelixLayer
+            {
+                Line = new Line
+                {
+                    Start = new Boundaries(),
+                    End = new Boundaries()
+                }
+            };
 
+            int.TryParse(WiresTextBox.Text, out int intresult);
+            helixLayer.Wires = intresult;
+            helixLayer.Line.FourierOrder = 0;
+            helixLayer.Line.DesignOnly = false;
+            helixLayer.Line.Start.ID = 1;
+            helixLayer.Line.Start.DesignOnly = false;
+            helixLayer.Line.Start.CoordinateSystem = CoordinateComboBox.Text;
+
+            double.TryParse(LengthTextBox.Text, out double result);
+            helixLayer.Length = result;
+            double.TryParse(LengthTextBox.Text, out result);
+            helixLayer.Radius = result;
+            double.TryParse(LayAngleTextBox.Text, out result);
+            helixLayer.LayAngle = result;
+            double.TryParse(InitialAngleTextBox.Text, out result);
+            helixLayer.InitialAngle = result;
+            int.TryParse(DivisionsTextBox.Text, out intresult);
+            helixLayer.Divisions = intresult;
+            helixLayer.Name = NameTextBox.Text;
+            helixLayer.Type = "helix";
+            double.TryParse(BodyLoadXTextBox.Text, out double xresult);
+            double.TryParse(BodyLoadYTextBox.Text, out double yresult);
+            double.TryParse(BodyLoadZTextBox.Text, out double zresult);
+            helixLayer.BodyLoad = new double[] { xresult, yresult, zresult };
+
+
+            SubmitButtonClick?.Invoke(this, EventArgs.Empty);
+            this.Close();
+        }
+
+        private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Check if the entered character is a digit or a dot
+            if (!char.IsDigit(e.Text, 0) && e.Text != ".")
+            {
+                e.Handled = true; // Prevent the character from being entered
+            }
+
+            // Check if the text already contains a dot, and if so, prevent entering another dot
+            if (e.Text == "." && ((TextBox)sender).Text.Contains("."))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void IntegerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Check if the entered character is a digit or a dot
+            if (!char.IsDigit(e.Text, 0) && e.Text != ".")
+            {
+                e.Handled = true; // Prevent the character from being entered
+            }
         }
     }
 }
