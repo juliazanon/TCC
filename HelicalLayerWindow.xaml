@@ -12,7 +12,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="210"/>
-                <RowDefinition Height="500"/>
+                <RowDefinition Height="450"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" FontSize="16" Margin="10" FontWeight="DemiBold">Create new Helical Layer</TextBlock>
             <StackPanel Grid.Row="1" Margin="4" Background="#E6E6E6">
@@ -81,14 +82,22 @@
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock Name="TextBlockCartesianCoord1">X:</TextBlock>
-                        <TextBlock Name="TextBlockCilyndricalCoord1">R:</TextBlock>
+                        <TextBlock Name="TextBlockCartesianCoord1" Margin="0,0,2,0">X:</TextBlock>
+                        <TextBlock Name="TextBlockCilyndricalCoord1" Margin="0,0,2,0">R:</TextBlock>
                         <TextBox Width="100"></TextBox>
-                        <TextBlock Name="TextBlockCartesianCoord2" Margin="8,0,0,0">Y:</TextBlock>
-                        <TextBlock Name="TextBlockCilyndricalCoord2" Margin="8,0,0,0">θ:</TextBlock>
+                        <TextBlock Name="TextBlockCartesianCoord2" Margin="8,0,2,0">Y:</TextBlock>
+                        <TextBlock Name="TextBlockCilyndricalCoord2" Margin="8,0,2,0">θ:</TextBlock>
                         <TextBox Width="100"></TextBox>
-                        <TextBlock Margin="8,0,0,0">Z:</TextBlock>
+                        <TextBlock Margin="8,0,2,0">Z:</TextBlock>
                         <TextBox Width="100"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock Margin="0,0,2,0">rotation X:</TextBlock>
+                        <TextBox Width="60"></TextBox>
+                        <TextBlock Margin="8,0,2,0">Rotation Y:</TextBlock>
+                        <TextBox Width="60"></TextBox>
+                        <TextBlock Margin="8,0,2,0">Rotation Z:</TextBlock>
+                        <TextBox Width="60"></TextBox>
                     </StackPanel>
                     <TextBlock Margin="4,0,0,0">Loads:</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="4">
@@ -160,6 +169,9 @@
                         <TextBox Width="100"></TextBox>
                     </StackPanel>
                 </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="3" HorizontalAlignment="Right">
+                <Button>Submit</Button>
             </StackPanel>
         </Grid>
     </ScrollViewer>
