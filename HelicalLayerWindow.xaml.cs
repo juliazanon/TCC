@@ -32,6 +32,37 @@ namespace TCC
         public HelicalLayerWindow(Dictionary<int, Section> sections, Dictionary<int, LayerMaterial> materials)
         {
             InitializeComponent();
+            TextBlockCilyndricalCoord1.Visibility = Visibility.Collapsed;
+            TextBlockCilyndricalCoord2.Visibility = Visibility.Collapsed;
+            coordinateComboBox.SelectionChanged += SectionComboBox_SelectionChanged_Coordinate;
+        }
+
+        private void SectionComboBox_SelectionChanged_Coordinate(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+
+            string selectedParameter = ((ComboBoxItem)comboBox.SelectedItem).Content.ToString();
+
+            if (selectedParameter == "Cartesian")
+            {
+                // Show Cartesian
+                TextBlockCartesianCoord1.Visibility = Visibility.Visible;
+                TextBlockCartesianCoord2.Visibility = Visibility.Visible;
+
+                // Hide Cylindrical
+                TextBlockCilyndricalCoord1.Visibility = Visibility.Collapsed;
+                TextBlockCilyndricalCoord2.Visibility = Visibility.Collapsed;
+            }
+            else if (selectedParameter == "Cylindrical")
+            {
+                // Show Cylindrical
+                TextBlockCilyndricalCoord1.Visibility = Visibility.Visible;
+                TextBlockCilyndricalCoord2.Visibility = Visibility.Visible;
+
+                // Hide Cartesian
+                TextBlockCartesianCoord1.Visibility = Visibility.Collapsed;
+                TextBlockCartesianCoord2.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

@@ -5,30 +5,163 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="HelicalLayer" Height="500" Width="400">
+        Title="HelicalLayer" Height="800" Width="400">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="210"/>
+            <RowDefinition Height="500"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" FontSize="22" Margin="10" FontWeight="DemiBold">Criar nova camada</TextBlock>
-        <StackPanel Grid.Row="1" Margin="3">
-            <TextBlock FontSize="19" Margin="8">Espessura da camada:</TextBlock>
-            <TextBox Margin="10"></TextBox>
+        <TextBlock Grid.Row="0" FontSize="16" Margin="10" FontWeight="DemiBold">Criar nova camada</TextBlock>
+        <StackPanel Grid.Row="1" Margin="4" Background="#E6E6E6">
+            <TextBlock Margin="4,4,4,0">Name:</TextBlock>
+            <TextBox Margin="4"></TextBox>
+            <TextBlock Margin="4,2,2,0">Wires:</TextBlock>
+            <TextBox Margin="4,2,4,2"></TextBox>
+            <TextBlock Margin="4" FontWeight="DemiBold">Geometric Parameters</TextBlock>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock Margin="4,0,2,0">Radius:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                    <TextBlock Margin="4,0,2,0">Length:</TextBlock>
+                    <TextBox Width="150"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock Margin="4,0,2,0">Lay Angle:</TextBlock>
+                    <TextBox Width="70"></TextBox>
+                    <TextBlock Margin="4,0,2,0">Initial Angle:</TextBlock>
+                    <TextBox Width="70"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock Margin="4,0,2,0" VerticalAlignment="Center">Section:</TextBlock>
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5">
+                        <!-- Example -->
+                        <ComboBoxItem Content="Rectangular" IsSelected="True"/>
+                        <ComboBoxItem Content="Cylindrical"/>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock VerticalAlignment="Center">Material</TextBlock>
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5">
+                        <!-- Example -->
+                        <ComboBoxItem Content="Material 1" IsSelected="True"/>
+                        <ComboBoxItem Content="Material 2"/>
+                    </ComboBox>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="3">
-            <TextBlock FontSize="19" Margin="8">Número de hélice:</TextBlock>
-            <TextBox Margin="10"></TextBox>
+            <TextBlock Margin="4" FontWeight="DemiBold">Simulation Parameters</TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="4">
+                <TextBlock Margin="4,2,4,2">Divisions</TextBlock>
+                <TextBox Width="150"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="4">
+                <TextBlock Margin="4,2,4,2">Fourier Order</TextBlock>
+                <TextBox Width="150"></TextBox>
+            </StackPanel>
+            <TextBlock Margin="4,2,4,2" FontWeight="DemiBold">Body loads</TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="4">
+                <TextBlock Margin="0,0,2,0">X:</TextBlock>
+                <TextBox Width="100"></TextBox>
+                <TextBlock Margin="8,0,2,0">Y:</TextBlock>
+                <TextBox Width="100"></TextBox>
+                <TextBlock Margin="8,0,2,0">Z:</TextBlock>
+                <TextBox Width="100"></TextBox>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Margin="4" FontWeight="DemiBold">Element: Line</TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
+                    <ComboBox Name="coordinateComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
+                        <ComboBoxItem Content="Cartesian" IsSelected="True"/>
+                        <ComboBoxItem Content="Cylindrical"/>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock Name="TextBlockCartesianCoord1">X:</TextBlock>
+                    <TextBlock Name="TextBlockCilyndricalCoord1">R:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                    <TextBlock Name="TextBlockCartesianCoord2" Margin="8,0,0,0">Y:</TextBlock>
+                    <TextBlock Name="TextBlockCilyndricalCoord2" Margin="8,0,0,0">θ:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                    <TextBlock Margin="8,0,0,0">Z:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                </StackPanel>
+                <TextBlock Margin="4,0,0,0">Loads:</TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock >Fx:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                    <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                    <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock >Tx:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                    <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                    <TextBlock Margin="8,0,0,0">Yz:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                </StackPanel>
+                <TextBlock Margin="4,0,0,0">Status:</TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
+                    <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                        <ComboBoxItem Content="Imposed"/>
+                    </ComboBox>
+                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" >
+                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                        <ComboBoxItem Content="Imposed"/>
+                    </ComboBox>
+                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                        <ComboBoxItem Content="Imposed"/>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                        <ComboBoxItem Content="Imposed"/>
+                    </ComboBox>
+                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                        <ComboBoxItem Content="Imposed"/>
+                    </ComboBox>
+                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Yz:</TextBlock>
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                        <ComboBoxItem Content="Imposed"/>
+                    </ComboBox>
+                </StackPanel>
+                <TextBlock Margin="4,0,0,0">Imposed Displacements:</TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock >Fx:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                    <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                    <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock >Tx:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                    <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                    <TextBlock Margin="8,0,0,0">Yz:</TextBlock>
+                    <TextBox Width="100"></TextBox>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="3" Margin="3">
             <TextBlock FontSize="19" Margin="8">Angulo de enrolamento da hélice:</TextBlock>
-            <TextBox Margin="10"></TextBox>
-        </StackPanel>
-        <StackPanel Grid.Row="4" Margin="3">
-            <TextBlock FontSize="19" Margin="8">Raio interno:</TextBlock>
             <TextBox Margin="10"></TextBox>
         </StackPanel>
     </Grid>

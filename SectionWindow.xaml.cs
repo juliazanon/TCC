@@ -23,7 +23,7 @@ namespace TCC
         {
             InitializeComponent();
 
-            CilyndricalSection.Visibility = Visibility.Collapsed;
+            CylindricalSection.Visibility = Visibility.Collapsed;
             sectionComboBox.SelectionChanged += SectionComboBox_SelectionChanged;
         }
 
@@ -38,13 +38,13 @@ namespace TCC
                 // Show Rectangular
                 RectangularSection.Visibility = Visibility.Visible;
 
-                // Hide Cilyndrical
-                CilyndricalSection.Visibility = Visibility.Collapsed;
+                // Hide Cylindrical
+                CylindricalSection.Visibility = Visibility.Collapsed;
             }
             else if (selectedParameter == "Section Cylindrical")
             {
-                // Show Cilyndrical
-                CilyndricalSection.Visibility = Visibility.Visible;
+                // Show Cylindrical
+                CylindricalSection.Visibility = Visibility.Visible;
 
                 // Hide Rectangular
                 RectangularSection.Visibility = Visibility.Collapsed;

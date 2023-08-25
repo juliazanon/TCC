@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="SectionWindow" Height="210" Width="300">
+        Title="SectionWindow" Height="250" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="90"/>
             <RowDefinition Height="*" MinHeight="100"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Background="#E6E6E6" Margin="4">
             <TextBlock Margin="4" FontWeight="DemiBold">Section Name:</TextBlock>
@@ -22,7 +23,7 @@
         <!-- Rectangular Section-->
         <StackPanel Name="RectangularSection" Grid.Row="1" Margin="4" Background="#E6E6E6">
             <TextBlock Margin="4" FontWeight="DemiBold">Section Rectangular</TextBlock>
-            <TextBlock Margin="4,0,0,0"> Geometric Parameter</TextBlock>
+            <TextBlock Margin="4,0,0,0"> Geometric Parameters</TextBlock>
             <StackPanel Orientation="Horizontal" Margin="4">
                 <TextBlock Margin="0,0,4,0">Width</TextBlock>
                 <TextBox Width="100"></TextBox>
@@ -33,17 +34,20 @@
             </StackPanel>
         </StackPanel>
         <!-- Cilyndrical Section-->
-        <StackPanel Name="CilyndricalSection" Grid.Row="1" Margin="4" Background="#E6E6E6">
+        <StackPanel Name="CylindricalSection" Grid.Row="1" Margin="4" Background="#E6E6E6">
             <TextBlock Margin="4" FontWeight="DemiBold">Section Cilyndrical</TextBlock>
-            <TextBlock Margin="4,0,0,0"> Geometric Parameter</TextBlock>
+            <TextBlock Margin="4,0,0,0"> Geometric Parameters</TextBlock>
             <StackPanel Orientation="Horizontal" Margin="4">
-                <TextBlock Margin="0,0,4,0">InternalRadius</TextBlock>
+                <TextBlock Margin="0,0,4,0">Internal Radius</TextBlock>
                 <TextBox Width="100"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="4">
-                <TextBlock Margin="0,0,4,0">ExternalRadius</TextBlock>
+                <TextBlock Margin="0,0,4,0">External Radius</TextBlock>
                 <TextBox Width="100"></TextBox>
             </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Margin="4">
+            <Button>Submit</Button>
         </StackPanel>
     </Grid>
 </Window>
