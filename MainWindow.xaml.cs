@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -25,6 +24,9 @@ using System.Runtime.InteropServices;
 using SharpGL.WPF;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 using System.Drawing.Drawing2D;
+using SharpGL.SceneGraph.Assets;
+using TCC.Classes;
+using System.Windows.Documents.DocumentStructures;
 
 namespace TCC
 {
@@ -33,6 +35,7 @@ namespace TCC
     /// </summary>
     public partial class MainWindow : Window
     {
+        Cable cable;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,18 +43,126 @@ namespace TCC
             // Sample array of strings
             string[] dataArray = { "Element 1", "Element 2", "Element 3", "Element 4", "Element 5" };
             itemsControl.ItemsSource = dataArray;
+
+            cable = new Cable
+            {
+                Name = "New Cable",
+                Sections = new Dictionary<int, Section>(),
+                Layers = new Layer[0],
+                LayerConnections = new LayerConnections[0],
+                LayerMaterials = new Dictionary<int, LayerMaterial>()
+            };
+        }
+        //  Menu
+
+        //  Layers
+        private void ButtonNewCylinder(object sender, RoutedEventArgs e)
+        {
+            CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow(cable.LayerMaterials);
+            windowCylinder.Show();
+
+            CylinderLayer layer = new CylinderLayer
+            {
+                Length = windowCylinder.Length,
+                Radius = windowCylinder.Radius,
+                Thickness = windowCylinder.Thickness,
+                FourierOrder = windowCylinder.FourierOrder,
+                RadialDivisions = windowCylinder.RadialDivisions,
+                AxialDivisions = windowCylinder.AxialDivisions,
+                Areas = windowCylinder.Areas,
+                Name = windowCylinder.Label,
+                Type = windowCylinder.Type,
+                MaterialID = windowCylinder.MaterialID,
+                BodyLoad = windowCylinder.BodyLoad
+            };
+
+            cable.Layers.Append(layer).ToArray();
+        }
+        private void ButtonNewHelix(object sender, RoutedEventArgs e)
+        {
+            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Sections, cable.LayerMaterials);
+            windowHelix.Show();
+
+            HelixLayer layer = new HelixLayer
+            {
+                Line = windowHelix.Line,
+                Length = windowHelix.Length,
+                SectionID = windowHelix.SectionID,
+                LayAngle = windowHelix.LayAngle,
+                InitialAngle = windowHelix.InitialAngle,
+                Divisions = windowHelix.Divisions,
+                Name = windowHelix.Label,
+                Type = windowHelix.Type,
+                MaterialID = windowHelix.MaterialID,
+                BodyLoad = windowHelix.BodyLoad
+            };
+
+            cable.Layers.Append(layer).ToArray();
+        }
+
+        //  Materials
+        private void ButtonNewMaterial(object sender, RoutedEventArgs e)
+        {
+            MaterialsWindow windowMaterial = new MaterialsWindow(cable.LayerMaterials);
+
+            windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
+            windowMaterial.Show();
+        }
+
+        private void SubmitMaterialButtonClick(object sender, EventArgs e)
+        {
+            MaterialsWindow windowMaterial = sender as MaterialsWindow;
+            if (windowMaterial.LayerIsotropic != null)
+            {
+                Isotropic materialIsotropic = new Isotropic
+                {
+                    ID = windowMaterial.LayerIsotropic.ID,
+                    Name = windowMaterial.LayerIsotropic.Name,
+                    Density = windowMaterial.LayerIsotropic.Density,
+                    Poisson = windowMaterial.LayerIsotropic.Poisson,
+                    Young = windowMaterial.LayerIsotropic.Young
+                };
+
+                cable.LayerMaterials.Add(materialIsotropic.ID, materialIsotropic);
+            }
+
+            if (windowMaterial.LayerOrthotropic != null)
+            {
+                Orthotropic materialOrthotropic = new Orthotropic
+                {
+                    ID = windowMaterial.LayerOrthotropic.ID,
+                    Name = windowMaterial.LayerOrthotropic.Name,
+                    Density = windowMaterial.LayerOrthotropic.Density,
+                    Ex = windowMaterial.LayerOrthotropic.Ex,
+                    Ey = windowMaterial.LayerOrthotropic.Ey,
+                    Ez = windowMaterial.LayerOrthotropic.Ez,
+                    Nxy = windowMaterial.LayerOrthotropic.Nxy,
+                    Nxz = windowMaterial.LayerOrthotropic.Nxz,
+                    Nyz = windowMaterial.LayerOrthotropic.Nyz,
+                    Gxy = windowMaterial.LayerOrthotropic.Gxy,
+                    Gxz = windowMaterial.LayerOrthotropic.Gxz,
+                    Gyz = windowMaterial.LayerOrthotropic.Gyz,
+                };
+
+                cable.LayerMaterials.Add(materialOrthotropic.ID, materialOrthotropic);
+                teste.Text = materialOrthotropic.ID.ToString();
+            }
+        }
+
+        //  Sections
+        private void ButtonNewSection(object sender, RoutedEventArgs e)
+        {
+            SectionWindow windowSection = new SectionWindow();
+            windowSection.Show();
         }
 
         //  Camera parameters
-
         float[] _viewPoint = new float[] { 0.0f, 0.0f, 0.0f };
         float[] _position = new float[] { 0.0f, 0.0f, 10.0f };
         float[] _upVector = new float[] { 0.0f, 1.0f, 0.0f };
-        float _moveDistance = 1.0f;
         float scale = 0.1f;
 
-        int keyCode = 0;
-
+        // Graphics
         private void OpenGLDraw(object sender, SharpGL.WPF.OpenGLRoutedEventArgs args)
         {
             OpenGL gl = GLControl.OpenGL;
@@ -82,16 +193,20 @@ namespace TCC
 
             float prop = w * h / 1000000;
             vec3 rgb = new vec3(111, 112, 112) / 255;
-            Circle c1 = new Circle(gl, 10000, 40, 40f * prop, rgb, false);
+            CircleDrawing c1 = new CircleDrawing(gl, 10000, 40, 40f * prop, rgb, false);
 
             rgb = new vec3(150, 150, 150) / 255;
-            Circle c2 = new Circle(gl, 5000, 30, 30f * prop, rgb, false);
+            CircleDrawing c2 = new CircleDrawing(gl, 5000, 30, 30f * prop, rgb, false);
 
             rgb = new vec3(80, 80, 80) / 255;
-            Helicoidal c3 = new Helicoidal(gl, 33, 27, 25, rgb);
-            Helicoidal c4 = new Helicoidal(gl, 30, 24.5f, 22.5f, rgb);
+            HelicoidalDrawing c3 = new HelicoidalDrawing(gl, 33, 27, 25, rgb);
+            HelicoidalDrawing c4 = new HelicoidalDrawing(gl, 30, 24.5f, 22.5f, rgb);
 
-            //teste.Text = "alo";
+            Orthotropic o = new Orthotropic
+            {
+                Density = 1.0,
+                ID = 1
+            };
 
             // circles with triangles
             //rgb = new vec3(80, 80, 80) / 255;
@@ -99,56 +214,6 @@ namespace TCC
 
             //rgb = new vec3(120, 120, 120) / 255;
             //Circle c4 = new Circle(gl, 1000, 10, 7, rgb, true);
-        }
-
-        private new void KeyDown(object sender, KeyEventArgs e)
-        {
-            // Key definitions
-            if (e.Key == Key.W || e.Key == Key.Up) { keyCode = 1; }
-            else if (e.Key == Key.S || e.Key == Key.Down) { keyCode = 2; }
-            else if (e.Key == Key.A || e.Key == Key.Left) { keyCode = 3; }
-            else if (e.Key == Key.D || e.Key == Key.Right) { keyCode = 4; }
-            else if (e.Key == Key.Add || e.Key == Key.OemPlus) { keyCode = 5; }
-            else if (e.Key == Key.Subtract || e.Key == Key.OemMinus) { keyCode = 6; }
-            else { keyCode = 0; }
-
-            //  pan
-            //  y axis
-            //  Up
-            if (keyCode == 1)
-            {
-                _viewPoint[1] += _moveDistance;
-                _position[1] += _moveDistance;
-            }
-            //  Down
-            else if (keyCode == 2)
-            {
-                _viewPoint[1] += -_moveDistance;
-                _position[1] += -_moveDistance;
-            }
-
-            //  x axis
-            //  Left
-            else if (keyCode == 3)
-            {
-                _viewPoint[2] += _moveDistance;
-                _position[2] += _moveDistance;
-            }
-            //  Right
-            else if (keyCode == 4)
-            {
-                _viewPoint[2] += -_moveDistance;
-                _position[2] += -_moveDistance;
-            }
-            //  zoom
-            else if (keyCode == 5)
-            {
-                scale += 0.01f;
-            }
-            else if (keyCode == 6)
-            {
-                if (scale > 0.04) { scale -= 0.03f; }
-            }
         }
     }
 }
