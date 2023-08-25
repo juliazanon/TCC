@@ -33,12 +33,27 @@ namespace TCC
         public HelicalLayerWindow(Dictionary<int, Section> sections, Dictionary<int, LayerMaterial> materials)
         {
             InitializeComponent();
-            TextBlockCilyndricalCoord1.Visibility = Visibility.Collapsed;
-            TextBlockCilyndricalCoord2.Visibility = Visibility.Collapsed;
-            coordinateComboBox.SelectionChanged += SectionComboBox_SelectionChanged_Coordinate;
+
+            List<string> materialNames = materials.Values.Select(material => material.Name).ToList();
+            if (materials.Count == 0)
+            {
+                MaterialComboBox.ItemsSource = new List<string> { "No Material" };
+                MaterialComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                List<LayerMaterial> materialList = materials.Values.ToList();
+                MaterialComboBox.ItemsSource = materialList;
+            }
+            TextBlockCilyndricalCoord1Start.Visibility = Visibility.Collapsed;
+            TextBlockCilyndricalCoord2Start.Visibility = Visibility.Collapsed;
+            TextBlockCilyndricalCoord1End.Visibility = Visibility.Collapsed;
+            TextBlockCilyndricalCoord2End.Visibility = Visibility.Collapsed;
+            coordinateComboBoxStart.SelectionChanged += SectionComboBox_SelectionChanged_CoordinateStart;
+            coordinateComboBoxEnd.SelectionChanged += SectionComboBox_SelectionChanged_CoordinateEnd;
         }
 
-        private void SectionComboBox_SelectionChanged_Coordinate(object sender, SelectionChangedEventArgs e)
+        private void SectionComboBox_SelectionChanged_CoordinateStart(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
 
@@ -47,22 +62,50 @@ namespace TCC
             if (selectedParameter == "Cartesian")
             {
                 // Show Cartesian
-                TextBlockCartesianCoord1.Visibility = Visibility.Visible;
-                TextBlockCartesianCoord2.Visibility = Visibility.Visible;
+                TextBlockCartesianCoord1Start.Visibility = Visibility.Visible;
+                TextBlockCartesianCoord2Start.Visibility = Visibility.Visible;
 
                 // Hide Cylindrical
-                TextBlockCilyndricalCoord1.Visibility = Visibility.Collapsed;
-                TextBlockCilyndricalCoord2.Visibility = Visibility.Collapsed;
+                TextBlockCilyndricalCoord1Start.Visibility = Visibility.Collapsed;
+                TextBlockCilyndricalCoord2Start.Visibility = Visibility.Collapsed;
             }
             else if (selectedParameter == "Cylindrical")
             {
                 // Show Cylindrical
-                TextBlockCilyndricalCoord1.Visibility = Visibility.Visible;
-                TextBlockCilyndricalCoord2.Visibility = Visibility.Visible;
+                TextBlockCilyndricalCoord1Start.Visibility = Visibility.Visible;
+                TextBlockCilyndricalCoord2Start.Visibility = Visibility.Visible;
 
                 // Hide Cartesian
-                TextBlockCartesianCoord1.Visibility = Visibility.Collapsed;
-                TextBlockCartesianCoord2.Visibility = Visibility.Collapsed;
+                TextBlockCartesianCoord1Start.Visibility = Visibility.Collapsed;
+                TextBlockCartesianCoord2Start.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void SectionComboBox_SelectionChanged_CoordinateEnd(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+
+            string selectedParameter = ((ComboBoxItem)comboBox.SelectedItem).Content.ToString();
+
+            if (selectedParameter == "Cartesian")
+            {
+                // Show Cartesian
+                TextBlockCartesianCoord1End.Visibility = Visibility.Visible;
+                TextBlockCartesianCoord2End.Visibility = Visibility.Visible;
+
+                // Hide Cylindrical
+                TextBlockCilyndricalCoord1End.Visibility = Visibility.Collapsed;
+                TextBlockCilyndricalCoord2End.Visibility = Visibility.Collapsed;
+            }
+            else if (selectedParameter == "Cylindrical")
+            {
+                // Show Cylindrical
+                TextBlockCilyndricalCoord1End.Visibility = Visibility.Visible;
+                TextBlockCilyndricalCoord2End.Visibility = Visibility.Visible;
+
+                // Hide Cartesian
+                TextBlockCartesianCoord1End.Visibility = Visibility.Collapsed;
+                TextBlockCartesianCoord2End.Visibility = Visibility.Collapsed;
             }
         }
 
