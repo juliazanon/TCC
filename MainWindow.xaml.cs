@@ -60,22 +60,13 @@ namespace TCC
         private void ButtonNewCylinder(object sender, RoutedEventArgs e)
         {
             CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow(cable.LayerMaterials);
+            windowCylinder.SubmitButtonClick += SubmitCylinderButtonClick;
             windowCylinder.Show();
-
-            CylinderLayer layer = new CylinderLayer
-            {
-                Length = windowCylinder.Length,
-                Radius = windowCylinder.Radius,
-                Thickness = windowCylinder.Thickness,
-                FourierOrder = windowCylinder.FourierOrder,
-                RadialDivisions = windowCylinder.RadialDivisions,
-                AxialDivisions = windowCylinder.AxialDivisions,
-                Areas = windowCylinder.Areas,
-                Name = windowCylinder.Label,
-                Type = windowCylinder.Type,
-                MaterialID = windowCylinder.MaterialID,
-                BodyLoad = windowCylinder.BodyLoad
-            };
+        }
+        private void SubmitCylinderButtonClick(object sender, EventArgs e)
+        {
+            CylindricalLayerWindow windowCylinder = sender as CylindricalLayerWindow;
+            CylinderLayer layer = windowCylinder.CylinderLayer;
 
             cable.Layers.Add(layer);
             observableLayer.Add(layer);
@@ -84,7 +75,7 @@ namespace TCC
         }
         private void ButtonNewHelix(object sender, RoutedEventArgs e)
         {
-            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Sections, cable.LayerMaterials, GLControl.OpenGL);
+            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Sections, cable.LayerMaterials);
             windowHelix.SubmitButtonClick += SubmitHelixButtonClick;
             windowHelix.Show();
         }

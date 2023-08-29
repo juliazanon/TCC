@@ -8,151 +8,54 @@
         Title="Cylindrical Areas"
         MinHeight="500" MinWidth="700"
         KeyDown="Window_KeyDown">
-    <StackPanel>
+    <ScrollViewer>
         <StackPanel>
-            <TextBlock Margin="4" FontWeight="DemiBold" FontSize="18" Name="WindowTitle"></TextBlock>
-            <TextBlock Margin="4">Pressure:</TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Width="100" Margin="4"></TextBox>
-                <TextBox Width="100" Margin="4"></TextBox>
-                <TextBox Width="100" Margin="4"></TextBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Width="100" Margin="4"></TextBox>
-                <TextBox Width="100" Margin="4"></TextBox>
-                <TextBox Width="100" Margin="4"></TextBox>
-            </StackPanel>
-        </StackPanel>
-        <StackPanel>
-            <TextBlock Margin="4,0,0,0">Status:</TextBlock>
-            <StackPanel Orientation="Horizontal" Margin="4">
-                <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
-                <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
-                    <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                    <ComboBoxItem Content="Imposed"/>
-                </ComboBox>
-                <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
-                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" >
-                    <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                    <ComboBoxItem Content="Imposed"/>
-                </ComboBox>
-                <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
-                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
-                    <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                    <ComboBoxItem Content="Imposed"/>
-                </ComboBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="4">
-                <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
-                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
-                    <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                    <ComboBoxItem Content="Imposed"/>
-                </ComboBox>
-                <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
-                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
-                    <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                    <ComboBoxItem Content="Imposed"/>
-                </ComboBox>
-                <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Yz:</TextBlock>
-                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
-                    <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                    <ComboBoxItem Content="Imposed"/>
-                </ComboBox>
-            </StackPanel>
-            <TextBlock Margin="4,0,0,0">Imposed Displacements:</TextBlock>
-            <StackPanel Orientation="Horizontal" Margin="4">
-                <TextBlock >Fx:</TextBlock>
-                <TextBox Width="100"></TextBox>
-                <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
-                <TextBox Width="100"></TextBox>
-                <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
-                <TextBox Width="100"></TextBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="4">
-                <TextBlock >Tx:</TextBlock>
-                <TextBox Width="100"></TextBox>
-                <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
-                <TextBox Width="100"></TextBox>
-                <TextBlock Margin="8,0,0,0">Yz:</TextBlock>
-                <TextBox Width="100"></TextBox>
-            </StackPanel>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
             <StackPanel>
-                <TextBlock FontWeight="DemiBold">Start</TextBlock>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
-                    <ComboBox Name="coordinateComboBoxStart" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
-                        <ComboBoxItem Content="Cartesian" IsSelected="True"/>
-                        <ComboBoxItem Content="Cylindrical"/>
-                    </ComboBox>
+                <TextBlock Margin="4" FontWeight="DemiBold" FontSize="18" Name="WindowTitle"></TextBlock>
+                <TextBlock Margin="4">Pressure:</TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="100" Margin="4" Name="XPressureTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" Name="YPressureTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" Name="ZPressureTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock Name="TextBlockCartesianCoord1Start" Margin="0,0,2,0">X:</TextBlock>
-                    <TextBlock Name="TextBlockCilyndricalCoord1Start" Margin="0,0,2,0">R:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Name="TextBlockCartesianCoord2Start" Margin="8,0,2,0">Y:</TextBlock>
-                    <TextBlock Name="TextBlockCilyndricalCoord2Start" Margin="8,0,2,0">θ:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,2,0">Z:</TextBlock>
-                    <TextBox Width="100"></TextBox>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="100" Margin="4" Name="RxPressureTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" Name="RyPressureTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" Name="RzPressureTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock Margin="0,0,2,0">rotation X:</TextBlock>
-                    <TextBox Width="60"></TextBox>
-                    <TextBlock Margin="8,0,2,0">Rotation Y:</TextBlock>
-                    <TextBox Width="60"></TextBox>
-                    <TextBlock Margin="8,0,2,0">Rotation Z:</TextBlock>
-                    <TextBox Width="60"></TextBox>
-                </StackPanel>
-                <TextBlock Margin="4,0,0,0">Loads:</TextBlock>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock >Fx:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock >Tx:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,0,0">Yz:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                </StackPanel>
+            </StackPanel>
+            <StackPanel>
                 <TextBlock Margin="4,0,0,0">Status:</TextBlock>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
-                    <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                    <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxStatusComboBox">
                         <ComboBoxItem Content="Fixed" IsSelected="True"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" >
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyStatusComboBox">
                         <ComboBoxItem Content="Fixed" IsSelected="True"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzStatusComboBox">
                         <ComboBoxItem Content="Fixed" IsSelected="True"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxStatusComboBox">
                         <ComboBoxItem Content="Fixed" IsSelected="True"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyStatusComboBox">
                         <ComboBoxItem Content="Fixed" IsSelected="True"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
-                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Yz:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Tz:</TextBlock>
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzStatusComboBox">
                         <ComboBoxItem Content="Fixed" IsSelected="True"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
@@ -160,121 +63,220 @@
                 <TextBlock Margin="4,0,0,0">Imposed Displacements:</TextBlock>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock >Fx:</TextBlock>
-                    <TextBox Width="100"></TextBox>
+                    <TextBox Width="100" Name="FxDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                     <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
-                    <TextBox Width="100"></TextBox>
+                    <TextBox Width="100" Name="FyDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                     <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
-                    <TextBox Width="100"></TextBox>
+                    <TextBox Width="100" Name="FzDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock >Tx:</TextBlock>
-                    <TextBox Width="100"></TextBox>
+                    <TextBox Width="100" Name="TxDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                     <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
-                    <TextBox Width="100"></TextBox>
+                    <TextBox Width="100" Name="TyDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                     <TextBlock Margin="8,0,0,0">Yz:</TextBlock>
-                    <TextBox Width="100"></TextBox>
+                    <TextBox Width="100" Name="TzDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                 </StackPanel>
             </StackPanel>
-            <StackPanel>
-                <TextBlock FontWeight="DemiBold">Start</TextBlock>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
-                    <ComboBox Name="coordinateComboBoxEnd" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
-                        <ComboBoxItem Content="Cartesian" IsSelected="True"/>
-                        <ComboBoxItem Content="Cylindrical"/>
-                    </ComboBox>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <TextBlock FontWeight="DemiBold">Start</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
+                        <ComboBox Name="CoordinateComboBoxStart" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
+                            <ComboBoxItem Content="Cartesian" IsSelected="True"/>
+                            <ComboBoxItem Content="Cylindrical"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock Name="TextBlockCartesianCoord1Start" Margin="0,0,2,0">X:</TextBlock>
+                        <TextBlock Name="TextBlockCilyndricalCoord1Start" Margin="0,0,2,0">R:</TextBlock>
+                        <TextBox Width="100" Name="XCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Name="TextBlockCartesianCoord2Start" Margin="8,0,2,0">Y:</TextBlock>
+                        <TextBlock Name="TextBlockCilyndricalCoord2Start" Margin="8,0,2,0">θ:</TextBlock>
+                        <TextBox Width="100" Name="YCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,2,0">Z:</TextBlock>
+                        <TextBox Width="100" Name="ZCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock Margin="0,0,2,0">rotation X:</TextBlock>
+                        <TextBox Width="60" Name="RxCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,2,0">Rotation Y:</TextBlock>
+                        <TextBox Width="60" Name="RyCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,2,0">Rotation Z:</TextBlock>
+                        <TextBox Width="60" Name="RzCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    </StackPanel>
+                    <TextBlock Margin="4,0,0,0">Loads:</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock >Fx:</TextBlock>
+                        <TextBox Width="100" Name="FxTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
+                        <TextBox Width="100" Name="FyTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
+                        <TextBox Width="100" Name="FzTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock >Tx:</TextBlock>
+                        <TextBox Width="100" Name="TxTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
+                        <TextBox Width="100" Name="TyTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Tz:</TextBlock>
+                        <TextBox Width="100" Name="TzTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    </StackPanel>
+                    <TextBlock Margin="4,0,0,0">Status:</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
+                        <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxComboBoxStart">
+                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Imposed"/>
+                        </ComboBox>
+                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyComboBoxStart">
+                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Imposed"/>
+                        </ComboBox>
+                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzComboBoxStart">
+                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Imposed"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxComboBoxStart">
+                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Imposed"/>
+                        </ComboBox>
+                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyComboBoxStart">
+                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Imposed"/>
+                        </ComboBox>
+                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Tz:</TextBlock>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzComboBoxStart">
+                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Imposed"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <TextBlock Margin="4,0,0,0">Imposed Displacements:</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock >Fx:</TextBlock>
+                        <TextBox Width="100" Name="FxDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
+                        <TextBox Width="100" Name="FyDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
+                        <TextBox Width="100" Name="FzDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock >Tx:</TextBlock>
+                        <TextBox Width="100" Name="TxDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
+                        <TextBox Width="100" Name="TyDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Tz:</TextBlock>
+                        <TextBox Width="100" Name="TzDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock Name="TextBlockCartesianCoord1End" Margin="0,0,2,0">X:</TextBlock>
-                    <TextBlock Name="TextBlockCilyndricalCoord1End" Margin="0,0,2,0">R:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Name="TextBlockCartesianCoord2End" Margin="8,0,2,0">Y:</TextBlock>
-                    <TextBlock Name="TextBlockCilyndricalCoord2End" Margin="8,0,2,0">θ:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,2,0">Z:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock Margin="0,0,2,0">rotation X:</TextBlock>
-                    <TextBox Width="60"></TextBox>
-                    <TextBlock Margin="8,0,2,0">Rotation Y:</TextBlock>
-                    <TextBox Width="60"></TextBox>
-                    <TextBlock Margin="8,0,2,0">Rotation Z:</TextBlock>
-                    <TextBox Width="60"></TextBox>
-                </StackPanel>
-                <TextBlock Margin="4,0,0,0">Loads:</TextBlock>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock >Fx:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock >Tx:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,0,0">Yz:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                </StackPanel>
-                <TextBlock Margin="4,0,0,0">Status:</TextBlock>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
-                    <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Imposed"/>
-                    </ComboBox>
-                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" >
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Imposed"/>
-                    </ComboBox>
-                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Imposed"/>
-                    </ComboBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Imposed"/>
-                    </ComboBox>
-                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Imposed"/>
-                    </ComboBox>
-                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Yz:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Imposed"/>
-                    </ComboBox>
-                </StackPanel>
-                <TextBlock Margin="4,0,0,0">Imposed Displacements:</TextBlock>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock >Fx:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock >Tx:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
-                    <TextBox Width="100"></TextBox>
-                    <TextBlock Margin="8,0,0,0">Yz:</TextBlock>
-                    <TextBox Width="100"></TextBox>
+                <StackPanel>
+                    <TextBlock FontWeight="DemiBold">End</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
+                        <ComboBox Name="CoordinateComboBoxEnd" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
+                            <ComboBoxItem Content="Cartesian" IsSelected="True"/>
+                            <ComboBoxItem Content="Cylindrical"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock Name="TextBlockCartesianCoord1End" Margin="0,0,2,0">X:</TextBlock>
+                        <TextBlock Name="TextBlockCilyndricalCoord1End" Margin="0,0,2,0">R:</TextBlock>
+                        <TextBox Width="100" Name="XCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Name="TextBlockCartesianCoord2End" Margin="8,0,2,0">Y:</TextBlock>
+                        <TextBlock Name="TextBlockCilyndricalCoord2End" Margin="8,0,2,0">θ:</TextBlock>
+                        <TextBox Width="100" Name="YCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,2,0">Z:</TextBlock>
+                        <TextBox Width="100" Name="ZCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock Margin="0,0,2,0">rotation X:</TextBlock>
+                        <TextBox Width="60" Name="RxCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,2,0">Rotation Y:</TextBlock>
+                        <TextBox Width="60" Name="RyCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,2,0">Rotation Z:</TextBlock>
+                        <TextBox Width="60" Name="RzCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    </StackPanel>
+                    <TextBlock Margin="4,0,0,0">Loads:</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock >Fx:</TextBlock>
+                        <TextBox Width="100" Name="FxTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
+                        <TextBox Width="100" Name="FyTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
+                        <TextBox Width="100" Name="FzTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock >Tx:</TextBlock>
+                        <TextBox Width="100" Name="TxTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
+                        <TextBox Width="100" Name="TyTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Tz:</TextBlock>
+                        <TextBox Width="100" Name="TzTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    </StackPanel>
+                    <TextBlock Margin="4,0,0,0">Status:</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
+                        <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxComboBoxEnd">
+                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Imposed"/>
+                        </ComboBox>
+                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyComboBoxEnd">
+                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Imposed"/>
+                        </ComboBox>
+                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzComboBoxEnd">
+                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Imposed"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxComboBoxEnd">
+                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Imposed"/>
+                        </ComboBox>
+                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyComboBoxEnd">
+                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Imposed"/>
+                        </ComboBox>
+                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Tz:</TextBlock>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzComboBoxEnd">
+                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Imposed"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <TextBlock Margin="4,0,0,0">Imposed Displacements:</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock >Fx:</TextBlock>
+                        <TextBox Width="100" Name="FxDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
+                        <TextBox Width="100" Name="FyDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
+                        <TextBox Width="100" Name="FzDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock >Tx:</TextBlock>
+                        <TextBox Width="100" Name="TxDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
+                        <TextBox Width="100" Name="TyDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="8,0,0,0">Tz:</TextBlock>
+                        <TextBox Width="100" Name="TzDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Margin="8,4,8,4" Click="SubmitNewArea">Submit</Button>
+            </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Margin="8,4,8,4">Submit</Button>
-        </StackPanel>
-    </StackPanel>
+    </ScrollViewer>
 </Window>
