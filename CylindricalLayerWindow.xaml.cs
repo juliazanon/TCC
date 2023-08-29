@@ -22,7 +22,7 @@ namespace TCC
     {
         private CylinderLayer cylinderLayer;
         private LayerMaterial material;
-        private List<Area> areas;
+        private List<Area> areas = new List<Area>();
 
         public event EventHandler SubmitButtonClick;
 
@@ -30,6 +30,22 @@ namespace TCC
         public CylindricalLayerWindow(Dictionary<int, LayerMaterial> materials)
         {
             InitializeComponent();
+
+            //  Materials comboBox
+            if (materials.Count == 0)
+            {
+                List<LayerMaterial> materialList = new List<LayerMaterial>
+                {
+                    new LayerMaterial { ID = 0, Name = "No Material Created" },
+                };
+                MaterialComboBox.ItemsSource = materialList;
+                MaterialComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                MaterialComboBox.ItemsSource = materials.Values;
+                MaterialComboBox.SelectedIndex = 0;
+            }
         }
 
         //  Material
@@ -63,9 +79,12 @@ namespace TCC
 
         private void SubmitNewLayer(object sender, RoutedEventArgs e)
         {
-            cylinderLayer = new CylinderLayer();
-            cylinderLayer.Name = NameTextBox.Text;
-            cylinderLayer.Material = material;
+            cylinderLayer = new CylinderLayer
+            {
+                Name = NameTextBox.Text,
+                Material = material,
+                Areas = areas
+            };
             // FALTA THICKNESS
 
             double.TryParse(RadiusTextBox.Text, out double result);
@@ -85,6 +104,9 @@ namespace TCC
             double.TryParse(YTextBox.Text, out double yresult);
             double.TryParse(ZTextBox.Text, out double zresult);
             cylinderLayer.BodyLoad = new double[] { xresult, yresult, zresult };
+
+            SubmitButtonClick?.Invoke(this, EventArgs.Empty);
+            this.Close();
         }
 
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
