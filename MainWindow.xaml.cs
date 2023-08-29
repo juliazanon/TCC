@@ -76,11 +76,11 @@ namespace TCC
                 BodyLoad = windowCylinder.BodyLoad
             };
 
-            cable.Layers.Append(layer).ToArray();
+            cable.Layers.Add(layer);
         }
         private void ButtonNewHelix(object sender, RoutedEventArgs e)
         {
-            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Sections, cable.LayerMaterials);
+            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Sections, cable.LayerMaterials, GLControl.OpenGL);
             windowHelix.SubmitButtonClick += SubmitHelixButtonClick;
             windowHelix.Show();
         }
@@ -92,8 +92,10 @@ namespace TCC
 
             cable.Layers.Add(layer);
 
-            HelixLayer aux = cable.Layers[0] as HelixLayer;
-            teste.Text = aux.MaterialID.ToString();
+            //HelixLayer aux = cable.Layers[0] as HelixLayer;
+            //teste.Text = aux.Radius.ToString();
+            //teste.Text = aux.Name;
+            //teste.Text = aux.Section.Name;
         }
 
         //  Materials
@@ -114,21 +116,35 @@ namespace TCC
                 cable.LayerMaterials.Add(materialIsotropic.ID, materialIsotropic);
             }
 
-            if (windowMaterial.LayerOrthotropic != null)
+            else if (windowMaterial.LayerOrthotropic != null)
             {
                 Orthotropic materialOrthotropic = windowMaterial.LayerOrthotropic;
 
                 cable.LayerMaterials.Add(materialOrthotropic.ID, materialOrthotropic);
             }
-
-            teste.Text = cable.LayerMaterials[1].ToString();
         }
 
         //  Sections
         private void ButtonNewSection(object sender, RoutedEventArgs e)
         {
-            SectionWindow windowSection = new SectionWindow();
+            SectionWindow windowSection = new SectionWindow(cable.Sections);
+            windowSection.SubmitButtonClick += SubmitSectionButtonClick;
             windowSection.Show();
+        }
+
+        private void SubmitSectionButtonClick(object sender, EventArgs e)
+        {
+            SectionWindow windowSection = sender as SectionWindow;
+            if (windowSection.RectangularSection != null)
+            {
+                RectangularSection rectangularSection = windowSection.RectangularSection;
+                cable.Sections.Add(rectangularSection.ID, rectangularSection);
+            }
+            else if (windowSection.CylindricalSection != null)
+            {
+                CylindricalSection cylindricalSection = windowSection.CylindricalSection;
+                cable.Sections.Add(cylindricalSection.ID, cylindricalSection);
+            }
         }
 
         //  Camera parameters
@@ -165,6 +181,11 @@ namespace TCC
             // Background color
             vec3 backrgb = new vec3(225, 227, 226) / 255;
             gl.ClearColor(backrgb.x, backrgb.y, backrgb.z, 0);
+            
+            foreach (Layer l in cable.Layers)
+            {
+                l.Draw(gl);
+            }
 
             float prop = w * h / 1000000;
             vec3 rgb = new vec3(111, 112, 112) / 255;
@@ -172,16 +193,6 @@ namespace TCC
 
             rgb = new vec3(150, 150, 150) / 255;
             CircleDrawing c2 = new CircleDrawing(gl, 5000, 30, 30f * prop, rgb, false);
-
-            rgb = new vec3(80, 80, 80) / 255;
-            RectangularSection s = new RectangularSection
-            {
-                Width = 10.0,
-                Height = 5.0,
-                Type = "Rectangular"
-            };
-            //HelicoidalDrawing c3 = new HelicoidalDrawing(gl, 33, 27, 25, rgb);
-            HelicoidalDrawing c4 = new HelicoidalDrawing(gl, 1, 125.37, s, rgb);
 
             // circles with triangles
             //rgb = new vec3(80, 80, 80) / 255;

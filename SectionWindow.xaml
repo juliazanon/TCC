@@ -14,40 +14,40 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Background="#E6E6E6" Margin="4">
             <TextBlock Margin="4" FontWeight="DemiBold">Section Name:</TextBlock>
-            <TextBox Margin="4"></TextBox>
+            <TextBox Margin="4" Name="SectionName" Text="New Section"></TextBox>
             <ComboBox Name="sectionComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5">
                 <ComboBoxItem Content="Section Rectangular" IsSelected="True"/>
                 <ComboBoxItem Content="Section Cylindrical"/>
             </ComboBox>
         </StackPanel>
         <!-- Rectangular Section-->
-        <StackPanel Name="RectangularSection" Grid.Row="1" Margin="4" Background="#E6E6E6">
+        <StackPanel Name="Rectangular" Grid.Row="1" Margin="4" Background="#E6E6E6">
             <TextBlock Margin="4" FontWeight="DemiBold">Section Rectangular</TextBlock>
             <TextBlock Margin="4,0,0,0"> Geometric Parameters</TextBlock>
             <StackPanel Orientation="Horizontal" Margin="4">
                 <TextBlock Margin="0,0,4,0">Width</TextBlock>
-                <TextBox Width="100"></TextBox>
+                <TextBox Width="100" Name="WidthTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="4">
                 <TextBlock Margin="0,0,4,0">Height</TextBlock>
-                <TextBox Width="100"></TextBox>
+                <TextBox Width="100" Name="HeightTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
             </StackPanel>
         </StackPanel>
         <!-- Cilyndrical Section-->
-        <StackPanel Name="CylindricalSection" Grid.Row="1" Margin="4" Background="#E6E6E6">
+        <StackPanel Name="Cylindrical" Grid.Row="1" Margin="4" Background="#E6E6E6">
             <TextBlock Margin="4" FontWeight="DemiBold">Section Cilyndrical</TextBlock>
             <TextBlock Margin="4,0,0,0"> Geometric Parameters</TextBlock>
             <StackPanel Orientation="Horizontal" Margin="4">
                 <TextBlock Margin="0,0,4,0">Internal Radius</TextBlock>
-                <TextBox Width="100"></TextBox>
+                <TextBox Width="100" Name="InternalRadiusTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="4">
                 <TextBlock Margin="0,0,4,0">External Radius</TextBlock>
-                <TextBox Width="100"></TextBox>
+                <TextBox Width="100" Name="ExternalRadiusTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="2" HorizontalAlignment="Right" Margin="4">
-            <Button>Submit</Button>
+            <Button Click="SubmitNewSection">Submit</Button>
         </StackPanel>
     </Grid>
 </Window>

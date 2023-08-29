@@ -21,30 +21,19 @@ namespace TCC
     /// </summary>
     public partial class HelicalLayerWindow : Window
     {
-        //private int wires;
-        //private Line line;
-        //private double length;
-        //private int sectionID;
-        //private double radius;
-        //private double layAngle;
-        //private double initialAngle;
-        //private int divisions;
-        //private string label;
-        //private string type;
-        //private int materialID;
-        //private float[] bodyLoad;
-
         private HelixLayer helixLayer;
-        Dictionary<int, Section> sections;
+        private Dictionary<int, Section> sections;
+        private OpenGL gl;
 
         public event EventHandler SubmitButtonClick;
 
         public HelixLayer HelixLayer { get { return helixLayer; } }
 
-        public HelicalLayerWindow(Dictionary<int, Section> sections, Dictionary<int, LayerMaterial> materials)
+        public HelicalLayerWindow(Dictionary<int, Section> sections, Dictionary<int, LayerMaterial> materials, OpenGL gl)
         {
             InitializeComponent();
             this.sections = sections;
+            this.gl = gl;
 
             //  Section comboBox
             if (sections.Count == 0)
@@ -161,7 +150,7 @@ namespace TCC
             helixLayer.Wires = intresult;
             double.TryParse(LengthTextBox.Text, out double result);
             helixLayer.Length = result;
-            double.TryParse(LengthTextBox.Text, out result);
+            double.TryParse(RadiusTextBox.Text, out result);
             helixLayer.Radius = result;
             double.TryParse(LayAngleTextBox.Text, out result);
             helixLayer.LayAngle = result;
@@ -173,10 +162,10 @@ namespace TCC
             helixLayer.Type = "helix";
 
             LayerMaterial selectedMaterial = (LayerMaterial)MaterialComboBox.SelectedItem;
-            helixLayer.MaterialID = selectedMaterial.ID;
+            helixLayer.Material = selectedMaterial;
 
             Section selectedSection = (Section)SectionComboBox.SelectedItem;
-            helixLayer.SectionID = selectedSection.ID;
+            helixLayer.Section = selectedSection;
 
             double.TryParse(BodyLoadXTextBox.Text, out double xresult);
             double.TryParse(BodyLoadYTextBox.Text, out double yresult);
@@ -285,11 +274,12 @@ namespace TCC
             double.TryParse(TzDispTextBox.Text, out rzresult);
             helixLayer.Line.ImposedDisplacements = new double[] { xresult, yresult, zresult, rxresult, ryresult, rzresult };
 
+            Draw(gl);
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
         }
 
-        private void draw(OpenGL gl)
+        private void Draw(OpenGL gl)
         {
             Section s = new RectangularSection
             {
@@ -300,14 +290,9 @@ namespace TCC
                 Height = 5.0
             };
 
-            if(this.sections.Count != 0)
-            {
-                s = sections[helixLayer.SectionID];
-            }
-
             if (s.Type == "Rectangular")
             {
-                RectangularSection rs = s as RectangularSection;
+                RectangularSection rs = helixLayer.Section as RectangularSection;
                 gl.Enable(OpenGL.GL_BLEND);
                 gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
                 gl.Enable(OpenGL.GL_LINE_SMOOTH);
@@ -373,7 +358,7 @@ namespace TCC
         private void IntegerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Check if the entered character is a digit or a dot
-            if (!char.IsDigit(e.Text, 0) && e.Text != ".")
+            if (!char.IsDigit(e.Text, 0))
             {
                 e.Handled = true; // Prevent the character from being entered
             }

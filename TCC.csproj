@@ -86,7 +86,6 @@
     <Compile Include="Classes\RectangularSection.cs" />
     <Compile Include="Classes\Section.cs" />
     <Compile Include="Classes\CircleDrawing.cs" />
-    <Compile Include="Classes\HelicoidalDrawing.cs" />
     <Compile Include="CylindricalLayerWindow.xaml.cs">
       <DependentUpon>CylindricalLayerWindow.xaml</DependentUpon>
     </Compile>
