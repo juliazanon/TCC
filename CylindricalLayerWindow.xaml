@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="CylindricalLayer" MinHeight="400" Width="500">
+        Title="Cylindrical Layer"
+        MinHeight="400" Width="500"
+        KeyDown="Window_KeyDown">
     <StackPanel>
         <TextBlock Grid.Row="0" FontSize="18" Margin="8,8,8,0" FontWeight="DemiBold" >Create new Cylindrical Layer</TextBlock>
         <StackPanel Grid.Row="1" Margin="4" Background="#E6E6E6">

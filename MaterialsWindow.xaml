@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
         Title="Materials" Height="340" Width="520"
-        MinHeight="200" MinWidth="520">
+        MinHeight="200" MinWidth="520"
+        KeyDown="Window_KeyDown">
     <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>

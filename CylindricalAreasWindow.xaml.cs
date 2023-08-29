@@ -93,5 +93,12 @@ namespace TCC
                 TextBlockCartesianCoord2End.Visibility = Visibility.Collapsed;
             }
         }
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // SubmitNewMaterial(sender, e);
+            }
+        }
     }
 }

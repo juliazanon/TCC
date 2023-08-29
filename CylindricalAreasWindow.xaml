@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="Cylindrical Areas" MinHeight="500" MinWidth="700">
+        Title="Cylindrical Areas"
+        MinHeight="500" MinWidth="700"
+        KeyDown="Window_KeyDown">
     <StackPanel>
         <StackPanel>
             <TextBlock Margin="4" FontWeight="DemiBold" FontSize="18" Name="WindowTitle"></TextBlock>

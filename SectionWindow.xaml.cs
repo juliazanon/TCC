@@ -26,7 +26,13 @@ namespace TCC
             CylindricalSection.Visibility = Visibility.Collapsed;
             sectionComboBox.SelectionChanged += SectionComboBox_SelectionChanged;
         }
-
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                //SubmitNewMaterial(sender, e);
+            }
+        }
         private void SectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
