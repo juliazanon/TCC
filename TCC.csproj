@@ -86,6 +86,9 @@
     <Compile Include="Classes\RectangularSection.cs" />
     <Compile Include="Classes\Section.cs" />
     <Compile Include="Classes\CircleDrawing.cs" />
+    <Compile Include="CylindricalAreasWindow.xaml.cs">
+      <DependentUpon>CylindricalAreasWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CylindricalLayerWindow.xaml.cs">
       <DependentUpon>CylindricalLayerWindow.xaml</DependentUpon>
     </Compile>
@@ -101,6 +104,10 @@
     <Compile Include="StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="CylindricalAreasWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CylindricalLayerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

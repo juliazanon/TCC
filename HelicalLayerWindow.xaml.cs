@@ -135,6 +135,13 @@ namespace TCC
             }
         }
 
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SubmitNewLayer(sender, e);
+            }
+        }
         private void SubmitNewLayer(object sender, RoutedEventArgs e)
         {
             helixLayer = new HelixLayer

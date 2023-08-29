@@ -75,6 +75,14 @@ namespace TCC
                 PoissonTextBox.Visibility = Visibility.Collapsed;
             }
         }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SubmitNewMaterial(sender, e);
+            }
+        }
         private void SubmitNewMaterial(object sender, RoutedEventArgs e)
         {
             if (IsotropicRadioButton.IsChecked == true)

@@ -38,6 +38,13 @@ namespace TCC
         public RectangularSection RectangularSection { get { return rectangularSection; } }
         public CylindricalSection CylindricalSection { get { return cylindricalSection; } }
 
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                //SubmitNewMaterial(sender, e);
+            }
+        }
         private void SectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
