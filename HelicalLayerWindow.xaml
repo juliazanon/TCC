@@ -26,9 +26,9 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock Margin="4,0,2,0">Lay Angle:</TextBlock>
-                        <TextBox Width="70" Name="LayAngleTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBox Width="70" Name="LayAngleTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
                         <TextBlock Margin="4,0,2,0">Initial Angle:</TextBlock>
-                        <TextBox Width="70" Name="InitialAngleTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBox Width="70" Name="InitialAngleTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock Margin="4,0,2,0" VerticalAlignment="Center">Section:</TextBlock>

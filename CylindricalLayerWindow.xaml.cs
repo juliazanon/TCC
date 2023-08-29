@@ -20,17 +20,13 @@ namespace TCC
     /// </summary>
     public partial class CylindricalLayerWindow : Window
     {
-        public double Length { get; set; }
-        public double Radius { get; set; }
-        public double Thickness { get; set; }
-        public int FourierOrder { get; set; }
-        public int RadialDivisions { get; set; }
-        public int AxialDivisions { get; set; }
-        public Area[] Areas { get; set; }
-        public string Label { get; set; }
-        public string Type { get; set; }
-        public int MaterialID { get; set; }
-        public double[] BodyLoad { get; set; }
+        private CylinderLayer cylinderLayer;
+        private LayerMaterial material;
+        private List<Area> areas;
+
+        public event EventHandler SubmitButtonClick;
+
+        public CylinderLayer CylinderLayer { get { return cylinderLayer; } }
         public CylindricalLayerWindow(Dictionary<int, LayerMaterial> materials)
         {
             InitializeComponent();
@@ -42,63 +38,84 @@ namespace TCC
             if (MaterialComboBox.SelectedItem != null)
             {
                 // Get the selected Material instance.
-                LayerMaterial selectedMaterial = (LayerMaterial)MaterialComboBox.SelectedItem;
-
-                // Access the selected ID and Name.
-                int selectedMaterialID = selectedMaterial.ID;
-
-                // USE THIS VALUE AS MATERIAL ID
-
-                // teste.Text = selectedID.ToString();
+                this.material = (LayerMaterial)MaterialComboBox.SelectedItem;
             }
         }
 
         //  Areas
-        //  Internal
-        private void ButtonNewAreaInternal(object sender, RoutedEventArgs e)
+        private void ButtonNewArea(object sender, RoutedEventArgs e)
         {
-            string areaType = "Internal";
+            Button clickedButton = (Button)sender; // Cast the sender as a Button
+            string areaType = clickedButton.Name;
+
             CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
 
-            //windowArea.SubmitButtonClick += SubmitAreaInternalButtonClick;
+            windowArea.SubmitButtonClick += SubmitAreaButtonClick;
             windowArea.Show();
         }
-
-        //  Bottom
-        private void ButtonNewAreaBottom(object sender, RoutedEventArgs e)
+        private void SubmitAreaButtonClick(object sender, EventArgs e)
         {
-            string areaType = "Bottom";
-            CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
+            CylindricalAreasWindow windowArea = sender as CylindricalAreasWindow;
+            Area area = windowArea.Area;
 
-            //windowArea.SubmitButtonClick += SubmitAreaBottomButtonClick;
-            windowArea.Show();
+            areas.Add(area);
         }
 
-        //  External
-        private void ButtonNewAreaExternal(object sender, RoutedEventArgs e)
+        private void SubmitNewLayer(object sender, RoutedEventArgs e)
         {
-            string areaType = "External";
-            CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
+            cylinderLayer = new CylinderLayer();
+            cylinderLayer.Name = NameTextBox.Text;
+            cylinderLayer.Material = material;
+            // FALTA THICKNESS
 
-            //windowArea.SubmitButtonClick += SubmitAreaExternalButtonClick;
-            windowArea.Show();
+            double.TryParse(RadiusTextBox.Text, out double result);
+            cylinderLayer.Radius = result;
+            double.TryParse(LengthTextBox.Text, out result);
+            cylinderLayer.Length = result;
+            int.TryParse(DivisionsTextBox.Text, out int intresult);
+            cylinderLayer.Divisions = intresult;
+            int.TryParse(FourierTextBox.Text, out intresult);
+            cylinderLayer.FourierOrder = intresult;
+            int.TryParse(RadialTextBox.Text, out intresult);
+            cylinderLayer.RadialDivisions = intresult;
+            int.TryParse(AxialTextBox.Text, out intresult);
+            cylinderLayer.AxialDivisions = intresult;
+
+            double.TryParse(XTextBox.Text, out double xresult);
+            double.TryParse(YTextBox.Text, out double yresult);
+            double.TryParse(ZTextBox.Text, out double zresult);
+            cylinderLayer.BodyLoad = new double[] { xresult, yresult, zresult };
         }
 
-        //  Top
-        private void ButtonNewAreaTop(object sender, RoutedEventArgs e)
+        private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            string areaType = "Top";
-            CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
+            // Check if the entered character is a digit or a dot
+            if (!char.IsDigit(e.Text, 0) && e.Text != ".")
+            {
+                e.Handled = true; // Prevent the character from being entered
+            }
 
-            //windowArea.SubmitButtonClick += SubmitAreaTopButtonClick;
-            windowArea.Show();
+            // Check if the text already contains a dot, and if so, prevent entering another dot
+            if (e.Text == "." && ((TextBox)sender).Text.Contains("."))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void IntegerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Check if the entered character is a digit or a dot
+            if (!char.IsDigit(e.Text, 0))
+            {
+                e.Handled = true; // Prevent the character from being entered
+            }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                // SubmitNewMaterial(sender, e);
+                SubmitNewLayer(sender, e);
             }
         }
     }

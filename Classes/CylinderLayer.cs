@@ -8,16 +8,32 @@ namespace TCC.Classes
 {
     public class CylinderLayer : Layer
     {
-        public double Length { get; set; }
-        public double Radius { get; set; }
-        public double Thickness { get; set; }
-        public int FourierOrder { get; set; }
-        public int RadialDivisions { get; set; }
-        public int AxialDivisions { get; set; }
-        public Area[] Areas { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public int MaterialID { get; set; }
-        public double[] BodyLoad { get; set; }
+        private string name;
+        private double length;
+        private double radius;
+        private double thickness;
+        private int fourierOrder;
+        private int divisions;
+        private int radialDivisions;
+        private int axialDivisions;
+        private List<Area> areas;
+        private string label;
+        private string type;
+        private LayerMaterial material;
+        private double[] bodyLoad;
+
+        public string Name { get { return name; } set { name = value; } }
+        public double Length { get { return length; } set { length = value; } }
+        public double Radius { get { return radius; } set { radius = value; } }
+        public double Thickness { get { return thickness; } set { thickness = value; } }
+        public int FourierOrder { get { return fourierOrder; } set { fourierOrder = value; } }
+        public int Divisions { get { return divisions; } set { divisions = value; } }
+        public int RadialDivisions { get { return radialDivisions; } set { radialDivisions = value; } }
+        public int AxialDivisions { get { return axialDivisions; } set { axialDivisions = value; } }
+        public List<Area> Areas { get { return areas; } set { areas = value; } }
+        public string Label { get { return label; } set { label = value; } }
+        public string Type { get { return type; } set { type = value; } }
+        public LayerMaterial Material { get { return material; } set { material = value; } }
+        public double[] BodyLoad { get { return bodyLoad; } set { bodyLoad = value; } }
     }
 }

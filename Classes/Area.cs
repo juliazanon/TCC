@@ -9,7 +9,7 @@ namespace TCC.Classes
     public class Area
     {
         public string Surface { get; set; }
-        public double[] pressure { get; set; }
+        public double[] Pressure { get; set; }
         public Line Frontier { get; set; }
         public string[] Status { get; set; }
         public double[] ImposedDisplacements { get; set; }

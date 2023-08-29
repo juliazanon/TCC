@@ -22,18 +22,14 @@ namespace TCC
     public partial class HelicalLayerWindow : Window
     {
         private HelixLayer helixLayer;
-        private Dictionary<int, Section> sections;
-        private OpenGL gl;
 
         public event EventHandler SubmitButtonClick;
 
         public HelixLayer HelixLayer { get { return helixLayer; } }
 
-        public HelicalLayerWindow(Dictionary<int, Section> sections, Dictionary<int, LayerMaterial> materials, OpenGL gl)
+        public HelicalLayerWindow(Dictionary<int, Section> sections, Dictionary<int, LayerMaterial> materials)
         {
             InitializeComponent();
-            this.sections = sections;
-            this.gl = gl;
 
             //  Section comboBox
             if (sections.Count == 0)
@@ -135,13 +131,6 @@ namespace TCC
             }
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                SubmitNewLayer(sender, e);
-            }
-        }
         private void SubmitNewLayer(object sender, RoutedEventArgs e)
         {
             helixLayer = new HelixLayer
@@ -281,69 +270,15 @@ namespace TCC
             double.TryParse(TzDispTextBox.Text, out rzresult);
             helixLayer.Line.ImposedDisplacements = new double[] { xresult, yresult, zresult, rxresult, ryresult, rzresult };
 
-            Draw(gl);
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
         }
 
-        private void Draw(OpenGL gl)
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            Section s = new RectangularSection
+            if (e.Key == Key.Enter)
             {
-                Name = "Default Section",
-                ID = 0,
-                Type = "Rectangular",
-                Width = 10.0,
-                Height = 5.0
-            };
-
-            if (s.Type == "Rectangular")
-            {
-                RectangularSection rs = helixLayer.Section as RectangularSection;
-                gl.Enable(OpenGL.GL_BLEND);
-                gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
-                gl.Enable(OpenGL.GL_LINE_SMOOTH);
-                gl.Hint(OpenGL.GL_LINE_SMOOTH_HINT, OpenGL.GL_NICEST);
-
-                gl.LineWidth(2);
-                gl.Begin(BeginMode.Lines);
-                vec3 rgb = new vec3(80, 80, 80) / 255;
-                gl.Color(rgb.x, rgb.y, rgb.z, 1);
-
-                double r1 = helixLayer.Radius + rs.Height / 2;
-                double r2 = helixLayer.Radius - rs.Height / 2;
-                double theta;
-
-                for (int i = 0; i < helixLayer.Wires; i++)
-                {
-                    // Left line
-                    theta = i * 2 * Math.PI / helixLayer.Wires;
-                    gl.Vertex(r1 * Math.Cos(theta), r1 * Math.Sin(theta));
-                    gl.Vertex(r2 * Math.Cos(theta), r2 * Math.Sin(theta));
-
-                    // Top line
-                    gl.Vertex(r1 * Math.Cos(theta), r1 * Math.Sin(theta));
-                    theta = (i + 1) * 2 * Math.PI / helixLayer.Wires - (2 * Math.PI / helixLayer.Wires - rs.Width / r1);
-                    gl.Vertex(r1 * Math.Cos(theta), r1 * Math.Sin(theta));
-
-                    // Right line
-                    gl.Vertex(r1 * Math.Cos(theta), r1 * Math.Sin(theta));
-                    gl.Vertex(r2 * Math.Cos(theta), r2 * Math.Sin(theta));
-
-                    // Bottom line
-                    theta = i * 2 * Math.PI / helixLayer.Wires;
-                    gl.Vertex(r2 * Math.Cos(theta), r2 * Math.Sin(theta));
-                    theta = (i + 1) * 2 * Math.PI / helixLayer.Wires - (2 * Math.PI / helixLayer.Wires - rs.Width / r2);
-                    gl.Vertex(r2 * Math.Cos(theta), r2 * Math.Sin(theta));
-                }
-
-                gl.End();
-                gl.Flush();
-            }
-
-            else if (s.Type == "Cylindrical")
-            {
-                CylindricalSection cs = s as CylindricalSection;
+                SubmitNewLayer(sender, e);
             }
         }
 
