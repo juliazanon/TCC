@@ -48,8 +48,8 @@ namespace TCC
             {
                 Name = "New Cable",
                 Sections = new Dictionary<int, Section>(),
-                Layers = new Layer[0],
-                LayerConnections = new LayerConnections[0],
+                Layers = new List<Layer>(),
+                LayerConnections = new List<LayerConnections>(),
                 LayerMaterials = new Dictionary<int, LayerMaterial>()
             };
         }
@@ -81,31 +81,25 @@ namespace TCC
         private void ButtonNewHelix(object sender, RoutedEventArgs e)
         {
             HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Sections, cable.LayerMaterials);
+            windowHelix.SubmitButtonClick += SubmitHelixButtonClick;
             windowHelix.Show();
+        }
 
-            HelixLayer layer = new HelixLayer
-            {
-                Wire = windowHelix.Wires,
-                Line = windowHelix.Line,
-                Length = windowHelix.Length,
-                SectionID = windowHelix.SectionID,
-                LayAngle = windowHelix.LayAngle,
-                InitialAngle = windowHelix.InitialAngle,
-                Divisions = windowHelix.Divisions,
-                Name = windowHelix.Label,
-                Type = windowHelix.Type,
-                MaterialID = windowHelix.MaterialID,
-                BodyLoad = windowHelix.BodyLoad
-            };
+        private void SubmitHelixButtonClick(object sender, EventArgs e)
+        {
+            HelicalLayerWindow windowHelix = sender as HelicalLayerWindow;
+            HelixLayer layer = windowHelix.HelixLayer;
 
-            cable.Layers.Append(layer).ToArray();
+            cable.Layers.Add(layer);
+
+            HelixLayer aux = cable.Layers[0] as HelixLayer;
+            teste.Text = aux.MaterialID.ToString();
         }
 
         //  Materials
         private void ButtonNewMaterial(object sender, RoutedEventArgs e)
         {
             MaterialsWindow windowMaterial = new MaterialsWindow(cable.LayerMaterials);
-
             windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
             windowMaterial.Show();
         }
@@ -115,38 +109,19 @@ namespace TCC
             MaterialsWindow windowMaterial = sender as MaterialsWindow;
             if (windowMaterial.LayerIsotropic != null)
             {
-                Isotropic materialIsotropic = new Isotropic
-                {
-                    ID = windowMaterial.LayerIsotropic.ID,
-                    Name = windowMaterial.LayerIsotropic.Name,
-                    Density = windowMaterial.LayerIsotropic.Density,
-                    Poisson = windowMaterial.LayerIsotropic.Poisson,
-                    Young = windowMaterial.LayerIsotropic.Young
-                };
+                Isotropic materialIsotropic = windowMaterial.LayerIsotropic;
 
                 cable.LayerMaterials.Add(materialIsotropic.ID, materialIsotropic);
             }
 
             if (windowMaterial.LayerOrthotropic != null)
             {
-                Orthotropic materialOrthotropic = new Orthotropic
-                {
-                    ID = windowMaterial.LayerOrthotropic.ID,
-                    Name = windowMaterial.LayerOrthotropic.Name,
-                    Density = windowMaterial.LayerOrthotropic.Density,
-                    Ex = windowMaterial.LayerOrthotropic.Ex,
-                    Ey = windowMaterial.LayerOrthotropic.Ey,
-                    Ez = windowMaterial.LayerOrthotropic.Ez,
-                    Nxy = windowMaterial.LayerOrthotropic.Nxy,
-                    Nxz = windowMaterial.LayerOrthotropic.Nxz,
-                    Nyz = windowMaterial.LayerOrthotropic.Nyz,
-                    Gxy = windowMaterial.LayerOrthotropic.Gxy,
-                    Gxz = windowMaterial.LayerOrthotropic.Gxz,
-                    Gyz = windowMaterial.LayerOrthotropic.Gyz,
-                };
+                Orthotropic materialOrthotropic = windowMaterial.LayerOrthotropic;
 
                 cable.LayerMaterials.Add(materialOrthotropic.ID, materialOrthotropic);
             }
+
+            teste.Text = cable.LayerMaterials[1].ToString();
         }
 
         //  Sections
@@ -160,7 +135,7 @@ namespace TCC
         float[] _viewPoint = new float[] { 0.0f, 0.0f, 0.0f };
         float[] _position = new float[] { 0.0f, 0.0f, 10.0f };
         float[] _upVector = new float[] { 0.0f, 1.0f, 0.0f };
-        float scale = 0.1f;
+        float scale = 0.04f;
 
         // Graphics
         private void OpenGLDraw(object sender, SharpGL.WPF.OpenGLRoutedEventArgs args)
@@ -199,8 +174,14 @@ namespace TCC
             CircleDrawing c2 = new CircleDrawing(gl, 5000, 30, 30f * prop, rgb, false);
 
             rgb = new vec3(80, 80, 80) / 255;
-            HelicoidalDrawing c3 = new HelicoidalDrawing(gl, 33, 27, 25, rgb);
-            HelicoidalDrawing c4 = new HelicoidalDrawing(gl, 30, 24.5f, 22.5f, rgb);
+            RectangularSection s = new RectangularSection
+            {
+                Width = 10.0,
+                Height = 5.0,
+                Type = "Rectangular"
+            };
+            //HelicoidalDrawing c3 = new HelicoidalDrawing(gl, 33, 27, 25, rgb);
+            HelicoidalDrawing c4 = new HelicoidalDrawing(gl, 1, 125.37, s, rgb);
 
             // circles with triangles
             //rgb = new vec3(80, 80, 80) / 255;
