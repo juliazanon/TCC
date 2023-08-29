@@ -8,7 +8,7 @@
         Title="Cylindrical Areas" MinHeight="500" MinWidth="700">
     <StackPanel>
         <StackPanel>
-            <TextBlock Margin="4" FontWeight="DemiBold" Name="WindowTitle"></TextBlock>
+            <TextBlock Margin="4" FontWeight="DemiBold" FontSize="18" Name="WindowTitle"></TextBlock>
             <TextBlock Margin="4">Pressure:</TextBlock>
             <StackPanel Orientation="Horizontal">
                 <TextBox Width="100" Margin="4"></TextBox>

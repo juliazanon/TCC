@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="CylindricalLayer" MinHeight="400" Width="500">
     <StackPanel>
-        <TextBlock Grid.Row="0" FontSize="16" Margin="8,8,8,0" FontWeight="DemiBold">Create new Cylindrical Layer</TextBlock>
+        <TextBlock Grid.Row="0" FontSize="18" Margin="8,8,8,0" FontWeight="DemiBold" >Create new Cylindrical Layer</TextBlock>
         <StackPanel Grid.Row="1" Margin="4" Background="#E6E6E6">
             <TextBlock Margin="4,4,4,0">Name:</TextBlock>
             <TextBox Margin="4"></TextBox>
