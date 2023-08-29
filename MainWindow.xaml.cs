@@ -70,8 +70,10 @@ namespace TCC
 
             cable.Layers.Add(layer);
             observableLayer.Add(layer);
-            teste.Text = observableLayer.Count.ToString();
             itemsControl.ItemsSource = observableLayer;
+
+            //CylinderLayer aux = cable.Layers[0] as CylinderLayer;
+            //teste.Text = aux.Areas[0].Frontier.DesignOnly.ToString();
         }
         private void ButtonNewHelix(object sender, RoutedEventArgs e)
         {
@@ -87,7 +89,6 @@ namespace TCC
 
             cable.Layers.Add(layer);
             observableLayer.Add(layer);
-            teste.Text = observableLayer.Count.ToString();
             itemsControl.ItemsSource = observableLayer;
             // HelixLayer aux = cable.Layers[0] as HelixLayer;
             //teste.Text = aux.MaterialID.ToString();
@@ -176,14 +177,27 @@ namespace TCC
             // Background color
             vec3 backrgb = new vec3(225, 227, 226) / 255;
             gl.ClearColor(backrgb.x, backrgb.y, backrgb.z, 0);
-            
-            foreach (Layer l in cable.Layers)
-            {
-                l.Draw(gl);
-            }
+            vec3 rgb;
 
             float prop = w * h / 1000000;
-            vec3 rgb = new vec3(111, 112, 112) / 255;
+
+            foreach (Layer l in cable.Layers)
+            {
+                if (l is HelixLayer)
+                {
+                    HelixLayer layer = l as HelixLayer;
+                    rgb = new vec3(80, 80, 80) / 255;
+                    layer.Draw(gl, rgb);
+                }
+                else if (l is CylinderLayer)
+                {
+                    CylinderLayer layer = l as CylinderLayer;
+                    rgb = new vec3(150, 150, 150) / 255;
+                    layer.Draw(gl, rgb, 10000, prop, false);
+                }
+            }
+
+            rgb = new vec3(111, 112, 112) / 255;
             CircleDrawing c1 = new CircleDrawing(gl, 10000, 40, 40f * prop, rgb, false);
 
             rgb = new vec3(150, 150, 150) / 255;

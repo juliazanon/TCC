@@ -73,9 +73,8 @@ namespace TCC.Classes
             set { bodyLoad = value; }
         }
 
-        public override void Draw(OpenGL gl)
+        public void Draw(OpenGL gl, vec3 rgb)
         {
-            vec3 rgb = new vec3(80, 80, 80) / 255;
             if (section.Type == "Rectangular")
             {
                 RectangularSection rs = section as RectangularSection;

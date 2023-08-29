@@ -170,7 +170,7 @@ namespace TCC
 
             // Start
             helixLayer.Line.Start.ID = 1;
-            helixLayer.Line.Start.DesignOnly = false;
+            helixLayer.Line.Start.DesignOnly = (bool)DesignCheckBoxStart.IsChecked;
             helixLayer.Line.Start.CoordinateSystem = CoordinateComboBoxStart.Text;
 
             double.TryParse(XCoordTextBoxStart.Text, out xresult);
@@ -207,7 +207,7 @@ namespace TCC
 
             // End
             helixLayer.Line.End.ID = 1;
-            helixLayer.Line.End.DesignOnly = false;
+            helixLayer.Line.End.DesignOnly = (bool)DesignCheckBoxEnd.IsChecked;
             helixLayer.Line.End.CoordinateSystem = CoordinateComboBoxEnd.Text;
 
             double.TryParse(XCoordTextBoxEnd.Text, out xresult);
@@ -244,7 +244,7 @@ namespace TCC
 
             // Line
             helixLayer.Line.FourierOrder = 0;
-            helixLayer.Line.DesignOnly = false;
+            helixLayer.Line.DesignOnly = (bool)DesignCheckBoxLine.IsChecked;
 
             double.TryParse(FxTextBox.Text, out xresult);
             double.TryParse(FyTextBox.Text, out yresult);

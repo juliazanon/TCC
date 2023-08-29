@@ -62,12 +62,30 @@ namespace TCC
         private void ButtonNewArea(object sender, RoutedEventArgs e)
         {
             Button clickedButton = (Button)sender; // Cast the sender as a Button
-            string areaType = clickedButton.Name;
+            string areaType = "";
 
-            CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
+            switch (clickedButton.Name)
+            {
+                case "InternalButton":
+                    areaType = "Internal";
+                    break;
+                case "ExternalButton":
+                    areaType = "External";
+                    break;
+                case "BottomButton":
+                    areaType = "Bottom";
+                    break;
+                case "TopButton":
+                    areaType = "Top";
+                    break;
+            }
 
-            windowArea.SubmitButtonClick += SubmitAreaButtonClick;
-            windowArea.Show();
+            if (areaType != "")
+            {
+                CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
+                windowArea.SubmitButtonClick += SubmitAreaButtonClick;
+                windowArea.Show();
+            }
         }
         private void SubmitAreaButtonClick(object sender, EventArgs e)
         {
@@ -83,11 +101,12 @@ namespace TCC
             {
                 Name = NameTextBox.Text,
                 Material = material,
-                Areas = areas
+                Areas = areas,
             };
-            // FALTA THICKNESS
-
-            double.TryParse(RadiusTextBox.Text, out double result);
+            
+            double.TryParse(ThicknessTextBox.Text, out double result);
+            cylinderLayer.Thickness = result;
+            double.TryParse(RadiusTextBox.Text, out result);
             cylinderLayer.Radius = result;
             double.TryParse(LengthTextBox.Text, out result);
             cylinderLayer.Length = result;
