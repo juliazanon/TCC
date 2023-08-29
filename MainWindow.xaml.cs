@@ -135,7 +135,7 @@ namespace TCC
         float[] _viewPoint = new float[] { 0.0f, 0.0f, 0.0f };
         float[] _position = new float[] { 0.0f, 0.0f, 10.0f };
         float[] _upVector = new float[] { 0.0f, 1.0f, 0.0f };
-        float scale = 0.1f;
+        float scale = 0.04f;
 
         // Graphics
         private void OpenGLDraw(object sender, SharpGL.WPF.OpenGLRoutedEventArgs args)
@@ -174,8 +174,14 @@ namespace TCC
             CircleDrawing c2 = new CircleDrawing(gl, 5000, 30, 30f * prop, rgb, false);
 
             rgb = new vec3(80, 80, 80) / 255;
-            HelicoidalDrawing c3 = new HelicoidalDrawing(gl, 33, 27, 25, rgb);
-            HelicoidalDrawing c4 = new HelicoidalDrawing(gl, 30, 24.5f, 22.5f, rgb);
+            RectangularSection s = new RectangularSection
+            {
+                Width = 10.0,
+                Height = 5.0,
+                Type = "Rectangular"
+            };
+            //HelicoidalDrawing c3 = new HelicoidalDrawing(gl, 33, 27, 25, rgb);
+            HelicoidalDrawing c4 = new HelicoidalDrawing(gl, 1, 125.37, s, rgb);
 
             // circles with triangles
             //rgb = new vec3(80, 80, 80) / 255;

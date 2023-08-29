@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GlmNet;
+using SharpGL;
+using SharpGL.Enumerations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +35,7 @@ namespace TCC
         //private float[] bodyLoad;
 
         private HelixLayer helixLayer;
+        Dictionary<int, Section> sections;
 
         public event EventHandler SubmitButtonClick;
 
@@ -40,6 +44,7 @@ namespace TCC
         public HelicalLayerWindow(Dictionary<int, Section> sections, Dictionary<int, LayerMaterial> materials)
         {
             InitializeComponent();
+            this.sections = sections;
 
             //  Section comboBox
             if (sections.Count == 0)
@@ -280,9 +285,74 @@ namespace TCC
             double.TryParse(TzDispTextBox.Text, out rzresult);
             helixLayer.Line.ImposedDisplacements = new double[] { xresult, yresult, zresult, rxresult, ryresult, rzresult };
 
-
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
+        }
+
+        private void draw(OpenGL gl)
+        {
+            Section s = new RectangularSection
+            {
+                Name = "Default Section",
+                ID = 0,
+                Type = "Rectangular",
+                Width = 10.0,
+                Height = 5.0
+            };
+
+            if(this.sections.Count != 0)
+            {
+                s = sections[helixLayer.SectionID];
+            }
+
+            if (s.Type == "Rectangular")
+            {
+                RectangularSection rs = s as RectangularSection;
+                gl.Enable(OpenGL.GL_BLEND);
+                gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
+                gl.Enable(OpenGL.GL_LINE_SMOOTH);
+                gl.Hint(OpenGL.GL_LINE_SMOOTH_HINT, OpenGL.GL_NICEST);
+
+                gl.LineWidth(2);
+                gl.Begin(BeginMode.Lines);
+                vec3 rgb = new vec3(80, 80, 80) / 255;
+                gl.Color(rgb.x, rgb.y, rgb.z, 1);
+
+                double r1 = helixLayer.Radius + rs.Height / 2;
+                double r2 = helixLayer.Radius - rs.Height / 2;
+                double theta;
+
+                for (int i = 0; i < helixLayer.Wires; i++)
+                {
+                    // Left line
+                    theta = i * 2 * Math.PI / helixLayer.Wires;
+                    gl.Vertex(r1 * Math.Cos(theta), r1 * Math.Sin(theta));
+                    gl.Vertex(r2 * Math.Cos(theta), r2 * Math.Sin(theta));
+
+                    // Top line
+                    gl.Vertex(r1 * Math.Cos(theta), r1 * Math.Sin(theta));
+                    theta = (i + 1) * 2 * Math.PI / helixLayer.Wires - (2 * Math.PI / helixLayer.Wires - rs.Width / r1);
+                    gl.Vertex(r1 * Math.Cos(theta), r1 * Math.Sin(theta));
+
+                    // Right line
+                    gl.Vertex(r1 * Math.Cos(theta), r1 * Math.Sin(theta));
+                    gl.Vertex(r2 * Math.Cos(theta), r2 * Math.Sin(theta));
+
+                    // Bottom line
+                    theta = i * 2 * Math.PI / helixLayer.Wires;
+                    gl.Vertex(r2 * Math.Cos(theta), r2 * Math.Sin(theta));
+                    theta = (i + 1) * 2 * Math.PI / helixLayer.Wires - (2 * Math.PI / helixLayer.Wires - rs.Width / r2);
+                    gl.Vertex(r2 * Math.Cos(theta), r2 * Math.Sin(theta));
+                }
+
+                gl.End();
+                gl.Flush();
+            }
+
+            else if (s.Type == "Cylindrical")
+            {
+                CylindricalSection cs = s as CylindricalSection;
+            }
         }
 
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
