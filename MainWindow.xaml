@@ -145,11 +145,18 @@
                 <ColumnDefinition Width="4*" MinWidth="600"/>
             </Grid.ColumnDefinitions>
             <StackPanel Background="#FFF0F0F5">
-                <TextBlock FontSize="18" Margin="4" HorizontalAlignment="Center">Camadas</TextBlock>
+                <TextBlock FontSize="18" Margin="4" HorizontalAlignment="Center" FontWeight="DemiBold">Layers</TextBlock>
                 <ItemsControl x:Name="itemsControl" Margin="8,4" Background="#FFF4F4F5">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding}" Margin="3"/>
+                            <Grid Background="#E0E0E0" Margin="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="2" Padding="4,2,4,2" Background="#F3F3F3"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Type}" Margin="2" Padding="4,2,4,2" Background="#F3F3F3"/>
+                            </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

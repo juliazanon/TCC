@@ -5,6 +5,7 @@ using SharpGL.Shaders;
 using GlmNet;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,13 +37,13 @@ namespace TCC
     public partial class MainWindow : Window
     {
         Cable cable;
+        ObservableCollection<Layer> observableLayer = new ObservableCollection<Layer>();
+
         public MainWindow()
         {
             InitializeComponent();
 
-            // Sample array of strings
-            string[] dataArray = { "Element 1", "Element 2", "Element 3", "Element 4", "Element 5" };
-            itemsControl.ItemsSource = dataArray;
+            itemsControl.ItemsSource = observableLayer;
 
             cable = new Cable
             {
@@ -53,8 +54,8 @@ namespace TCC
                 LayerMaterials = new Dictionary<int, LayerMaterial>()
             };
         }
-        //  Menu
 
+        //  Menu
         //  Layers
         private void ButtonNewCylinder(object sender, RoutedEventArgs e)
         {
@@ -77,6 +78,9 @@ namespace TCC
             };
 
             cable.Layers.Add(layer);
+            observableLayer.Add(layer);
+            teste.Text = observableLayer.Count.ToString();
+            itemsControl.ItemsSource = observableLayer;
         }
         private void ButtonNewHelix(object sender, RoutedEventArgs e)
         {
@@ -91,11 +95,11 @@ namespace TCC
             HelixLayer layer = windowHelix.HelixLayer;
 
             cable.Layers.Add(layer);
-
-            //HelixLayer aux = cable.Layers[0] as HelixLayer;
-            //teste.Text = aux.Radius.ToString();
-            //teste.Text = aux.Name;
-            //teste.Text = aux.Section.Name;
+            observableLayer.Add(layer);
+            teste.Text = observableLayer.Count.ToString();
+            itemsControl.ItemsSource = observableLayer;
+            // HelixLayer aux = cable.Layers[0] as HelixLayer;
+            //teste.Text = aux.MaterialID.ToString();
         }
 
         //  Materials
