@@ -35,5 +35,63 @@ namespace TCC
         {
             InitializeComponent();
         }
+
+        //  Material
+        private void MaterialComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MaterialComboBox.SelectedItem != null)
+            {
+                // Get the selected Material instance.
+                LayerMaterial selectedMaterial = (LayerMaterial)MaterialComboBox.SelectedItem;
+
+                // Access the selected ID and Name.
+                int selectedMaterialID = selectedMaterial.ID;
+
+                // USE THIS VALUE AS MATERIAL ID
+
+                // teste.Text = selectedID.ToString();
+            }
+        }
+
+        //  Areas
+        //  Internal
+        private void ButtonNewAreaInternal(object sender, RoutedEventArgs e)
+        {
+            string areaType = "Internal";
+            CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
+
+            //windowArea.SubmitButtonClick += SubmitAreaInternalButtonClick;
+            windowArea.Show();
+        }
+
+        //  Bottom
+        private void ButtonNewAreaBottom(object sender, RoutedEventArgs e)
+        {
+            string areaType = "Bottom";
+            CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
+
+            //windowArea.SubmitButtonClick += SubmitAreaBottomButtonClick;
+            windowArea.Show();
+        }
+
+        //  External
+        private void ButtonNewAreaExternal(object sender, RoutedEventArgs e)
+        {
+            string areaType = "External";
+            CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
+
+            //windowArea.SubmitButtonClick += SubmitAreaExternalButtonClick;
+            windowArea.Show();
+        }
+
+        //  Top
+        private void ButtonNewAreaTop(object sender, RoutedEventArgs e)
+        {
+            string areaType = "Top";
+            CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
+
+            //windowArea.SubmitButtonClick += SubmitAreaTopButtonClick;
+            windowArea.Show();
+        }
     }
 }
