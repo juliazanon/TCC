@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="Cylindrical Areas"
+        Title="Cylindrical Area"
         MinHeight="500" MinWidth="700"
         KeyDown="Window_KeyDown">
     <ScrollViewer>
@@ -79,8 +79,82 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="4" FontWeight="DemiBold">Frontier</TextBlock>
+                <CheckBox Content="Design Only" Name="DesignCheckBoxFrontier" IsChecked="False"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Margin="4">Distributed Loads:</TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="100" Margin="4" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="100" Margin="4" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Margin="4,0,0,0">Status:</TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
+                    <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                        <ComboBoxItem Content="Imposed"/>
+                    </ComboBox>
+                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                        <ComboBoxItem Content="Imposed"/>
+                    </ComboBox>
+                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                        <ComboBoxItem Content="Imposed"/>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                        <ComboBoxItem Content="Imposed"/>
+                    </ComboBox>
+                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                        <ComboBoxItem Content="Imposed"/>
+                    </ComboBox>
+                    <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Tz:</TextBlock>
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                        <ComboBoxItem Content="Imposed"/>
+                    </ComboBox>
+                </StackPanel>
+                <TextBlock Margin="4,0,0,0">Imposed Displacements:</TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock >Fx:</TextBlock>
+                    <TextBox Width="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
+                    <TextBox Width="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
+                    <TextBox Width="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock >Tx:</TextBlock>
+                    <TextBox Width="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
+                    <TextBox Width="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBlock Margin="8,0,0,0">Yz:</TextBlock>
+                    <TextBox Width="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
                 <StackPanel>
-                    <TextBlock FontWeight="DemiBold">Start</TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="4" FontWeight="DemiBold">Start</TextBlock>
+                        <CheckBox Content="Design Only" Name="DesignCheckBoxStart" IsChecked="False"/>
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
                         <ComboBox Name="CoordinateComboBoxStart" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
@@ -177,7 +251,10 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel>
-                    <TextBlock FontWeight="DemiBold">End</TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="4" FontWeight="DemiBold">End</TextBlock>
+                        <CheckBox Content="Design Only" Name="DesignCheckBoxEnd" IsChecked="False"/>
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
                         <ComboBox Name="CoordinateComboBoxEnd" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">

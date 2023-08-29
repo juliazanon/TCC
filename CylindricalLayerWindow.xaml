@@ -18,9 +18,11 @@
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock Margin="4,0,2,0">Radius:</TextBlock>
                     <TextBox Width="100" Name="RadiusTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                    <TextBlock Margin="4,0,2,0">Length:</TextBlock>
-                    <TextBox Width="150" Name="LengthTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBlock Margin="4,0,2,0">Thickness:</TextBlock>
+                    <TextBox Width="150" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                 </StackPanel>
+                <TextBlock Margin="4,0,2,0">Length:</TextBlock>
+                <TextBox Width="150" Name="LengthTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock VerticalAlignment="Center">Material</TextBlock>
                     <ComboBox Name="MaterialComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
@@ -53,7 +55,7 @@
                 <TextBox Width="100" Name="ZTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
             </StackPanel>
             <StackPanel>
-                <TextBlock Margin="4" FontWeight="DemiBold">Element: Areas</TextBlock>
+                <TextBlock Margin="4" FontWeight="DemiBold">Element: Area</TextBlock>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

@@ -60,7 +60,10 @@
                     <TextBox Width="100" Name="BodyLoadZTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
                 </StackPanel>
                 <StackPanel>
-                    <TextBlock Margin="4" FontWeight="DemiBold">Element: Line</TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="4" FontWeight="DemiBold">Element: Line</TextBlock>
+                        <CheckBox Content="Design Only" Name="DesignCheckBoxLine" IsChecked="False"/>
+                    </StackPanel>
                     <TextBlock Margin="4,0,0,0">Distributed Loads:</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock >Fx:</TextBlock>
@@ -132,7 +135,10 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel>
-                            <TextBlock FontWeight="DemiBold">Start</TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontWeight="DemiBold">Start</TextBlock>
+                                <CheckBox Content="Design Only" Name="DesignCheckBoxStart" IsChecked="False"/>
+                            </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="4">
                                 <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
                                 <ComboBox Name="CoordinateComboBoxStart" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
@@ -229,7 +235,10 @@
                             </StackPanel>
                         </StackPanel>
                         <StackPanel>
-                            <TextBlock FontWeight="DemiBold">End</TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontWeight="DemiBold">End</TextBlock>
+                                <CheckBox Content="Design Only" Name="DesignCheckBoxEnd" IsChecked="False"/>
+                            </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="4">
                                 <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
                                 <ComboBox Name="CoordinateComboBoxEnd" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
