@@ -156,6 +156,12 @@ namespace TCC
             else if (clickedButton.Name == "ButtonZoomOut") { scale -= 0.01f; }
         }
 
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.OemPlus || e.Key == Key.Add) { scale += 0.01f; }
+            else if (e.Key == Key.OemMinus || e.Key == Key.Subtract) { scale -= 0.01f; }
+        }
+
         // Graphics
         private void OpenGLDraw(object sender, SharpGL.WPF.OpenGLRoutedEventArgs args)
         {
