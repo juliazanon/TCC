@@ -27,17 +27,40 @@ namespace TCC
 
             if (layers.Count == 0)
             {
-                List<Layer> sectionList = new List<Layer>
+                List<Layer> layerList = new List<Layer>
                 {
-                    new Layer { name = "No Section Created" },
+                    new Layer { Name = "No Layer Created" },
                 };
-                FirstLayerComboBox.ItemsSource = sectionList;
+                FirstLayerComboBox.ItemsSource = layerList;
                 FirstLayerComboBox.SelectedIndex = 0;
+                SecondLayerComboBox.ItemsSource = layerList;
+                SecondLayerComboBox.SelectedIndex = 0;
+            }
+            else if (layers.Count == 1)
+            {
+                FirstLayerComboBox.ItemsSource = layers;
+                FirstLayerComboBox.SelectedIndex = 0;
+                SecondLayerComboBox.ItemsSource = layers;
+                SecondLayerComboBox.SelectedIndex = 0;
+            } else
+            {
+                FirstLayerComboBox.ItemsSource = layers;
+                FirstLayerComboBox.SelectedIndex = 0;
+                SecondLayerComboBox.ItemsSource = layers;
+                SecondLayerComboBox.SelectedIndex = 1;
             }
         }
         private void FirstLayerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (FirstLayerComboBox.SelectedItem != null)
+            {
+                // Get the selected Material instance.
+                //this.firstLayer = (Layer)FirstLayerComboBox.SelectedItem;
+            }
+        }
+        private void SecondLayerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SecondLayerComboBox.SelectedItem != null)
             {
                 // Get the selected Material instance.
                 //this.firstLayer = (Layer)FirstLayerComboBox.SelectedItem;
