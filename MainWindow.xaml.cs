@@ -136,9 +136,9 @@ namespace TCC
                 RectangularSection rectangularSection = windowSection.RectangularSection;
                 cable.Sections.Add(rectangularSection.ID, rectangularSection);
             }
-            else if (windowSection.CylindricalSection != null)
+            else if (windowSection.TubularSection != null)
             {
-                CylindricalSection cylindricalSection = windowSection.CylindricalSection;
+                TubularSection cylindricalSection = windowSection.TubularSection;
                 cable.Sections.Add(cylindricalSection.ID, cylindricalSection);
             }
         }
@@ -197,11 +197,13 @@ namespace TCC
                 }
             }
 
-            rgb = new vec3(111, 112, 112) / 255;
-            CircleDrawing c1 = new CircleDrawing(gl, 10000, 40, 40f * prop, rgb, false);
+            //rgb = new vec3(80, 80, 80) / 255;
+            //HelixLayer.DrawCylindrical(gl, 10, 100, 20, rgb);
+            //rgb = new vec3(111, 112, 112) / 255;
+            //CircleDrawing c1 = new CircleDrawing(gl, 10000, 40, 40f * prop, rgb, false);
 
-            rgb = new vec3(150, 150, 150) / 255;
-            CircleDrawing c2 = new CircleDrawing(gl, 5000, 30, 30f * prop, rgb, false);
+            //rgb = new vec3(150, 150, 150) / 255;
+            //CircleDrawing c2 = new CircleDrawing(gl, 5000, 30, 30f * prop, rgb, false);
 
             // circles with triangles
             //rgb = new vec3(80, 80, 80) / 255;

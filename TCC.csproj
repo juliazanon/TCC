@@ -75,7 +75,7 @@
     <Compile Include="Classes\Boundaries.cs" />
     <Compile Include="Classes\Cable.cs" />
     <Compile Include="Classes\CylinderLayer.cs" />
-    <Compile Include="Classes\CylindricalSection.cs" />
+    <Compile Include="Classes\TubularSection.cs" />
     <Compile Include="Classes\HelixLayer.cs" />
     <Compile Include="Classes\Isotropic.cs" />
     <Compile Include="Classes\Layer.cs" />
@@ -85,7 +85,6 @@
     <Compile Include="Classes\Orthotropic.cs" />
     <Compile Include="Classes\RectangularSection.cs" />
     <Compile Include="Classes\Section.cs" />
-    <Compile Include="Classes\CircleDrawing.cs" />
     <Compile Include="CylindricalAreasWindow.xaml.cs">
       <DependentUpon>CylindricalAreasWindow.xaml</DependentUpon>
     </Compile>
