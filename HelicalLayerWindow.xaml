@@ -14,55 +14,58 @@
             <StackPanel Grid.Row="1" Margin="4" Background="#E6E6E6">
                 <TextBlock Margin="4,4,4,0">Name:</TextBlock>
                 <TextBox Margin="4" Name="NameTextBox" Text="New Layer"></TextBox>
-                <TextBlock Margin="4,2,2,0">Wires:</TextBlock>
-                <TextBox Margin="4,2,4,2" Name="WiresTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
-                <TextBlock Margin="4" FontWeight="DemiBold">Geometric Parameters</TextBlock>
+                <TextBlock Margin="4,10,10,0" FontWeight="DemiBold">Geometric Parameters</TextBlock>
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock Margin="4,0,2,0">Radius:</TextBlock>
-                        <TextBox Width="100" Name="RadiusTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                        <TextBlock Margin="4,0,2,0">Length:</TextBlock>
-                        <TextBox Width="150" Name="LengthTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="4,2,2,0">Wires:</TextBlock>
+                        <TextBox Margin="22.5,2,4,2" Width="70" Name="WiresTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock Margin="4,0,2,0">Lay Angle:</TextBlock>
+                        <TextBlock Margin="0,0,18.3,0">Radius:</TextBlock>
+                        <TextBox Width="70" Name="RadiusTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                        <TextBlock Margin="4,0,28.5,0">Length:</TextBlock>
+                        <TextBox Width="70" Name="LengthTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock Margin="0,0,2,0">Lay Angle:</TextBlock>
                         <TextBox Width="70" Name="LayAngleTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
                         <TextBlock Margin="4,0,2,0">Initial Angle:</TextBlock>
                         <TextBox Width="70" Name="InitialAngleTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock Margin="4,0,2,0" VerticalAlignment="Center">Section:</TextBlock>
-                        <ComboBox Name="SectionComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
+                        <TextBlock VerticalAlignment="Center">Section</TextBlock>
+                        <ComboBox Name="SectionComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="12,5,10,5"
                                   DisplayMemberPath="Name" SelectedValuePath="ID">
                         </ComboBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock VerticalAlignment="Center">Material</TextBlock>
-                        <ComboBox Name="MaterialComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
-                                  DisplayMemberPath="Name" SelectedValuePath="ID">
-                        </ComboBox>
+                        <TextBlock Margin="4,0,4,0" VerticalAlignment="Center" Foreground="Red" Name="SectionWarning">(!) Select a Valid Section</TextBlock>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="2" Margin="3">
-                <TextBlock Margin="4" FontWeight="DemiBold">Simulation Parameters</TextBlock>
+                <TextBlock Margin="4,10,10,0" FontWeight="DemiBold">Simulation Parameters</TextBlock>
                 <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock Margin="4,2,4,2">Divisions</TextBlock>
+                    <TextBlock VerticalAlignment="Center">Material:</TextBlock>
+                    <ComboBox Name="MaterialComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
+                                  DisplayMemberPath="Name" SelectedValuePath="ID">
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock Margin="0,2,4,2">Divisions:</TextBlock>
                     <TextBox Width="150" Name="DivisionsTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
                 </StackPanel>
-                <TextBlock Margin="4,2,4,2" FontWeight="DemiBold">Body loads</TextBlock>
+                <TextBlock Margin="4,2,4,2">Body loads:</TextBlock>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock Margin="0,0,2,0">X:</TextBlock>
-                    <TextBox Width="100" Name="BodyLoadXTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                    <TextBox Margin="2.5,0,0,0" Width="100" Name="BodyLoadXTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
                     <TextBlock Margin="8,0,2,0">Y:</TextBlock>
-                    <TextBox Width="100" Name="BodyLoadYTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                    <TextBox Margin="2.5,0,0,0" Width="100" Name="BodyLoadYTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
                     <TextBlock Margin="8,0,2,0">Z:</TextBlock>
-                    <TextBox Width="100" Name="BodyLoadZTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                    <TextBox Margin="2.5,0,0,0" Width="100" Name="BodyLoadZTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
                 </StackPanel>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="4" FontWeight="DemiBold">Element: Line</TextBlock>
-                        <CheckBox Content="Design Only" Name="DesignCheckBoxLine" IsChecked="False"/>
+                        <TextBlock Margin="4,10,10,0" FontWeight="DemiBold">Element: Line</TextBlock>
+                        <CheckBox VerticalAlignment="Bottom" Content="Design Only" Name="DesignCheckBoxLine" IsChecked="False"/>
                     </StackPanel>
                     <TextBlock Margin="4,0,0,0">Distributed Loads:</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="4">
@@ -136,8 +139,8 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock FontWeight="DemiBold">Start</TextBlock>
-                                <CheckBox Content="Design Only" Name="DesignCheckBoxStart" IsChecked="False"/>
+                                <TextBlock FontWeight="DemiBold" Margin="10,10,10,0">Start</TextBlock>
+                                <CheckBox VerticalAlignment="Bottom" Content="Design Only" Name="DesignCheckBoxStart" IsChecked="False"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="4">
                                 <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
@@ -236,8 +239,8 @@
                         </StackPanel>
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock FontWeight="DemiBold">End</TextBlock>
-                                <CheckBox Content="Design Only" Name="DesignCheckBoxEnd" IsChecked="False"/>
+                                <TextBlock FontWeight="DemiBold" Margin="10,10,10,0">End</TextBlock>
+                                <CheckBox VerticalAlignment="Bottom" Content="Design Only" Name="DesignCheckBoxEnd" IsChecked="False"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="4">
                                 <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
@@ -338,7 +341,7 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="3" HorizontalAlignment="Right">
-                <Button Click="SubmitNewLayer">Create</Button>
+                <Button Margin="5" Click="SubmitNewLayer" Name="SubmitButton">Submit</Button>
             </StackPanel>
         </StackPanel>
     </ScrollViewer>

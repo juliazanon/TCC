@@ -23,6 +23,7 @@ namespace TCC
         private CylinderLayer cylinderLayer;
         private LayerMaterial material;
         private List<Area> areas = new List<Area>();
+        private bool isChildWindowOpen = false;
 
         public event EventHandler SubmitButtonClick;
 
@@ -84,7 +85,10 @@ namespace TCC
             {
                 CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
                 windowArea.SubmitButtonClick += SubmitAreaButtonClick;
+                windowArea.Closed += AreaWindow_Closed;
                 windowArea.Show();
+                this.IsEnabled = false;
+                isChildWindowOpen = true;
             }
         }
         private void SubmitAreaButtonClick(object sender, EventArgs e)
@@ -93,6 +97,11 @@ namespace TCC
             Area area = windowArea.Area;
 
             areas.Add(area);
+        }
+        private void AreaWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            isChildWindowOpen = false;
         }
 
         private void SubmitNewLayer(object sender, RoutedEventArgs e)
@@ -159,6 +168,11 @@ namespace TCC
             {
                 SubmitNewLayer(sender, e);
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (isChildWindowOpen) e.Cancel = true;
         }
     }
 }

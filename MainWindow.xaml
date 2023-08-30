@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="TCC" Height="644" Width="1138"
         MinHeight="644" MinWidth="1138"
-        KeyDown="Window_KeyDown">
+        KeyDown="Window_KeyDown"
+        Closing="Window_Closing">
     <Grid Margin="12,12,12,12" ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>

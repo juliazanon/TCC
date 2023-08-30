@@ -7,45 +7,48 @@
         mc:Ignorable="d"
         Title="Cylindrical Layer"
         MinHeight="400" Width="500"
-        KeyDown="Window_KeyDown">
+        KeyDown="Window_KeyDown"
+        Closing="Window_Closing">
     <StackPanel>
         <TextBlock Grid.Row="0" FontSize="18" Margin="8,8,8,0" FontWeight="DemiBold" >Create new Cylindrical Layer</TextBlock>
         <StackPanel Grid.Row="1" Margin="4" Background="#E6E6E6">
             <TextBlock Margin="4,4,4,0">Name:</TextBlock>
             <TextBox Margin="4" Name="NameTextBox" Text="New Layer"></TextBox>
-            <TextBlock Margin="4" FontWeight="DemiBold">Geometric Parameters</TextBlock>
+            <TextBlock Margin="4,10,10,0" FontWeight="DemiBold">Geometric Parameters</TextBlock>
             <StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock Margin="4,0,2,0">Radius:</TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
+                    <TextBlock Margin="4,0,3.5,0">Radius:</TextBlock>
                     <TextBox Width="100" Name="RadiusTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                     <TextBlock Margin="4,0,2,0">Thickness:</TextBlock>
-                    <TextBox Width="150" Name="ThicknessTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Name="ThicknessTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                 </StackPanel>
-                <TextBlock Margin="4,0,2,0">Length:</TextBlock>
-                <TextBox Width="150" Name="LengthTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock VerticalAlignment="Center">Material</TextBlock>
-                    <ComboBox Name="MaterialComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
-                                  DisplayMemberPath="Name" SelectedValuePath="ID" SelectionChanged="MaterialComboBox_SelectionChanged">
-                    </ComboBox>
+                <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
+                    <TextBlock Margin="4,0,2,0">Length:</TextBlock>
+                    <TextBox Width="100" Name="LengthTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="3">
-            <TextBlock Margin="4" FontWeight="DemiBold">Simulation Parameters</TextBlock>
-            <StackPanel Orientation="Horizontal" Margin="4">
-                <TextBlock Margin="4,2,4,2">Divisions</TextBlock>
-                <TextBox Width="150" Name="DivisionsTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
-                <TextBlock Margin="20,2,4,2">Fourier Order</TextBlock>
-                <TextBox Width="150" Name="FourierTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
+            <TextBlock Margin="4,10,10,0" FontWeight="DemiBold">Simulation Parameters</TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Margin="4,0,0,0">Material</TextBlock>
+                <ComboBox Name="MaterialComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="7.5,5,10,5"
+                                  DisplayMemberPath="Name" SelectedValuePath="ID" SelectionChanged="MaterialComboBox_SelectionChanged">
+                </ComboBox>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="4">
+            <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
+                <TextBlock Margin="4,2,4,2">Divisions</TextBlock>
+                <TextBox Width="140" Name="DivisionsTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
+                <TextBlock Margin="20,2,4,2">Fourier Order</TextBlock>
+                <TextBox Margin="5,0,0,0" Width="100" Name="FourierTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
                 <TextBlock Margin="4,0,2,0">Radial Divisions:</TextBlock>
-                <TextBox Width="100" Name="RadialTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
+                <TextBox Width="104" Name="RadialTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
                 <TextBlock Margin="20,0,2,0">Axial Divisions:</TextBlock>
                 <TextBox Width="100" Name="AxialTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
             </StackPanel>
-            <TextBlock Margin="4,2,4,2" FontWeight="DemiBold">Body loads</TextBlock>
+            <TextBlock Margin="4,2,4,2">Body loads:</TextBlock>
             <StackPanel Orientation="Horizontal" Margin="4">
                 <TextBlock Margin="0,0,2,0">X:</TextBlock>
                 <TextBox Width="100" Name="XTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
@@ -55,7 +58,7 @@
                 <TextBox Width="100" Name="ZTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
             </StackPanel>
             <StackPanel>
-                <TextBlock Margin="4" FontWeight="DemiBold">Element: Area</TextBlock>
+                <TextBlock Margin="4,10,10,0" FontWeight="DemiBold">Element: Area</TextBlock>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
