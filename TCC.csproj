@@ -75,23 +75,27 @@
     <Compile Include="Classes\Boundaries.cs" />
     <Compile Include="Classes\Cable.cs" />
     <Compile Include="Classes\CylinderLayer.cs" />
-    <Compile Include="Classes\CylindricalSection.cs" />
+    <Compile Include="Classes\TubularSection.cs" />
     <Compile Include="Classes\HelixLayer.cs" />
     <Compile Include="Classes\Isotropic.cs" />
     <Compile Include="Classes\Layer.cs" />
-    <Compile Include="Classes\LayerConnections.cs" />
+    <Compile Include="Classes\LayerConnection.cs" />
     <Compile Include="Classes\LayerMaterial.cs" />
     <Compile Include="Classes\Line.cs" />
     <Compile Include="Classes\Orthotropic.cs" />
     <Compile Include="Classes\RectangularSection.cs" />
     <Compile Include="Classes\Section.cs" />
-    <Compile Include="Classes\CircleDrawing.cs" />
-    <Compile Include="Classes\HelicoidalDrawing.cs" />
+    <Compile Include="CylindricalAreasWindow.xaml.cs">
+      <DependentUpon>CylindricalAreasWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CylindricalLayerWindow.xaml.cs">
       <DependentUpon>CylindricalLayerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="HelicalLayerWindow.xaml.cs">
       <DependentUpon>HelicalLayerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LayerConnectionsWindow.xaml.cs">
+      <DependentUpon>LayerConnectionsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MaterialsWindow.xaml.cs">
       <DependentUpon>MaterialsWindow.xaml</DependentUpon>
@@ -102,11 +106,19 @@
     <Compile Include="StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="CylindricalAreasWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CylindricalLayerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HelicalLayerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LayerConnectionsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
