@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TCC.Classes
 {
-    public class CylindricalSection : Section
+    public class TubularSection : Section
     {
         public double InternalRadius { get; set; }
         public double ExternalRadius { get; set; }

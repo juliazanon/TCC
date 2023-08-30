@@ -21,7 +21,7 @@ namespace TCC
     {
         private Dictionary<int, Section> sections;
         private RectangularSection rectangularSection;
-        private CylindricalSection cylindricalSection;
+        private TubularSection tubularSection;
         private string section = "Rectangular";
 
         public event EventHandler SubmitButtonClick;
@@ -36,7 +36,7 @@ namespace TCC
         }
 
         public RectangularSection RectangularSection { get { return rectangularSection; } }
-        public CylindricalSection CylindricalSection { get { return cylindricalSection; } }
+        public TubularSection TubularSection { get { return tubularSection; } }
 
         private void SectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -44,7 +44,7 @@ namespace TCC
 
             string selectedParameter = ((ComboBoxItem)comboBox.SelectedItem).Content.ToString();
 
-            if (selectedParameter == "Section Rectangular")
+            if (selectedParameter == "Rectangular")
             {
                 section = "Rectangular";
                 // Show Rectangular
@@ -53,9 +53,9 @@ namespace TCC
                 // Hide Cylindrical
                 Cylindrical.Visibility = Visibility.Collapsed;
             }
-            else if (selectedParameter == "Section Cylindrical")
+            else if (selectedParameter == "Tubular")
             {
-                section = "Cylindrical";
+                section = "Tubular";
                 // Show Cylindrical
                 Cylindrical.Visibility = Visibility.Visible;
 
@@ -91,9 +91,9 @@ namespace TCC
                 double.TryParse(HeightTextBox.Text, out result);
                 rectangularSection.Height = result;
             }
-            else if (section == "Cylindrical")
+            else if (section == "Tubular")
             {
-                cylindricalSection = new CylindricalSection
+                tubularSection = new TubularSection
                 {
                     Name = "New Section",
                     ID = 0,
@@ -102,12 +102,12 @@ namespace TCC
                     ExternalRadius = 1.0
                 };
 
-                cylindricalSection.Name = SectionName.Text;
-                cylindricalSection.ID = sections.Count + 1;
+                tubularSection.Name = SectionName.Text;
+                tubularSection.ID = sections.Count + 1;
                 double.TryParse(InternalRadiusTextBox.Text, out double result);
-                cylindricalSection.InternalRadius = result;
+                tubularSection.InternalRadius = result;
                 double.TryParse(ExternalRadiusTextBox.Text, out result);
-                cylindricalSection.ExternalRadius = result;
+                tubularSection.ExternalRadius = result;
             }
 
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);

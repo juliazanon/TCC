@@ -85,48 +85,48 @@
             <StackPanel>
                 <TextBlock Margin="4">Distributed Loads:</TextBlock>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Width="100" Margin="4" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                    <TextBox Width="100" Margin="4" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                    <TextBox Width="100" Margin="4" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" Name="FxTextBoxFrontier" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" Name="FyTextBoxFrontier" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" Name="FzTextBoxFrontier" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Width="100" Margin="4" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                    <TextBox Width="100" Margin="4" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                    <TextBox Width="100" Margin="4" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" Name="TxTextBoxFrontier" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" Name="TyTextBoxFrontier" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Margin="4" Name="TzTextBoxFrontier" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                 </StackPanel>
             </StackPanel>
             <StackPanel>
                 <TextBlock Margin="4,0,0,0">Status:</TextBlock>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
-                    <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                    <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxStatusComboBoxFrontier">
                         <ComboBoxItem Content="Fixed" IsSelected="True"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyStatusComboBoxFrontier">
                         <ComboBoxItem Content="Fixed" IsSelected="True"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzStatusComboBoxFrontier">
                         <ComboBoxItem Content="Fixed" IsSelected="True"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxStatusComboBoxFrontier">
                         <ComboBoxItem Content="Fixed" IsSelected="True"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyStatusComboBoxFrontier">
                         <ComboBoxItem Content="Fixed" IsSelected="True"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Tz:</TextBlock>
-                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80">
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzStatusComboBoxFrontier">
                         <ComboBoxItem Content="Fixed" IsSelected="True"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
@@ -134,19 +134,19 @@
                 <TextBlock Margin="4,0,0,0">Imposed Displacements:</TextBlock>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock >Fx:</TextBlock>
-                    <TextBox Width="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Name="FxDispTextBoxFrontier" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                     <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
-                    <TextBox Width="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Name="FyDispTextBoxFrontier" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                     <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
-                    <TextBox Width="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Name="FzDispTextBoxFrontier" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock >Tx:</TextBlock>
-                    <TextBox Width="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Name="TxDispTextBoxFrontier" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                     <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
-                    <TextBox Width="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Name="TyDispTextBoxFrontier" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                     <TextBlock Margin="8,0,0,0">Yz:</TextBlock>
-                    <TextBox Width="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBox Width="100" Name="TzDispTextBoxFrontier" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal">

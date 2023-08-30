@@ -137,11 +137,36 @@ namespace TCC
             double.TryParse(TzDispTextBox.Text, out rzresult);
             area.ImposedDisplacements = new double[] { xresult, yresult, zresult, rxresult, ryresult, rzresult };
 
-            // FALTA DISTRIBUTED LOADS, STATUS E IMPOSED DISPLACEMENT DO FRONTIER
+            // Frontier
+            area.Frontier.DesignOnly = (bool)DesignCheckBoxFrontier.IsChecked;
+
+            double.TryParse(FxTextBoxFrontier.Text, out xresult);
+            double.TryParse(FyTextBoxFrontier.Text, out yresult);
+            double.TryParse(FzTextBoxFrontier.Text, out zresult);
+            double.TryParse(TxTextBoxFrontier.Text, out rxresult);
+            double.TryParse(TyTextBoxFrontier.Text, out ryresult);
+            double.TryParse(TzTextBoxFrontier.Text, out rzresult);
+            area.Frontier.DistributedLoads = new double[] { xresult, yresult, zresult, rxresult, ryresult, rzresult };
+
+            fxstatus = FxStatusComboBoxFrontier.Text;
+            fystatus = FyStatusComboBoxFrontier.Text;
+            fzstatus = FzStatusComboBoxFrontier.Text;
+            txstatus = TxStatusComboBoxFrontier.Text;
+            tystatus = TyStatusComboBoxFrontier.Text;
+            tzstatus = TzStatusComboBoxFrontier.Text;
+            area.Frontier.Status = new string[] { fxstatus, fystatus, fzstatus, txstatus, tystatus, tzstatus };
+
+            double.TryParse(FxDispTextBoxFrontier.Text, out xresult);
+            double.TryParse(FyDispTextBoxFrontier.Text, out yresult);
+            double.TryParse(FzDispTextBoxFrontier.Text, out zresult);
+            double.TryParse(TxDispTextBoxFrontier.Text, out rxresult);
+            double.TryParse(TyDispTextBoxFrontier.Text, out ryresult);
+            double.TryParse(TzDispTextBoxFrontier.Text, out rzresult);
+            area.Frontier.ImposedDisplacements = new double[] { xresult, yresult, zresult, rxresult, ryresult, rzresult };
 
             // Start
             area.Frontier.Start.ID = 1;
-            area.Frontier.Start.DesignOnly = false;
+            area.Frontier.Start.DesignOnly = (bool)DesignCheckBoxStart.IsChecked;
             area.Frontier.Start.CoordinateSystem = CoordinateComboBoxStart.Text;
 
             double.TryParse(XCoordTextBoxStart.Text, out xresult);
@@ -178,7 +203,7 @@ namespace TCC
 
             // End
             area.Frontier.End.ID = 1;
-            area.Frontier.End.DesignOnly = false;
+            area.Frontier.End.DesignOnly = (bool)DesignCheckBoxEnd.IsChecked;
             area.Frontier.End.CoordinateSystem = CoordinateComboBoxStart.Text;
 
             double.TryParse(XCoordTextBoxEnd.Text, out xresult);
