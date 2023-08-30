@@ -28,7 +28,7 @@ namespace TCC
         public event EventHandler SubmitButtonClick;
 
         public CylinderLayer CylinderLayer { get { return cylinderLayer; } }
-        public CylindricalLayerWindow(Dictionary<int, LayerMaterial> materials)
+        public CylindricalLayerWindow(List<LayerMaterial> materials)
         {
             InitializeComponent();
 
@@ -44,7 +44,7 @@ namespace TCC
             }
             else
             {
-                MaterialComboBox.ItemsSource = materials.Values;
+                MaterialComboBox.ItemsSource = materials;
                 MaterialComboBox.SelectedIndex = 0;
             }
         }

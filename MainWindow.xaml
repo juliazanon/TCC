@@ -23,7 +23,7 @@
             <Button Margin="8,0,8,4">
                 Open
             </Button>
-            <Button Margin="8,0,8,4">
+            <Button Margin="8,0,8,4" Name="SaveButton" Click="SaveButtonClick">
                 Save
             </Button>
         </StackPanel>

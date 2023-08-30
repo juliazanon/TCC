@@ -49,10 +49,10 @@ namespace TCC
             cable = new Cable
             {
                 Name = "New Cable",
-                Sections = new Dictionary<int, Section>(),
+                Sections = new List<Section>(),
                 Layers = new List<Layer>(),
                 LayerConnections = new List<LayerConnection>(),
-                LayerMaterials = new Dictionary<int, LayerMaterial>()
+                LayerMaterials = new List<LayerMaterial>()
             };
         }
 
@@ -101,16 +101,14 @@ namespace TCC
             cable.Layers.Add(layer);
             observableLayer.Add(layer);
             itemsControl.ItemsSource = observableLayer;
-            this.IsEnabled = true;
-            isChildWindowOpen = false;
 
             //HelixLayer aux = cable.Layers[0] as HelixLayer;
             //teste.Text = aux.Section.Type;
         }
         private void HelixWindow_Closed(object sender, EventArgs e)
         {
-            this.IsEnabled = false;
-            isChildWindowOpen = true;
+            this.IsEnabled = true;
+            isChildWindowOpen = false;
         }
         private void ButtonNewConnection(object sender, RoutedEventArgs e)
         {
@@ -149,14 +147,14 @@ namespace TCC
             {
                 Isotropic materialIsotropic = windowMaterial.LayerIsotropic;
 
-                cable.LayerMaterials.Add(materialIsotropic.ID, materialIsotropic);
+                cable.LayerMaterials.Add(materialIsotropic);
             }
 
             else if (windowMaterial.LayerOrthotropic != null)
             {
                 Orthotropic materialOrthotropic = windowMaterial.LayerOrthotropic;
 
-                cable.LayerMaterials.Add(materialOrthotropic.ID, materialOrthotropic);
+                cable.LayerMaterials.Add(materialOrthotropic);
             }
         }
         private void MaterialWindow_Closed(object sender, EventArgs e)
@@ -181,18 +179,34 @@ namespace TCC
             if (windowSection.RectangularSection != null)
             {
                 RectangularSection rectangularSection = windowSection.RectangularSection;
-                cable.Sections.Add(rectangularSection.ID, rectangularSection);
+                cable.Sections.Add(rectangularSection);
             }
             else if (windowSection.TubularSection != null)
             {
                 TubularSection tubularSection = windowSection.TubularSection;
-                cable.Sections.Add(tubularSection.ID, tubularSection);
+                cable.Sections.Add(tubularSection);
             }
         }
         private void SectionWindow_Closed(object sender, EventArgs e)
         {
             this.IsEnabled = true;
             isChildWindowOpen = false;
+        }
+
+        private void SaveButtonClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.OemPlus || e.Key == Key.Add) { scale += 0.01f; }
+            else if (e.Key == Key.OemMinus || e.Key == Key.Subtract) { scale -= 0.01f; }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (isChildWindowOpen) e.Cancel = true;
         }
 
         //  Camera parameters
@@ -206,17 +220,6 @@ namespace TCC
             Button clickedButton = (Button)sender;
             if (clickedButton.Name == "ButtonZoomIn") { scale += 0.01f; }
             else if (clickedButton.Name == "ButtonZoomOut") { scale -= 0.01f; }
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.OemPlus || e.Key == Key.Add) { scale += 0.01f; }
-            else if (e.Key == Key.OemMinus || e.Key == Key.Subtract) { scale -= 0.01f; }
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (isChildWindowOpen) e.Cancel = true;
         }
 
         // Graphics
