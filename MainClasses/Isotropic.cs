@@ -10,5 +10,6 @@ namespace TCC.Classes
     {
         public double Young { get; set; }
         public double Poisson { get; set; }
+        public string Type { get; set; }
     }
 }

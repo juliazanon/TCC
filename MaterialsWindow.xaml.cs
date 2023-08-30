@@ -87,7 +87,7 @@ namespace TCC
         {
             if (IsotropicRadioButton.IsChecked == true)
             {
-                layerIsotropic = new Isotropic { Density = 1.0, ID = 1, Name = "New Material" };
+                layerIsotropic = new Isotropic { Density = 1.0, ID = 1, Name = "New Material", Type = "isotropic" };
                 layerIsotropic.ID = materials.Count + 1;
                 layerIsotropic.Name = NameTextBox.Text;
                 double.TryParse(DensityTextBox.Text, out double result);
@@ -99,7 +99,7 @@ namespace TCC
             }
             else if (OrthotropicRadioButton.IsChecked == true)
             {
-                layerOrthotropic = new Orthotropic { Density = 1.0, ID = 1, Name = "New Material" };
+                layerOrthotropic = new Orthotropic { Density = 1.0, ID = 1, Name = "New Material", Type = "orthotropic" };
                 layerOrthotropic.ID = materials.Count + 1;
                 layerOrthotropic.Name = NameTextBox.Text;
                 double.TryParse(DensityTextBox.Text, out double result);

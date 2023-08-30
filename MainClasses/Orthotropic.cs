@@ -8,6 +8,7 @@ namespace TCC.Classes
 {
     public class Orthotropic : LayerMaterial
     {
+        public string Type { get; set; }
         public double Ex { get; set; }
         public double Ey { get; set; }
         public double Ez { get; set; }

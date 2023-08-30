@@ -148,6 +148,7 @@ namespace TCC
                 Isotropic materialIsotropic = windowMaterial.LayerIsotropic;
 
                 cable.LayerMaterials.Add(materialIsotropic);
+                teste.Text = materialIsotropic.Type;
             }
 
             else if (windowMaterial.LayerOrthotropic != null)
@@ -195,7 +196,7 @@ namespace TCC
 
         private void SaveButtonClick(object sender, EventArgs e)
         {
-
+            cable.SaveFile();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
