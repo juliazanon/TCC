@@ -19,14 +19,14 @@ namespace TCC
     /// </summary>
     public partial class SectionWindow : Window
     {
-        private Dictionary<int, Section> sections;
+        private List<Section> sections;
         private RectangularSection rectangularSection;
         private TubularSection tubularSection;
         private string section = "Rectangular";
 
         public event EventHandler SubmitButtonClick;
 
-        public SectionWindow(Dictionary<int, Section> sections)
+        public SectionWindow(List<Section> sections)
         {
             InitializeComponent();
             this.sections = sections;

@@ -22,12 +22,12 @@ namespace TCC
     /// </summary>
     public partial class MaterialsWindow : Window
     {
-        private Dictionary<int, LayerMaterial> materials;
+        private List<LayerMaterial> materials;
         private Isotropic layerIsotropic;
         private Orthotropic layerOrthotropic;
 
         public event EventHandler SubmitButtonClick;
-        public MaterialsWindow(Dictionary<int, LayerMaterial> materials)
+        public MaterialsWindow(List<LayerMaterial> materials)
         {
             InitializeComponent();
             this.materials = materials;
