@@ -111,7 +111,7 @@
                         <TextBlock>New Material</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="36, 5" BorderThickness="1">
+                <Button Margin="36, 5" BorderThickness="1" Click="ButtonMaterialList">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>

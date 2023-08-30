@@ -107,6 +107,12 @@ namespace TCC
             windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
             windowMaterial.Show();
         }
+        private void ButtonMaterialList(object sender, RoutedEventArgs e)
+        {
+            MaterialListWindow windowMaterial = new MaterialListWindow(cable.LayerMaterials);
+            windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
+            windowMaterial.Show();
+        }
 
         private void SubmitMaterialButtonClick(object sender, EventArgs e)
         {
