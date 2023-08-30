@@ -100,6 +100,7 @@ namespace TCC
             cylinderLayer = new CylinderLayer
             {
                 Name = NameTextBox.Text,
+                Type = "cylinder",
                 Material = material,
                 Areas = areas,
             };

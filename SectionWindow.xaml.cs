@@ -97,7 +97,7 @@ namespace TCC
                 {
                     Name = "New Section",
                     ID = 0,
-                    Type = "Cylindrical",
+                    Type = "Tubular",
                     InternalRadius = 0.0,
                     ExternalRadius = 1.0
                 };

@@ -90,8 +90,8 @@ namespace TCC
             cable.Layers.Add(layer);
             observableLayer.Add(layer);
             itemsControl.ItemsSource = observableLayer;
-            // HelixLayer aux = cable.Layers[0] as HelixLayer;
-            //teste.Text = aux.MaterialID.ToString();
+            HelixLayer aux = cable.Layers[0] as HelixLayer;
+            teste.Text = aux.Section.Type;
         }
 
         //  Materials
@@ -138,8 +138,8 @@ namespace TCC
             }
             else if (windowSection.TubularSection != null)
             {
-                TubularSection cylindricalSection = windowSection.TubularSection;
-                cable.Sections.Add(cylindricalSection.ID, cylindricalSection);
+                TubularSection tubularSection = windowSection.TubularSection;
+                cable.Sections.Add(tubularSection.ID, tubularSection);
             }
         }
 
@@ -148,6 +148,13 @@ namespace TCC
         float[] _position = new float[] { 0.0f, 0.0f, 10.0f };
         float[] _upVector = new float[] { 0.0f, 1.0f, 0.0f };
         float scale = 0.04f;
+
+        private void ZoomButtonClick(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            if (clickedButton.Name == "ButtonZoomIn") { scale += 0.01f; }
+            else if (clickedButton.Name == "ButtonZoomOut") { scale -= 0.01f; }
+        }
 
         // Graphics
         private void OpenGLDraw(object sender, SharpGL.WPF.OpenGLRoutedEventArgs args)
@@ -160,7 +167,6 @@ namespace TCC
             gl.MatrixMode(MatrixMode.Projection);
             gl.LoadIdentity();
             gl.Perspective(60, (int)w / h, 0.01, 1000);
-            //gl.Ortho(0, w, 0, h, -1, 1);
             gl.Scale(scale, scale, 1);
 
             //  Camera Position
@@ -196,21 +202,6 @@ namespace TCC
                     layer.Draw(gl, rgb, 10000, prop, false);
                 }
             }
-
-            //rgb = new vec3(80, 80, 80) / 255;
-            //HelixLayer.DrawCylindrical(gl, 10, 100, 20, rgb);
-            //rgb = new vec3(111, 112, 112) / 255;
-            //CircleDrawing c1 = new CircleDrawing(gl, 10000, 40, 40f * prop, rgb, false);
-
-            //rgb = new vec3(150, 150, 150) / 255;
-            //CircleDrawing c2 = new CircleDrawing(gl, 5000, 30, 30f * prop, rgb, false);
-
-            // circles with triangles
-            //rgb = new vec3(80, 80, 80) / 255;
-            //Circle c3 = new Circle(gl, 1000, 20, 17, rgb, true);
-
-            //rgb = new vec3(120, 120, 120) / 255;
-            //Circle c4 = new Circle(gl, 1000, 10, 7, rgb, true);
         }
     }
 }

@@ -67,7 +67,7 @@
             </Grid>
             <StackPanel Grid.Row="0" Grid.Column="1" Margin="15" Background="#FFF4F4F5">
                 <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold">Visualizer</TextBlock>
-                <Button Margin="36, 5" BorderThickness="1">
+                <Button Margin="36, 5" BorderThickness="1" Name="ButtonZoomIn" Click="ZoomButtonClick">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -77,7 +77,7 @@
                         <TextBlock>Zoom In</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="36, 5" BorderThickness="1">
+                <Button Margin="36, 5" BorderThickness="1" Name="ButtonZoomOut" Click="ZoomButtonClick">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
