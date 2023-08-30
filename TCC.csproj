@@ -94,6 +94,9 @@
     <Compile Include="HelicalLayerWindow.xaml.cs">
       <DependentUpon>HelicalLayerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LayerConnectionsWindow.xaml.cs">
+      <DependentUpon>LayerConnectionsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MaterialsWindow.xaml.cs">
       <DependentUpon>MaterialsWindow.xaml</DependentUpon>
     </Compile>
@@ -112,6 +115,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HelicalLayerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LayerConnectionsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
