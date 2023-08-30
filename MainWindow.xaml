@@ -7,13 +7,24 @@
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
         Title="TCC" Height="644" Width="1138">
-    <Grid Margin="12,12,12,12" ShowGridLines="True">
+    <Grid Margin="12,4,12,12" ShowGridLines="True">
         <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
             <RowDefinition Height="*" MaxHeight="200" MinHeight="150"/>
             <RowDefinition Height="4*" MinHeight="400"/>
-            <RowDefinition Height="4*" MinHeight="400"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" ShowGridLines="True" Background="#D9D9D9">
+        <StackPanel Orientation="Horizontal">
+            <Button Margin="8,0,8,4">
+                New
+            </Button>
+            <Button Margin="8,0,8,4">
+                Open
+            </Button>
+            <Button Margin="8,0,8,4">
+                Save
+            </Button>
+        </StackPanel>
+        <Grid Grid.Row="1" ShowGridLines="True" Background="#D9D9D9">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="330"/>
                 <ColumnDefinition Width="200"/>
@@ -44,7 +55,7 @@
                     <TextBlock FontSize="16" Grid.Row="0" Margin="8, 0" FontWeight="DemiBold" VerticalAlignment="Center">Create</TextBlock>
                     <Button Grid.Row="1" Grid.Column="0" Margin="4" Width="48" MaxHeight="48" BorderThickness="1" Click="ButtonNewCylinder">Cylindrical</Button>
                     <Button Grid.Row="1" Grid.Column="1" Margin="4" Width="48" MaxHeight="48" BorderThickness="1" Click="ButtonNewHelix">Helix</Button>
-                    <Button Grid.Row="1" Grid.Column="2" Margin="4" Width="48" MaxHeight="48" BorderThickness="1">Link</Button>
+                    <Button Grid.Row="1" Grid.Column="2" Margin="4" Width="48" MaxHeight="48" BorderThickness="1" Click="ButtonNewConnection">Connection</Button>
                 </Grid>
                 <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
                     <Button Margin="3" BorderThickness="1">
@@ -139,7 +150,7 @@
                 <TextBox Name="teste" Language="en-US"/>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="1" ShowGridLines="True">
+        <Grid Grid.Row="2" ShowGridLines="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="4*" MinWidth="600"/>

@@ -79,6 +79,12 @@ namespace TCC
             windowHelix.SubmitButtonClick += SubmitHelixButtonClick;
             windowHelix.Show();
         }
+        private void ButtonNewConnection(object sender, RoutedEventArgs e)
+        {
+            LayerConnectionsWindow windowConnection = new LayerConnectionsWindow(cable.Layers);
+            //windowConnection.SubmitButtonClick += SubmitHelixButtonClick;
+            windowConnection.Show();
+        }
 
         private void SubmitHelixButtonClick(object sender, EventArgs e)
         {
