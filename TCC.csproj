@@ -71,20 +71,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Classes\Area.cs" />
-    <Compile Include="Classes\Boundaries.cs" />
-    <Compile Include="Classes\Cable.cs" />
-    <Compile Include="Classes\CylinderLayer.cs" />
-    <Compile Include="Classes\TubularSection.cs" />
-    <Compile Include="Classes\HelixLayer.cs" />
-    <Compile Include="Classes\Isotropic.cs" />
-    <Compile Include="Classes\Layer.cs" />
-    <Compile Include="Classes\LayerConnections.cs" />
-    <Compile Include="Classes\LayerMaterial.cs" />
-    <Compile Include="Classes\Line.cs" />
-    <Compile Include="Classes\Orthotropic.cs" />
-    <Compile Include="Classes\RectangularSection.cs" />
-    <Compile Include="Classes\Section.cs" />
+    <Compile Include="JSONClasses\JSONCable.cs" />
+    <Compile Include="MainClasses\Area.cs" />
+    <Compile Include="MainClasses\Boundaries.cs" />
+    <Compile Include="MainClasses\Cable.cs" />
+    <Compile Include="MainClasses\CylinderLayer.cs" />
+    <Compile Include="MainClasses\TubularSection.cs" />
+    <Compile Include="MainClasses\HelixLayer.cs" />
+    <Compile Include="MainClasses\Isotropic.cs" />
+    <Compile Include="MainClasses\Layer.cs" />
+    <Compile Include="MainClasses\LayerConnection.cs" />
+    <Compile Include="MainClasses\LayerMaterial.cs" />
+    <Compile Include="MainClasses\Line.cs" />
+    <Compile Include="MainClasses\Orthotropic.cs" />
+    <Compile Include="MainClasses\RectangularSection.cs" />
+    <Compile Include="MainClasses\Section.cs" />
     <Compile Include="CylindricalAreasWindow.xaml.cs">
       <DependentUpon>CylindricalAreasWindow.xaml</DependentUpon>
     </Compile>
@@ -102,6 +103,9 @@
     </Compile>
     <Compile Include="MaterialsWindow.xaml.cs">
       <DependentUpon>MaterialsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SectionListWindow.xaml.cs">
+      <DependentUpon>SectionListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SectionWindow.xaml.cs">
       <DependentUpon>SectionWindow.xaml</DependentUpon>
@@ -142,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MaterialsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SectionListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -187,5 +195,6 @@
   <ItemGroup>
     <None Include="Assets\zoom-out.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

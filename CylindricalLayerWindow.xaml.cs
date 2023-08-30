@@ -23,11 +23,12 @@ namespace TCC
         private CylinderLayer cylinderLayer;
         private LayerMaterial material;
         private List<Area> areas = new List<Area>();
+        private bool isChildWindowOpen = false;
 
         public event EventHandler SubmitButtonClick;
 
         public CylinderLayer CylinderLayer { get { return cylinderLayer; } }
-        public CylindricalLayerWindow(Dictionary<int, LayerMaterial> materials)
+        public CylindricalLayerWindow(List<LayerMaterial> materials)
         {
             InitializeComponent();
 
@@ -43,7 +44,7 @@ namespace TCC
             }
             else
             {
-                MaterialComboBox.ItemsSource = materials.Values;
+                MaterialComboBox.ItemsSource = materials;
                 MaterialComboBox.SelectedIndex = 0;
             }
         }
@@ -84,7 +85,10 @@ namespace TCC
             {
                 CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
                 windowArea.SubmitButtonClick += SubmitAreaButtonClick;
+                windowArea.Closed += AreaWindow_Closed;
                 windowArea.Show();
+                this.IsEnabled = false;
+                isChildWindowOpen = true;
             }
         }
         private void SubmitAreaButtonClick(object sender, EventArgs e)
@@ -94,12 +98,18 @@ namespace TCC
 
             areas.Add(area);
         }
+        private void AreaWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            isChildWindowOpen = false;
+        }
 
         private void SubmitNewLayer(object sender, RoutedEventArgs e)
         {
             cylinderLayer = new CylinderLayer
             {
                 Name = NameTextBox.Text,
+                Type = "cylinder",
                 Material = material,
                 Areas = areas,
             };
@@ -158,6 +168,11 @@ namespace TCC
             {
                 SubmitNewLayer(sender, e);
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (isChildWindowOpen) e.Cancel = true;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace TCC
 
         public HelixLayer HelixLayer { get { return helixLayer; } }
 
-        public HelicalLayerWindow(Dictionary<int, Section> sections, Dictionary<int, LayerMaterial> materials)
+        public HelicalLayerWindow(List<Section> sections, List<LayerMaterial> materials)
         {
             InitializeComponent();
 
@@ -40,11 +40,15 @@ namespace TCC
                 };
                 SectionComboBox.ItemsSource = sectionList;
                 SectionComboBox.SelectedIndex = 0;
+                SubmitButton.IsEnabled = false;
+                SectionWarning.Visibility = Visibility.Visible;
             }
             else
             {
-                SectionComboBox.ItemsSource = sections.Values;
+                SectionComboBox.ItemsSource = sections;
                 SectionComboBox.SelectedIndex = 0;
+                SubmitButton.IsEnabled = true;
+                SectionWarning.Visibility = Visibility.Collapsed;
             }
 
             //  Materials comboBox
@@ -59,7 +63,7 @@ namespace TCC
             }
             else
             {
-                MaterialComboBox.ItemsSource = materials.Values;
+                MaterialComboBox.ItemsSource = materials;
                 MaterialComboBox.SelectedIndex = 0;
             }
             
@@ -278,7 +282,7 @@ namespace TCC
         {
             if (e.Key == Key.Enter)
             {
-                SubmitNewLayer(sender, e);
+                if (SectionWarning.Visibility == Visibility.Collapsed) SubmitNewLayer(sender, e);
             }
         }
 

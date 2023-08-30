@@ -6,8 +6,11 @@
         xmlns:gl="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="TCC" Height="644" Width="1138">
-    <Grid Margin="12,4,12,12" ShowGridLines="True">
+        Title="TCC" Height="644" Width="1138"
+        MinHeight="644" MinWidth="1138"
+        KeyDown="Window_KeyDown"
+        Closing="Window_Closing">
+    <Grid Margin="12,12,12,12" ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>
             <RowDefinition Height="*" MaxHeight="200" MinHeight="150"/>
@@ -20,7 +23,7 @@
             <Button Margin="8,0,8,4">
                 Open
             </Button>
-            <Button Margin="8,0,8,4">
+            <Button Margin="8,0,8,4" Name="SaveButton" Click="SaveButtonClick">
                 Save
             </Button>
         </StackPanel>
@@ -78,7 +81,7 @@
             </Grid>
             <StackPanel Grid.Row="0" Grid.Column="1" Margin="15" Background="#FFF4F4F5">
                 <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold">Visualizer</TextBlock>
-                <Button Margin="36, 5" BorderThickness="1">
+                <Button Margin="36, 5" BorderThickness="1" Name="ButtonZoomIn" Click="ZoomButtonClick">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -88,7 +91,7 @@
                         <TextBlock>Zoom In</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="36, 5" BorderThickness="1">
+                <Button Margin="36, 5" BorderThickness="1" Name="ButtonZoomOut" Click="ZoomButtonClick">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -134,7 +137,7 @@
                         <TextBlock>New Section</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="36, 5" BorderThickness="1">
+                <Button Margin="36, 5" BorderThickness="1" Click="ButtonSectionList">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>

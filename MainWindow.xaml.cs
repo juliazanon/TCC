@@ -38,6 +38,7 @@ namespace TCC
     {
         Cable cable;
         ObservableCollection<Layer> observableLayer = new ObservableCollection<Layer>();
+        bool isChildWindowOpen = false;
 
         public MainWindow()
         {
@@ -48,10 +49,10 @@ namespace TCC
             cable = new Cable
             {
                 Name = "New Cable",
-                Sections = new Dictionary<int, Section>(),
+                Sections = new List<Section>(),
                 Layers = new List<Layer>(),
-                LayerConnections = new List<LayerConnections>(),
-                LayerMaterials = new Dictionary<int, LayerMaterial>()
+                LayerConnections = new List<LayerConnection>(),
+                LayerMaterials = new List<LayerMaterial>()
             };
         }
 
@@ -61,7 +62,10 @@ namespace TCC
         {
             CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow(cable.LayerMaterials);
             windowCylinder.SubmitButtonClick += SubmitCylinderButtonClick;
+            windowCylinder.Closed += CylinderWindow_Closed;
             windowCylinder.Show();
+            this.IsEnabled = false;
+            isChildWindowOpen = true;
         }
         private void SubmitCylinderButtonClick(object sender, EventArgs e)
         {
@@ -75,19 +79,20 @@ namespace TCC
             //CylinderLayer aux = cable.Layers[0] as CylinderLayer;
             //teste.Text = aux.Areas[0].Frontier.DesignOnly.ToString();
         }
+        private void CylinderWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            isChildWindowOpen = false;
+        }
         private void ButtonNewHelix(object sender, RoutedEventArgs e)
         {
             HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Sections, cable.LayerMaterials);
             windowHelix.SubmitButtonClick += SubmitHelixButtonClick;
+            windowHelix.Closed += HelixWindow_Closed;
             windowHelix.Show();
+            this.IsEnabled = false;
+            isChildWindowOpen = true;
         }
-        private void ButtonNewConnection(object sender, RoutedEventArgs e)
-        {
-            LayerConnectionsWindow windowConnection = new LayerConnectionsWindow(cable.Layers);
-            //windowConnection.SubmitButtonClick += SubmitHelixButtonClick;
-            windowConnection.Show();
-        }
-
         private void SubmitHelixButtonClick(object sender, EventArgs e)
         {
             HelicalLayerWindow windowHelix = sender as HelicalLayerWindow;
@@ -96,8 +101,33 @@ namespace TCC
             cable.Layers.Add(layer);
             observableLayer.Add(layer);
             itemsControl.ItemsSource = observableLayer;
-            // HelixLayer aux = cable.Layers[0] as HelixLayer;
-            //teste.Text = aux.MaterialID.ToString();
+
+            //HelixLayer aux = cable.Layers[0] as HelixLayer;
+            //teste.Text = aux.Section.Type;
+        }
+        private void HelixWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            isChildWindowOpen = false;
+        }
+        private void ButtonNewConnection(object sender, RoutedEventArgs e)
+        {
+            LayerConnectionsWindow windowConnection = new LayerConnectionsWindow(cable.Layers);
+            windowConnection.SubmitButtonClick += SubmitConnectionButtonClick;
+            windowConnection.Closed += ConnectionsWindow_Closed;
+            windowConnection.Show();
+        }
+        private void SubmitConnectionButtonClick(object sender, EventArgs e)
+        {
+            LayerConnectionsWindow windowConnection = sender as LayerConnectionsWindow;
+            LayerConnection layerConnection = windowConnection.LayerConnection;
+
+            cable.LayerConnections.Add(layerConnection);
+        }
+        private void ConnectionsWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            isChildWindowOpen = false;
         }
 
         //  Materials
@@ -105,15 +135,11 @@ namespace TCC
         {
             MaterialsWindow windowMaterial = new MaterialsWindow(cable.LayerMaterials);
             windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
+            windowMaterial.Closed += MaterialWindow_Closed;
             windowMaterial.Show();
+            this.IsEnabled = false;
+            isChildWindowOpen = true;
         }
-        private void ButtonMaterialList(object sender, RoutedEventArgs e)
-        {
-            MaterialListWindow windowMaterial = new MaterialListWindow(cable.LayerMaterials);
-            windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
-            windowMaterial.Show();
-        }
-
         private void SubmitMaterialButtonClick(object sender, EventArgs e)
         {
             MaterialsWindow windowMaterial = sender as MaterialsWindow;
@@ -121,15 +147,27 @@ namespace TCC
             {
                 Isotropic materialIsotropic = windowMaterial.LayerIsotropic;
 
-                cable.LayerMaterials.Add(materialIsotropic.ID, materialIsotropic);
+                cable.LayerMaterials.Add(materialIsotropic);
             }
 
             else if (windowMaterial.LayerOrthotropic != null)
             {
                 Orthotropic materialOrthotropic = windowMaterial.LayerOrthotropic;
 
-                cable.LayerMaterials.Add(materialOrthotropic.ID, materialOrthotropic);
+                cable.LayerMaterials.Add(materialOrthotropic);
             }
+        }
+        private void MaterialWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            isChildWindowOpen = false;
+        }
+
+        private void ButtonMaterialList(object sender, RoutedEventArgs e)
+        {
+            MaterialListWindow windowMaterial = new MaterialListWindow(cable.LayerMaterials);
+            //windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
+            windowMaterial.Show();
         }
 
         //  Sections
@@ -137,22 +175,50 @@ namespace TCC
         {
             SectionWindow windowSection = new SectionWindow(cable.Sections);
             windowSection.SubmitButtonClick += SubmitSectionButtonClick;
+            windowSection.Closed += SectionWindow_Closed;
             windowSection.Show();
+            this.IsEnabled = false;
+            isChildWindowOpen = true;
         }
-
         private void SubmitSectionButtonClick(object sender, EventArgs e)
         {
             SectionWindow windowSection = sender as SectionWindow;
             if (windowSection.RectangularSection != null)
             {
                 RectangularSection rectangularSection = windowSection.RectangularSection;
-                cable.Sections.Add(rectangularSection.ID, rectangularSection);
+                cable.Sections.Add(rectangularSection);
             }
             else if (windowSection.TubularSection != null)
             {
-                TubularSection cylindricalSection = windowSection.TubularSection;
-                cable.Sections.Add(cylindricalSection.ID, cylindricalSection);
+                TubularSection tubularSection = windowSection.TubularSection;
+                cable.Sections.Add(tubularSection);
             }
+        }
+        private void SectionWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            isChildWindowOpen = false;
+        }
+        private void ButtonSectionList(object sender, RoutedEventArgs e)
+        {
+            SectionListWindow windowSectionList = new SectionListWindow(cable.Sections);
+            //windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
+            windowSectionList.Show();
+        }
+        private void SaveButtonClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.OemPlus || e.Key == Key.Add) { scale += 0.01f; }
+            else if (e.Key == Key.OemMinus || e.Key == Key.Subtract) { scale -= 0.01f; }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (isChildWindowOpen) e.Cancel = true;
         }
 
         //  Camera parameters
@@ -160,6 +226,13 @@ namespace TCC
         float[] _position = new float[] { 0.0f, 0.0f, 10.0f };
         float[] _upVector = new float[] { 0.0f, 1.0f, 0.0f };
         float scale = 0.04f;
+
+        private void ZoomButtonClick(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            if (clickedButton.Name == "ButtonZoomIn") { scale += 0.01f; }
+            else if (clickedButton.Name == "ButtonZoomOut") { scale -= 0.01f; }
+        }
 
         // Graphics
         private void OpenGLDraw(object sender, SharpGL.WPF.OpenGLRoutedEventArgs args)
@@ -172,7 +245,6 @@ namespace TCC
             gl.MatrixMode(MatrixMode.Projection);
             gl.LoadIdentity();
             gl.Perspective(60, (int)w / h, 0.01, 1000);
-            //gl.Ortho(0, w, 0, h, -1, 1);
             gl.Scale(scale, scale, 1);
 
             //  Camera Position
@@ -208,21 +280,6 @@ namespace TCC
                     layer.Draw(gl, rgb, 10000, prop, false);
                 }
             }
-
-            //rgb = new vec3(80, 80, 80) / 255;
-            //HelixLayer.DrawCylindrical(gl, 10, 100, 20, rgb);
-            //rgb = new vec3(111, 112, 112) / 255;
-            //CircleDrawing c1 = new CircleDrawing(gl, 10000, 40, 40f * prop, rgb, false);
-
-            //rgb = new vec3(150, 150, 150) / 255;
-            //CircleDrawing c2 = new CircleDrawing(gl, 5000, 30, 30f * prop, rgb, false);
-
-            // circles with triangles
-            //rgb = new vec3(80, 80, 80) / 255;
-            //Circle c3 = new Circle(gl, 1000, 20, 17, rgb, true);
-
-            //rgb = new vec3(120, 120, 120) / 255;
-            //Circle c4 = new Circle(gl, 1000, 10, 7, rgb, true);
         }
     }
 }

@@ -22,14 +22,23 @@ namespace TCC
     /// </summary>
     public partial class MaterialListWindow : Window
     {
-        ObservableCollection<Layer> observableLayer = new ObservableCollection<Layer>();
+        ObservableCollection<LayerMaterial> observableMaterials = new ObservableCollection<LayerMaterial>();
         public MaterialListWindow(List<LayerMaterial> materials)
         {
             InitializeComponent();
-            for (int i=0; i < materials.Count(); i++){
-                observableLayer.Add(materials[i]);
+            for (int i = 0; i < materials.Count(); i++) {
+                if (materials[i] is Isotropic)
+                {
+                    Isotropic iso = materials[i] as Isotropic;
+                    observableMaterials.Add(iso);
+                }
+                else if (materials[i] is Orthotropic)
+                {
+                    Orthotropic ortho = materials[i] as Orthotropic;
+                    observableMaterials.Add(ortho);
+                }
             }
-            itemsControl.ItemsSource = observableLayer;
+            itemsControl.ItemsSource = observableMaterials;
         }
     }
 }
