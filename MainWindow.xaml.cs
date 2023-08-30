@@ -50,7 +50,7 @@ namespace TCC
                 Name = "New Cable",
                 Sections = new Dictionary<int, Section>(),
                 Layers = new List<Layer>(),
-                LayerConnections = new List<LayerConnections>(),
+                LayerConnections = new List<LayerConnection>(),
                 LayerMaterials = new Dictionary<int, LayerMaterial>()
             };
         }
@@ -81,12 +81,6 @@ namespace TCC
             windowHelix.SubmitButtonClick += SubmitHelixButtonClick;
             windowHelix.Show();
         }
-        private void ButtonNewConnection(object sender, RoutedEventArgs e)
-        {
-            LayerConnectionsWindow windowConnection = new LayerConnectionsWindow(cable.Layers);
-            //windowConnection.SubmitButtonClick += SubmitHelixButtonClick;
-            windowConnection.Show();
-        }
 
         private void SubmitHelixButtonClick(object sender, EventArgs e)
         {
@@ -96,8 +90,23 @@ namespace TCC
             cable.Layers.Add(layer);
             observableLayer.Add(layer);
             itemsControl.ItemsSource = observableLayer;
-            HelixLayer aux = cable.Layers[0] as HelixLayer;
-            teste.Text = aux.Section.Type;
+            //HelixLayer aux = cable.Layers[0] as HelixLayer;
+            //teste.Text = aux.Section.Type;
+        }
+
+        private void ButtonNewConnection(object sender, RoutedEventArgs e)
+        {
+            LayerConnectionsWindow windowConnection = new LayerConnectionsWindow(cable.Layers);
+            windowConnection.SubmitButtonClick += SubmitConnectionButtonClick;
+            windowConnection.Show();
+        }
+
+        private void SubmitConnectionButtonClick(object sender, EventArgs e)
+        {
+            LayerConnectionsWindow windowConnection = sender as LayerConnectionsWindow;
+            LayerConnection layerConnection = windowConnection.LayerConnection;
+
+            cable.LayerConnections.Add(layerConnection);
         }
 
         //  Materials

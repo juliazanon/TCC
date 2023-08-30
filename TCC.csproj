@@ -79,7 +79,7 @@
     <Compile Include="Classes\HelixLayer.cs" />
     <Compile Include="Classes\Isotropic.cs" />
     <Compile Include="Classes\Layer.cs" />
-    <Compile Include="Classes\LayerConnections.cs" />
+    <Compile Include="Classes\LayerConnection.cs" />
     <Compile Include="Classes\LayerMaterial.cs" />
     <Compile Include="Classes\Line.cs" />
     <Compile Include="Classes\Orthotropic.cs" />

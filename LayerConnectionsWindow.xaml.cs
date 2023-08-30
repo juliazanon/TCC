@@ -21,6 +21,13 @@ namespace TCC
     /// </summary>
     public partial class LayerConnectionsWindow : Window
     {
+        private Layer firstLayer;
+        private Layer secondLayer;
+        private LayerConnection layerConnection;
+
+        public event EventHandler SubmitButtonClick;
+
+        public LayerConnection LayerConnection { get { return layerConnection; } }
         public LayerConnectionsWindow(List<Layer> layers)
         {
             InitializeComponent();
@@ -54,8 +61,8 @@ namespace TCC
         {
             if (FirstLayerComboBox.SelectedItem != null)
             {
-                // Get the selected Material instance.
-                //this.firstLayer = (Layer)FirstLayerComboBox.SelectedItem;
+                // Get the selected Layer instance.
+                firstLayer = (Layer)FirstLayerComboBox.SelectedItem;
             }
         }
         private void SecondLayerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -63,7 +70,61 @@ namespace TCC
             if (SecondLayerComboBox.SelectedItem != null)
             {
                 // Get the selected Material instance.
-                //this.firstLayer = (Layer)FirstLayerComboBox.SelectedItem;
+                secondLayer = (Layer)SecondLayerComboBox.SelectedItem;
+            }
+        }
+
+        private void SubmitNewLayerConnection(object sender, RoutedEventArgs e)
+        {
+            layerConnection = new LayerConnection();
+
+            if (FrictionalRadioButton.IsChecked == true) { layerConnection.Type = "frictional"; }
+            else { layerConnection.Type = "bonded"; }
+
+            layerConnection.FirstLayer = firstLayer.Name;
+            layerConnection.SecondLayer = secondLayer.Name;
+
+            double.TryParse(FrictionTextBox.Text, out double result);
+            layerConnection.FrictionCoefficient = result;
+
+            double.TryParse(XNormalTextBox.Text, out double xresult);
+            double.TryParse(YNormalTextBox.Text, out double yresult);
+            double.TryParse(ZNormalTextBox.Text, out double zresult);
+            layerConnection.NormalDirection = new double[] { xresult, yresult, zresult };
+
+            double.TryParse(XFTangentTextBox.Text, out xresult);
+            double.TryParse(YFTangentTextBox.Text, out yresult);
+            double.TryParse(ZFTangentTextBox.Text, out zresult);
+            layerConnection.FirstTangentDirection = new double[] { xresult, yresult, zresult };
+
+            double.TryParse(XSTangentTextBox.Text, out xresult);
+            double.TryParse(YSTangentTextBox.Text, out yresult);
+            double.TryParse(ZSTangentTextBox.Text, out zresult);
+            layerConnection.SecondTangentDirection = new double[] { xresult, yresult, zresult };
+
+            double.TryParse(NormalTextBox.Text, out result);
+            layerConnection.NormalPenalty = result;
+            double.TryParse(TangentialTextBox.Text, out result);
+            layerConnection.TangentialPenalty = result;
+            double.TryParse(PinballTextBox.Text, out result);
+            layerConnection.PinballSearchRadius = result;
+
+            SubmitButtonClick?.Invoke(this, EventArgs.Empty);
+            this.Close();
+        }
+
+        private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Check if the entered character is a digit or a dot
+            if (!char.IsDigit(e.Text, 0) && e.Text != ".")
+            {
+                e.Handled = true; // Prevent the character from being entered
+            }
+
+            // Check if the text already contains a dot, and if so, prevent entering another dot
+            if (e.Text == "." && ((TextBox)sender).Text.Contains("."))
+            {
+                e.Handled = true;
             }
         }
     }

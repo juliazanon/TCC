@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TCC.Classes
 {
-    public class LayerConnections
+    public class LayerConnection
     {
         public string Type { get; set; }
         public string FirstLayer { get; set; }

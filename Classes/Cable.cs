@@ -11,7 +11,7 @@ namespace TCC.Classes
         public string Name { get; set; }
         public Dictionary<int, Section> Sections { get; set; }
         public List<Layer> Layers { get; set; }
-        public List<LayerConnections> LayerConnections { get; set; }
+        public List<LayerConnection> LayerConnections { get; set; }
         public Dictionary<int, LayerMaterial> LayerMaterials { get; set; }
 
         private void SaveFile()
