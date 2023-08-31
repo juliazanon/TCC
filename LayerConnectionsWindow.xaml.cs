@@ -85,6 +85,11 @@ namespace TCC
                     return;
                 }
             }
+            if (firstLayer.Name == secondLayer.Name)  // Layers
+            {
+                InputWarning("Layer");
+                return;
+            }
 
             layerConnection = new LayerConnection();
 
@@ -125,11 +130,19 @@ namespace TCC
         }
         private void InputWarning(string inputfild)
         {
-            if (inputfild == "Name")
+            switch (inputfild)
             {
-                NameWarningTextBlock.Text = "Name already used";
-                NameWarningTextBlock.Height = 18;
-                //GeralMenuRow.Height = new GridLength(108);
+                case "Name":
+                    NameWarningTextBlock.Text = "Name already used";
+                    NameWarningTextBlock.Height = 18;
+                    NameWarningTextBlock.Height = 0;
+                    //GeralMenuRow.Height = new GridLength(108);
+                    break;
+                case "Layer":
+                    LayerWarningTextBlock.Text = "Can't create a connection on same layer";
+                    LayerWarningTextBlock.Height = 18;
+                    NameWarningTextBlock.Height = 0;
+                    break;
             }
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)

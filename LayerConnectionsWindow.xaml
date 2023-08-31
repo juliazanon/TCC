@@ -30,6 +30,7 @@
                 <ComboBox Name="SecondLayerComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
                                       DisplayMemberPath="Name" SelectedValuePath="Name" SelectionChanged="SecondLayerComboBox_SelectionChanged">
                 </ComboBox>
+                <TextBlock Height="0" Margin="4,0,4,0" Name="LayerWarningTextBlock" Foreground="Red"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="4">Friction Coefficient:</TextBlock>
