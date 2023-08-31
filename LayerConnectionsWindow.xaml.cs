@@ -135,7 +135,7 @@ namespace TCC
                 case "Name":
                     NameWarningTextBlock.Text = "Name already used";
                     NameWarningTextBlock.Height = 18;
-                    NameWarningTextBlock.Height = 0;
+                    LayerWarningTextBlock.Height = 0;
                     //GeralMenuRow.Height = new GridLength(108);
                     break;
                 case "Layer":
