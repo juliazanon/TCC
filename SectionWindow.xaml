@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="SectionWindow" Height="250" Width="300"
+        Title="SectionWindow" Height="260" Width="300"
         KeyDown="Window_KeyDown">
     <Grid>
         <Grid.RowDefinitions>
@@ -51,7 +51,7 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="2" HorizontalAlignment="Right" Margin="4">
-            <Button Click="SubmitNewSection">Submit</Button>
+            <Button Click="SubmitNewSection" Margin="4">Submit</Button>
         </StackPanel>
     </Grid>
 </Window>

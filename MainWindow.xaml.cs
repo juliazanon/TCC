@@ -39,6 +39,7 @@ namespace TCC
         Cable cable;
         ObservableCollection<Layer> observableLayer = new ObservableCollection<Layer>();
         bool isChildWindowOpen = false;
+        Button previoussrcButton;
 
         public MainWindow()
         {
@@ -232,6 +233,22 @@ namespace TCC
             Button clickedButton = (Button)sender;
             if (clickedButton.Name == "ButtonZoomIn") { scale += 0.01f; }
             else if (clickedButton.Name == "ButtonZoomOut") { scale -= 0.01f; }
+        }
+
+        private void ButtonSelectLayer(object sender, RoutedEventArgs e)
+        {
+            // string clickedButton = (Button)sender.Content.ToString();
+            if (previoussrcButton != null)
+            {
+                previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+            }
+            Button srcButton = e.Source as Button;
+            srcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF));
+            Grid contentGrid = (Grid)(sender as Button).Content;
+            TextBlock contentTextBlock = (TextBlock)(contentGrid as Grid).Children.Cast<UIElement>().FirstOrDefault(f => Grid.GetColumn(f) == 0);
+            string text = contentTextBlock.Text;
+            teste.Text = text;
+            previoussrcButton = srcButton;
         }
 
         // Graphics
