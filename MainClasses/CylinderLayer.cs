@@ -18,7 +18,6 @@ namespace TCC.Classes
         private int radialDivisions;
         private int axialDivisions;
         private List<Area> areas;
-        private string label;
 
         public double Radius { get { return radius; } set { radius = value; } }
         public double Thickness { get { return thickness; } set { thickness = value; } }
@@ -27,8 +26,6 @@ namespace TCC.Classes
         public int RadialDivisions { get { return radialDivisions; } set { radialDivisions = value; } }
         public int AxialDivisions { get { return axialDivisions; } set { axialDivisions = value; } }
         public List<Area> Areas { get { return areas; } set { areas = value; } }
-        public string Label { get { return label; } set { label = value; } }
-        
 
         public void Draw(OpenGL gl, vec3 rgb, int n, float prop, bool triangles)
         {
