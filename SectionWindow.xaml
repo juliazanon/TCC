@@ -5,17 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="SectionWindow" Height="260" Width="300"
+        Title="SectionWindow" Height="270" Width="300"
         KeyDown="Window_KeyDown">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"/>
+            <RowDefinition Height="90" Name="GeralMenuRow"/>
             <RowDefinition Height="*" MinHeight="100"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Background="#E6E6E6" Margin="4">
             <TextBlock Margin="4" FontWeight="DemiBold">Section Name:</TextBlock>
             <TextBox Margin="4" Name="SectionName" Text="New Section"></TextBox>
+            <TextBlock Height="0" Margin="4,0,4,0" Name="NameWarningTextBlock" Foreground="Red"></TextBlock>
             <StackPanel Orientation="Horizontal" Margin="4">
                 <TextBlock Margin="0,0,4,0">Type</TextBlock>
                 <ComboBox Name="sectionComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5">

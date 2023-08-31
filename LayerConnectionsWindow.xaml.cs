@@ -26,11 +26,12 @@ namespace TCC
         private LayerConnection layerConnection;
 
         public event EventHandler SubmitButtonClick;
-
+        public List<LayerConnection> connections;
         public LayerConnection LayerConnection { get { return layerConnection; } }
-        public LayerConnectionsWindow(List<Layer> layers)
+        public LayerConnectionsWindow(List<LayerConnection> connections,List<Layer> layers)
         {
             InitializeComponent();
+            this.connections = connections;
 
             if (layers.Count == 0)
             {
@@ -76,6 +77,15 @@ namespace TCC
 
         private void SubmitNewLayerConnection(object sender, RoutedEventArgs e)
         {
+            if (connections.Count != 0)  // Conditions
+            {
+                if (connections.Any(obj => obj.Name == NameConnectionTextBox.Text))  // Name already used
+                {
+                    InputWarning("Name");
+                    return;
+                }
+            }
+
             layerConnection = new LayerConnection();
 
             if (FrictionalRadioButton.IsChecked == true) { layerConnection.Type = "frictional"; }
@@ -112,6 +122,15 @@ namespace TCC
 
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
+        }
+        private void InputWarning(string inputfild)
+        {
+            if (inputfild == "Name")
+            {
+                NameWarningTextBlock.Text = "Name already used";
+                NameWarningTextBlock.Height = 18;
+                //GeralMenuRow.Height = new GridLength(108);
+            }
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {

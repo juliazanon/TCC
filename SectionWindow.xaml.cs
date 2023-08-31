@@ -73,6 +73,15 @@ namespace TCC
         }
         private void SubmitNewSection(object sender, RoutedEventArgs e)
         {
+            if (sections.Count != 0)  // Conditions
+            {
+                if (sections.Any(obj => obj.Name == SectionName.Text))  // Name already used
+                {
+                    InputWarning("Name");
+                    return;
+                }
+            }
+
             if (section == "rectangular")
             {
                 rectangularSection = new RectangularSection
@@ -113,7 +122,15 @@ namespace TCC
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
         }
-
+        private void InputWarning(string inputfild)
+        {
+            if (inputfild == "Name")
+            {
+                NameWarningTextBlock.Text = "Name already used";
+                NameWarningTextBlock.Height = 18;
+                GeralMenuRow.Height = new GridLength(108);
+            }
+        }
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Check if the entered character is a digit or a dot

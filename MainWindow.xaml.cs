@@ -116,7 +116,7 @@ namespace TCC
         }
         private void ButtonNewConnection(object sender, RoutedEventArgs e)
         {
-            LayerConnectionsWindow windowConnection = new LayerConnectionsWindow(cable.Layers);
+            LayerConnectionsWindow windowConnection = new LayerConnectionsWindow(cable.LayerConnections, cable.Layers);
             windowConnection.SubmitButtonClick += SubmitConnectionButtonClick;
             windowConnection.Closed += ConnectionsWindow_Closed;
             windowConnection.Show();
