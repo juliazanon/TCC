@@ -29,40 +29,40 @@
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
                     <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxStatusComboBox">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Free"/>
+                        <ComboBoxItem Content="Free" IsSelected="True"/>
+                        <ComboBoxItem Content="Fixed"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
                     <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyStatusComboBox">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Free"/>
+                        <ComboBoxItem Content="Free" IsSelected="True"/>
+                        <ComboBoxItem Content="Fixed"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
                     <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzStatusComboBox">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Free"/>
+                        <ComboBoxItem Content="Free" IsSelected="True"/>
+                        <ComboBoxItem Content="Fixed"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
                     <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxStatusComboBox">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Free"/>
+                        <ComboBoxItem Content="Free" IsSelected="True"/>
+                        <ComboBoxItem Content="Fixed"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
                     <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyStatusComboBox">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Free"/>
+                        <ComboBoxItem Content="Free" IsSelected="True"/>
+                        <ComboBoxItem Content="Fixed"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Tz:</TextBlock>
                     <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzStatusComboBox">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Free"/>
+                        <ComboBoxItem Content="Free" IsSelected="True"/>
+                        <ComboBoxItem Content="Fixed"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                 </StackPanel>
@@ -106,40 +106,40 @@
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
                     <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxStatusComboBoxFrontier">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Free"/>
+                        <ComboBoxItem Content="Free" IsSelected="True"/>
+                        <ComboBoxItem Content="Fixed"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
                     <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyStatusComboBoxFrontier">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Free"/>
+                        <ComboBoxItem Content="Free" IsSelected="True"/>
+                        <ComboBoxItem Content="Fixed"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
                     <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzStatusComboBoxFrontier">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Free"/>
+                        <ComboBoxItem Content="Free" IsSelected="True"/>
+                        <ComboBoxItem Content="Fixed"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
                     <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxStatusComboBoxFrontier">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Free"/>
+                        <ComboBoxItem Content="Free" IsSelected="True"/>
+                        <ComboBoxItem Content="Fixed"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
                     <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyStatusComboBoxFrontier">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Free"/>
+                        <ComboBoxItem Content="Free" IsSelected="True"/>
+                        <ComboBoxItem Content="Fixed"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                     <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Tz:</TextBlock>
                     <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzStatusComboBoxFrontier">
-                        <ComboBoxItem Content="Fixed" IsSelected="True"/>
-                        <ComboBoxItem Content="Free"/>
+                        <ComboBoxItem Content="Free" IsSelected="True"/>
+                        <ComboBoxItem Content="Fixed"/>
                         <ComboBoxItem Content="Imposed"/>
                     </ComboBox>
                 </StackPanel>
@@ -212,35 +212,41 @@
                     <TextBlock Margin="4,0,0,0">Status:</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
-                        <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxComboBoxStart">
-                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                        <ComboBox VerticalAlignment="Center" Width="80" Name="FxComboBoxStart">
+                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                            <ComboBoxItem Content="Fixed"/>
                             <ComboBoxItem Content="Imposed"/>
                         </ComboBox>
                         <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyComboBoxStart">
-                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                            <ComboBoxItem Content="Fixed"/>
                             <ComboBoxItem Content="Imposed"/>
                         </ComboBox>
                         <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzComboBoxStart">
-                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                            <ComboBoxItem Content="Fixed"/>
                             <ComboBoxItem Content="Imposed"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxComboBoxStart">
-                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                            <ComboBoxItem Content="Fixed"/>
                             <ComboBoxItem Content="Imposed"/>
                         </ComboBox>
                         <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyComboBoxStart">
-                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                            <ComboBoxItem Content="Fixed"/>
                             <ComboBoxItem Content="Imposed"/>
                         </ComboBox>
                         <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Tz:</TextBlock>
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzComboBoxStart">
-                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                            <ComboBoxItem Content="Fixed"/>
                             <ComboBoxItem Content="Imposed"/>
                         </ComboBox>
                     </StackPanel>
@@ -313,34 +319,40 @@
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
                         <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxComboBoxEnd">
-                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                            <ComboBoxItem Content="Fixed"/>
                             <ComboBoxItem Content="Imposed"/>
                         </ComboBox>
                         <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyComboBoxEnd">
-                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                            <ComboBoxItem Content="Fixed"/>
                             <ComboBoxItem Content="Imposed"/>
                         </ComboBox>
                         <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzComboBoxEnd">
-                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                            <ComboBoxItem Content="Fixed"/>
                             <ComboBoxItem Content="Imposed"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxComboBoxEnd">
-                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                            <ComboBoxItem Content="Fixed"/>
                             <ComboBoxItem Content="Imposed"/>
                         </ComboBox>
                         <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyComboBoxEnd">
-                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                            <ComboBoxItem Content="Fixed"/>
                             <ComboBoxItem Content="Imposed"/>
                         </ComboBox>
                         <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Tz:</TextBlock>
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzComboBoxEnd">
-                            <ComboBoxItem Content="Fixed" IsSelected="True"/>
+                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                            <ComboBoxItem Content="Fixed"/>
                             <ComboBoxItem Content="Imposed"/>
                         </ComboBox>
                     </StackPanel>
