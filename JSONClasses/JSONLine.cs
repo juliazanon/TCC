@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TCC.JSONClasses
 {
-    internal class JSONLine
+    public class JSONLine
     {
         public int fourier_order { get; set; }
         public bool design_only { get; set; }

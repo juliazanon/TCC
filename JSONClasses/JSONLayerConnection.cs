@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TCC.JSONClasses
 {
-    internal class JSONLayerConnection
+    public class JSONLayerConnection
     {
         public string type { get; set; }
         public string first_layer { get; set; }

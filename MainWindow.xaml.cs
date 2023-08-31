@@ -1,33 +1,15 @@
 ﻿using SharpGL;
 using SharpGL.Enumerations;
-using SharpGL.SceneGraph;
-using SharpGL.Shaders;
 using GlmNet;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.Win32;
-using System.IO;
-using System.Diagnostics;
-using System.Globalization;
-using System.Runtime.InteropServices;
-using SharpGL.WPF;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
-using System.Drawing.Drawing2D;
-using SharpGL.SceneGraph.Assets;
 using TCC.Classes;
-using System.Windows.Documents.DocumentStructures;
+using System.Windows.Forms;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using TCC.JSONClasses;
 
 namespace TCC
 {
@@ -199,7 +181,21 @@ namespace TCC
 
         private void OpenButtonClick(object sender, EventArgs e)
         {
-            
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                InitialDirectory = @"c:\\",
+                Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                FilterIndex = 2,
+                RestoreDirectory = true
+            };
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string filePath = dialog.FileName;
+                JSONCable jsoncable = cable.OpenNewFile(filePath);
+                //JSONRectangularSection rs = jsoncable.sections[0] as JSONRectangularSection;
+                //teste.Text = rs.ToString();
+                //teste.Text = jsoncable.sections[0].type.ToString();
+            }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

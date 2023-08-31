@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TCC.JSONClasses
 {
-    internal class JSONArea
+    public class JSONArea
     {
         public string surface { get; set; }
         public double[] pressure { get; set; }

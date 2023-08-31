@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TCC.JSONClasses
 {
-    internal class JSONMaterial
+    public class JSONMaterial
     {
         public double density { get; set; }
         public int id { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TCC.JSONClasses
 {
-    internal class JSONTubularSection : JSONSection
+    public class JSONTubularSection : JSONSection
     {
         public double internal_radius { get; set; }
         public double external_radius { get; set; }

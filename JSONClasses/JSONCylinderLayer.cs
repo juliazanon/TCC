@@ -7,7 +7,7 @@ using TCC.Classes;
 
 namespace TCC.JSONClasses
 {
-    internal class JSONCylinderLayer : JSONLayer
+    public class JSONCylinderLayer : JSONLayer
     {
         public double radius { get; set;  }
         public double thickness { get; set; }

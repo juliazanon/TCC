@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TCC.JSONClasses
 {
-    internal class JSONBoundaries
+    public class JSONBoundaries
     {
         public int id { get; set; }
         public bool design_only { get; set; }

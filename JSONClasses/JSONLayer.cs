@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TCC.JSONClasses
 {
-    internal class JSONLayer
+    public class JSONLayer
     {
         public string name { get; set; }
         public string type { get; set; }

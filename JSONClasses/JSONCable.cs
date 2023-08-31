@@ -7,7 +7,7 @@ using TCC.Classes;
 
 namespace TCC.JSONClasses
 {
-    internal class JSONCable
+    public class JSONCable
     {
         public string name { get; set; }
         public List<JSONSection> sections { get; set; }

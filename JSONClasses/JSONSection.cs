@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TCC.JSONClasses
 {
-    internal class JSONSection
+    public class JSONSection
     {
         public int id { get; set; }
         public string type { get; set; }

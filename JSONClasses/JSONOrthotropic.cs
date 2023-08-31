@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TCC.JSONClasses
 {
-    internal class JSONOrthotropic : JSONMaterial
+    public class JSONOrthotropic : JSONMaterial
     {
         public double[] young { get; set; }
         public double[] poisson { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TCC.JSONClasses
 {
-    internal class JSONRectangularSection : JSONSection
+    public class JSONRectangularSection : JSONSection
     {
         public double height { get; set; }
         public double width { get; set; }

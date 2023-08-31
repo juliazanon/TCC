@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TCC.JSONClasses;
 using Newtonsoft.Json;
 using System.IO;
@@ -18,6 +15,16 @@ namespace TCC.Classes
         public List<Layer> Layers { get; set; }
         public List<LayerConnection> LayerConnections { get; set; }
         public List<LayerMaterial> LayerMaterials { get; set; }
+
+        public JSONCable OpenNewFile(string filepath)
+        {
+            string json = File.ReadAllText(filepath);
+            JSONCable cable = JsonConvert.DeserializeObject<JSONCable>(json);
+
+            //ReverseCopy(cable);
+
+            return cable;
+        }
 
         public void SaveFile()
         {
@@ -37,6 +44,244 @@ namespace TCC.Classes
             };
 
             if (dialog.ShowDialog() == DialogResult.OK) File.WriteAllText(dialog.FileName, json);
+        }
+
+        private void ReverseCopy(JSONCable cable)
+        {
+            // Cable
+            Name = cable.name;
+
+            // Sections
+            Sections = new List<Section>();
+            foreach (JSONSection s in cable.sections)
+            {
+                if (s.type == "rectangular")
+                {
+                    JSONRectangularSection rs = s as JSONRectangularSection;
+                    RectangularSection section = new RectangularSection
+                    {
+                        Height = rs.height,
+                        Width = rs.width,
+                        ID = rs.id,
+                        Type = rs.type
+                    };
+                    Sections.Add(section);
+                }
+                else if (s.type == "tubular")
+                {
+                    JSONTubularSection ts = s as JSONTubularSection;
+                    TubularSection section = new TubularSection
+                    {
+                        InternalRadius = ts.internal_radius,
+                        ExternalRadius = ts.external_radius,
+                        ID = ts.id,
+                        Type = ts.type
+                    };
+                    Sections.Add(section);
+                }
+            }
+
+            // Materials
+            LayerMaterials = new List<LayerMaterial>();
+            foreach (JSONMaterial m in cable.materials)
+            {
+                if (m.type == "isotropic")
+                {
+                    JSONIsotropic iso = m as JSONIsotropic;
+                    Isotropic material = new Isotropic
+                    {
+                        Young = iso.young_modulus,
+                        Poisson = iso.poisson_ratio,
+                        Type = m.type,
+                        ID = iso.id,
+                        Density = iso.density
+                    };
+                    LayerMaterials.Add(material);
+                }
+                else if (m.type == "orthotropic")
+                {
+                    JSONOrthotropic ortho = m as JSONOrthotropic;
+                    Orthotropic material = new Orthotropic
+                    {
+                        Young = ortho.young,
+                        Poisson = ortho.poisson,
+                        Shear = ortho.shear,
+                        Type = m.type,
+                        ID = ortho.id,
+                        Density = ortho.density
+                    };
+                    LayerMaterials.Add(material);
+                }
+            }
+
+            // Layers
+            Layers = new List<Layer>();
+            foreach (JSONLayer l in cable.layers)
+            {
+                // Helix
+                if (l.type == "helix" || l.type == "armor")
+                {
+                    JSONHelixLayer hl = l as JSONHelixLayer;
+                    Boundaries start = new Boundaries
+                    {
+                        ID = hl.line.start.id,
+                        DesignOnly = hl.line.start.design_only,
+                        CoordinateSystem = hl.line.start.coordinate_system,
+                        Coordinates = hl.line.start.coordinates,
+                        Loads = hl.line.start.loads,
+                        Status = hl.line.start.status,
+                        ImposedDisplacements = hl.line.start.imposed_displacements
+                    };
+                    Boundaries end = new Boundaries
+                    {
+                        ID = hl.line.end.id,
+                        DesignOnly = hl.line.end.design_only,
+                        CoordinateSystem = hl.line.end.coordinate_system,
+                        Coordinates = hl.line.end.coordinates,
+                        Loads = hl.line.end.loads,
+                        Status = hl.line.end.status,
+                        ImposedDisplacements = hl.line.end.imposed_displacements
+                    };
+                    Line line = new Line
+                    {
+                        FourierOrder = hl.line.fourier_order,
+                        DesignOnly = hl.line.design_only,
+                        Start = start,
+                        End = end,
+                        DistributedLoads = hl.line.distributed_loads,
+                        Status = hl.line.status,
+                        ImposedDisplacements = hl.line.imposed_displacements
+                    };
+                    LayerMaterial material = new LayerMaterial();
+                    Section section = new Section();
+                    foreach (LayerMaterial m in LayerMaterials)
+                    {
+                        if (m.ID == hl.material) material = m;
+                    }
+                    foreach (Section s in Sections)
+                    {
+                        if (s.ID == hl.section) section = s;
+                    }
+                    HelixLayer layer = new HelixLayer
+                    {
+                        Line = line,
+                        Wires = hl.wires,
+                        Length = hl.length,
+                        Section = section,
+                        Radius = hl.radius,
+                        LayAngle = hl.lay_angle,
+                        InitialAngle = hl.initial_angle,
+                        Divisions = hl.divisions,
+                        Name = hl.name,
+                        Type = hl.type,
+                        Material = material,
+                        BodyLoad = hl.body_load
+                    };
+                    Layers.Add(layer);
+                }
+                // Cylinder
+                else if (l.type == "cylinder")
+                {
+                    JSONCylinderLayer cl = l as JSONCylinderLayer;
+                    List<Area> areas = new List<Area>();
+                    foreach (JSONArea a in cl.areas)
+                    {
+                        double[] StartLoads = UnpopulateLoads(a.frontier.start.loads);
+                        string[] StartStatus = UnpopulateStatus(a.frontier.start.status);
+                        double[] StartImposedDisplacements = UnpopulateLoads(a.frontier.start.imposed_displacements);
+                        Boundaries start = new Boundaries
+                        {
+                            ID = a.frontier.start.id,
+                            DesignOnly = a.frontier.start.design_only,
+                            CoordinateSystem = a.frontier.start.coordinate_system,
+                            Coordinates = a.frontier.start.coordinates,
+                            Loads = StartLoads,
+                            Status = StartStatus,
+                            ImposedDisplacements = StartImposedDisplacements
+                        };
+
+                        double[] EndLoads = UnpopulateLoads(a.frontier.end.loads);
+                        string[] EndStatus = UnpopulateStatus(a.frontier.end.status);
+                        double[] EndImposedDisplacements = UnpopulateLoads(a.frontier.end.imposed_displacements);
+                        Boundaries end = new Boundaries
+                        {
+                            ID = a.frontier.end.id,
+                            DesignOnly = a.frontier.end.design_only,
+                            CoordinateSystem = a.frontier.end.coordinate_system,
+                            Coordinates = a.frontier.end.coordinates,
+                            Loads = EndLoads,
+                            Status = EndStatus,
+                            ImposedDisplacements = EndImposedDisplacements
+                        };
+
+                        double[] FDistributedLoads = UnpopulateLoads(a.frontier.distributed_loads);
+                        string[] FStatus = UnpopulateStatus(a.frontier.status);
+                        double[] FImposedDisplacementes = UnpopulateLoads(a.frontier.imposed_displacements);
+                        Line frontier = new Line
+                        {
+                            FourierOrder = a.frontier.fourier_order,
+                            DesignOnly = a.frontier.design_only,
+                            Start = start,
+                            End = end,
+                            DistributedLoads = FDistributedLoads,
+                            Status = FStatus,
+                            ImposedDisplacements = FImposedDisplacementes
+                        };
+
+                        double[] AImposedDisplacements = UnpopulateLoads(a.imposed_displacements);
+                        string[] AStatus = UnpopulateStatus(a.status);
+                        Area area = new Area
+                        {
+                            Surface = a.surface,
+                            Pressure = a.pressure,
+                            Frontier = frontier,
+                            Status = AStatus,
+                            ImposedDisplacements = AImposedDisplacements
+                        };
+                        areas.Add(area);
+                    }
+                    LayerMaterial material = new LayerMaterial();
+                    foreach (LayerMaterial m in LayerMaterials)
+                    {
+                        if (m.ID == cl.material) material = m;
+                    }
+                    CylinderLayer layer = new CylinderLayer
+                    {
+                        Length = cl.length,
+                        Radius = cl.radius,
+                        Thickness = cl.thickness,
+                        FourierOrder = cl.fourier_series_order,
+                        RadialDivisions = cl.radial_divisions,
+                        AxialDivisions = cl.axial_divisions,
+                        Areas = areas,
+                        Name = cl.name,
+                        Type = cl.type,
+                        Material = material,
+                        BodyLoad = cl.body_load
+                    };
+                    Layers.Add(layer);
+                }
+            }
+
+            // Layer connections
+            LayerConnections = new List<LayerConnection>();
+            foreach (JSONLayerConnection lc in cable.layer_connections)
+            {
+                LayerConnection connection = new LayerConnection
+                {
+                    Type = lc.type,
+                    FirstLayer = lc.first_layer,
+                    SecondLayer = lc.second_layer,
+                    FrictionCoefficient = lc.friction_coefficient,
+                    NormalDirection = lc.normal_direction,
+                    FirstTangentDirection = lc.first_tangent_direction,
+                    SecondTangentDirection = lc.second_tangent_direction,
+                    NormalPenalty = lc.normal_penalty,
+                    TangentialPenalty = lc.tangential_penalty,
+                    PinballSearchRadius = lc.pinball_search_radius,
+                };
+                LayerConnections.Add(connection);
+            }
         }
 
         private void Copy()
@@ -260,6 +505,26 @@ namespace TCC.Classes
                     jsoncable.materials.Add(jmaterial);
                 }
             }
+        }
+
+        private double[] UnpopulateLoads(double[] loads)
+        {
+            double[] newloads = new double[6];
+            for (int i = 0; i < 6; i++)
+            {
+                newloads[i] = loads[i];
+            }
+            return newloads;
+        }
+        private string[] UnpopulateStatus(string[] status)
+        {
+            string[] newstatus = new string[6];
+            for (int i = 0; i < 6; i++)
+            {
+                if (status[i] == "Unused") newstatus[i] = "Free";
+                else newstatus[i] = status[i];
+            }
+            return newstatus;
         }
 
         private double[] PopulateLoads(double[] loads, int order)
