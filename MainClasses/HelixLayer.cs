@@ -51,7 +51,7 @@ namespace TCC.Classes
 
         public void Draw(OpenGL gl, vec3 rgb)
         {
-            if (section.Type == "Rectangular")
+            if (section.Type == "rectangular")
             {
                 RectangularSection rs = section as RectangularSection;
 
@@ -94,7 +94,7 @@ namespace TCC.Classes
                 gl.End();
                 gl.Flush();
             }
-            else if (section.Type == "Tubular")
+            else if (section.Type == "tubular")
             {
                 TubularSection ts = section as TubularSection;
 

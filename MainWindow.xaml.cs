@@ -77,7 +77,6 @@ namespace TCC
             itemsControl.ItemsSource = observableLayer;
 
             CylinderLayer aux = cable.Layers[0] as CylinderLayer;
-            teste.Text = aux.Type;
         }
         private void CylinderWindow_Closed(object sender, EventArgs e)
         {
@@ -196,6 +195,11 @@ namespace TCC
         private void SaveButtonClick(object sender, EventArgs e)
         {
             cable.SaveFile();
+        }
+
+        private void OpenButtonClick(object sender, EventArgs e)
+        {
+            
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

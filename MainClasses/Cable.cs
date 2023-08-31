@@ -72,188 +72,192 @@ namespace TCC.Classes
                     };
                     jsoncable.sections.Add(jsection);
                 }
+            }
 
-                // Layers
-                jsoncable.layers = new List<JSONLayer>();
-                foreach (Layer l in Layers)
+            // Layers
+            jsoncable.layers = new List<JSONLayer>();
+            foreach (Layer l in Layers)
+            {
+                // Helix
+                if (l.Type == "helix" || l.Type == "armor")
                 {
-                    // Helix
-                    if (l.Type == "helix" || l.Type == "armor")
+                    HelixLayer hl = l as HelixLayer;
+                    JSONBoundaries jstart = new JSONBoundaries
                     {
-                        HelixLayer hl = l as HelixLayer;
+                        id = hl.Line.Start.ID,
+                        design_only = hl.Line.Start.DesignOnly,
+                        coordinate_system = hl.Line.Start.CoordinateSystem,
+                        coordinates = hl.Line.Start.Coordinates,
+                        loads = hl.Line.Start.Loads,
+                        status = hl.Line.Start.Status,
+                        imposed_displacements = hl.Line.Start.ImposedDisplacements
+                    };
+                    JSONBoundaries jend = new JSONBoundaries
+                    {
+                        id = hl.Line.End.ID,
+                        design_only = hl.Line.End.DesignOnly,
+                        coordinate_system = hl.Line.End.CoordinateSystem,
+                        coordinates = hl.Line.End.Coordinates,
+                        loads = hl.Line.End.Loads,
+                        status = hl.Line.End.Status,
+                        imposed_displacements = hl.Line.End.ImposedDisplacements
+                    };
+                    JSONLine jline = new JSONLine
+                    {
+                        fourier_order = hl.Line.FourierOrder,
+                        design_only = hl.Line.DesignOnly,
+                        start = jstart,
+                        end = jend,
+                        distributed_loads = hl.Line.DistributedLoads,
+                        status = hl.Line.Status,
+                        imposed_displacements = hl.Line.ImposedDisplacements
+                    };
+                    JSONHelixLayer jlayer = new JSONHelixLayer
+                    {
+                        line = jline,
+                        wires = hl.Wires,
+                        length = hl.Length,
+                        section = hl.Section.ID,
+                        radius = hl.Radius,
+                        lay_angle = hl.LayAngle,
+                        initial_angle = hl.InitialAngle,
+                        divisions = hl.Divisions,
+                        name = hl.Name,
+                        type = hl.Type,
+                        material = hl.Material.ID,
+                        body_load = hl.BodyLoad
+                    };
+                    jsoncable.layers.Add(jlayer);
+                }
+                // Cylinder
+                else if (l.Type == "cylinder")
+                {
+                    CylinderLayer cl = l as CylinderLayer;
+                    List<JSONArea> jareas = new List<JSONArea>();
+                    foreach (Area a in cl.Areas)
+                    {
+                        double[] startloads = PopulateLoads(a.Frontier.Start.Loads, a.Frontier.FourierOrder);
+                        string[] startstatus = PopulateStatus(a.Frontier.Start.Status, a.Frontier.FourierOrder);
+                        double[] startimposed_displacements = PopulateLoads(a.Frontier.Start.ImposedDisplacements, a.Frontier.FourierOrder);
                         JSONBoundaries jstart = new JSONBoundaries
                         {
-                            id = hl.Line.Start.ID,
-                            design_only = hl.Line.Start.DesignOnly,
-                            coordinate_system = hl.Line.Start.CoordinateSystem,
-                            coordinates = hl.Line.Start.Coordinates,
-                            loads = hl.Line.Start.Loads,
-                            status = hl.Line.Start.Status,
-                            imposed_displacements = hl.Line.Start.ImposedDisplacements
+                            id = a.Frontier.Start.ID,
+                            design_only = a.Frontier.Start.DesignOnly,
+                            coordinate_system = a.Frontier.Start.CoordinateSystem,
+                            coordinates = a.Frontier.Start.Coordinates,
+                            loads = startloads,
+                            status = startstatus,
+                            imposed_displacements = startimposed_displacements
                         };
+
+                        double[] endloads = PopulateLoads(a.Frontier.End.Loads, a.Frontier.FourierOrder);
+                        string[] endstatus = PopulateStatus(a.Frontier.End.Status, a.Frontier.FourierOrder);
+                        double[] endimposed_displacements = PopulateLoads(a.Frontier.End.ImposedDisplacements, a.Frontier.FourierOrder);
                         JSONBoundaries jend = new JSONBoundaries
                         {
-                            id = hl.Line.End.ID,
-                            design_only = hl.Line.End.DesignOnly,
-                            coordinate_system = hl.Line.End.CoordinateSystem,
-                            coordinates = hl.Line.End.Coordinates,
-                            loads = hl.Line.End.Loads,
-                            status = hl.Line.End.Status,
-                            imposed_displacements = hl.Line.End.ImposedDisplacements
+                            id = a.Frontier.End.ID,
+                            design_only = a.Frontier.End.DesignOnly,
+                            coordinate_system = a.Frontier.End.CoordinateSystem,
+                            coordinates = a.Frontier.End.Coordinates,
+                            loads = endloads,
+                            status = endstatus,
+                            imposed_displacements = endimposed_displacements
                         };
-                        JSONLine jline = new JSONLine
+
+                        double[] fdistributed_loads = PopulateLoads(a.Frontier.DistributedLoads, a.Frontier.FourierOrder);
+                        string[] fstatus = PopulateStatus(a.Frontier.Status, a.Frontier.FourierOrder);
+                        double[] fimposed_displacementes = PopulateLoads(a.Frontier.ImposedDisplacements, a.Frontier.FourierOrder);
+                        JSONLine jfrontier = new JSONLine
                         {
-                            fourier_order = hl.Line.FourierOrder,
-                            design_only = hl.Line.DesignOnly,
+                            fourier_order = a.Frontier.FourierOrder,
+                            design_only = a.Frontier.DesignOnly,
                             start = jstart,
                             end = jend,
-                            distributed_loads = hl.Line.DistributedLoads,
-                            status = hl.Line.Status,
-                            imposed_displacements = hl.Line.ImposedDisplacements
+                            distributed_loads = fdistributed_loads,
+                            status = fstatus,
+                            imposed_displacements = fimposed_displacementes
                         };
-                        JSONHelixLayer jlayer = new JSONHelixLayer
+
+                        double[] aimposed_displacements = PopulateLoads(a.ImposedDisplacements, cl.FourierOrder);
+                        string[] astatus = PopulateStatus(a.Status, cl.FourierOrder);
+                        JSONArea jarea = new JSONArea
                         {
-                            line = jline,
-                            wires = hl.Wires,
-                            length = hl.Length,
-                            section = hl.Section.ID,
-                            radius = hl.Radius,
-                            lay_angle = hl.LayAngle,
-                            initial_angle = hl.InitialAngle,
-                            divisions = hl.Divisions,
-                            name = hl.Name,
-                            type = hl.Type,
-                            material = hl.Material.ID,
-                            body_load = hl.BodyLoad
+                            surface = a.Surface,
+                            pressure = a.Pressure,
+                            frontier = jfrontier,
+                            status = astatus,
+                            imposed_displacements = aimposed_displacements
                         };
-                        jsoncable.layers.Add(jlayer);
+                        jareas.Add(jarea);
                     }
-                    // Cylinder
-                    else if (l.Type == "cylinder")
+                    JSONCylinderLayer jlayer = new JSONCylinderLayer
                     {
-                        CylinderLayer cl = l as CylinderLayer;
-                        List<JSONArea> jareas = new List<JSONArea>();
-                        foreach (Area a in cl.Areas)
-                        {
-                            double[] startloads = PopulateLoads(a.Frontier.Start.Loads, a.Frontier.FourierOrder);
-                            string[] startstatus = PopulateStatus(a.Frontier.Start.Status, a.Frontier.FourierOrder);
-                            double[] startimposed_displacements = PopulateLoads(a.Frontier.Start.ImposedDisplacements, a.Frontier.FourierOrder);
-                            JSONBoundaries jstart = new JSONBoundaries
-                            {
-                                id = a.Frontier.Start.ID,
-                                design_only = a.Frontier.Start.DesignOnly,
-                                coordinate_system = a.Frontier.Start.CoordinateSystem,
-                                coordinates = a.Frontier.Start.Coordinates,
-                                loads = startloads,
-                                status = startstatus,
-                                imposed_displacements = startimposed_displacements
-                            };
-
-                            double[] endloads = PopulateLoads(a.Frontier.End.Loads, a.Frontier.FourierOrder);
-                            string[] endstatus = PopulateStatus(a.Frontier.End.Status, a.Frontier.FourierOrder);
-                            double[] endimposed_displacements = PopulateLoads(a.Frontier.End.ImposedDisplacements, a.Frontier.FourierOrder);
-                            JSONBoundaries jend = new JSONBoundaries
-                            {
-                                id = a.Frontier.End.ID,
-                                design_only = a.Frontier.End.DesignOnly,
-                                coordinate_system = a.Frontier.End.CoordinateSystem,
-                                coordinates = a.Frontier.End.Coordinates,
-                                loads = endloads,
-                                status = endstatus,
-                                imposed_displacements = endimposed_displacements
-                            };
-
-                            double[] fdistributed_loads = PopulateLoads(a.Frontier.DistributedLoads, a.Frontier.FourierOrder);
-                            string[] fstatus = PopulateStatus(a.Frontier.Status, a.Frontier.FourierOrder);
-                            double[] fimposed_displacementes = PopulateLoads(a.Frontier.ImposedDisplacements, a.Frontier.FourierOrder);
-                            JSONLine jfrontier = new JSONLine
-                            {
-                                fourier_order = a.Frontier.FourierOrder,
-                                design_only = a.Frontier.DesignOnly,
-                                start = jstart,
-                                end = jend,
-                                distributed_loads = fdistributed_loads,
-                                status = fstatus,
-                                imposed_displacements = fimposed_displacementes
-                            };
-
-                            double[] aimposed_displacements = PopulateLoads(a.ImposedDisplacements, cl.FourierOrder);
-                            string[] astatus = PopulateStatus(a.Status, cl.FourierOrder);
-                            JSONArea jarea = new JSONArea
-                            {
-                                surface = a.Surface,
-                                pressure = a.Pressure,
-                                frontier = jfrontier,
-                                status = astatus,
-                                imposed_displacements = aimposed_displacements
-                            };
-                            jareas.Add(jarea);
-                        }
-                        JSONCylinderLayer jlayer = new JSONCylinderLayer
-                        {
-                            length = cl.Length,
-                            radius = cl.Radius,
-                            thickness = cl.Thickness,
-                            fourier_series_order = cl.FourierOrder,
-                            radial_divisions = cl.RadialDivisions,
-                            axial_divisions = cl.AxialDivisions,
-                            areas = jareas,
-                            name = cl.Name,
-                            type = cl.Type,
-                            material = cl.Material.ID,
-                            body_load = cl.BodyLoad
-                        };
-                    }
-                }
-
-                // Layer connections
-                jsoncable.layer_connections = new List<JSONLayerConnection>();
-                foreach (LayerConnection lc in LayerConnections)
-                {
-                    JSONLayerConnection jconnection = new JSONLayerConnection
-                    {
-                        type = lc.Type,
-                        first_layer = lc.FirstLayer,
-                        second_layer = lc.SecondLayer,
-                        friction_coefficient = lc.FrictionCoefficient,
-                        normal_direction = lc.NormalDirection,
-                        first_tangent_direction = lc.FirstTangentDirection,
-                        second_tangent_direction = lc.SecondTangentDirection,
-                        normal_penalty = lc.NormalPenalty,
-                        tangential_penalty = lc.TangentialPenalty,
-                        pinball_search_radius = lc.PinballSearchRadius,
+                        length = cl.Length,
+                        radius = cl.Radius,
+                        thickness = cl.Thickness,
+                        fourier_series_order = cl.FourierOrder,
+                        radial_divisions = cl.RadialDivisions,
+                        axial_divisions = cl.AxialDivisions,
+                        areas = jareas,
+                        name = cl.Name,
+                        type = cl.Type,
+                        material = cl.Material.ID,
+                        body_load = cl.BodyLoad
                     };
-                    jsoncable.layer_connections.Add(jconnection);
+                    jsoncable.layers.Add(jlayer);
                 }
+            }
 
-                // Materials
-                jsoncable.materials = new List<JSONMaterial>();
-                foreach (LayerMaterial m in LayerMaterials)
+            // Layer connections
+            jsoncable.layer_connections = new List<JSONLayerConnection>();
+            foreach (LayerConnection lc in LayerConnections)
+            {
+                JSONLayerConnection jconnection = new JSONLayerConnection
                 {
-                    if (m.Type == "isotropic")
+                    type = lc.Type,
+                    first_layer = lc.FirstLayer,
+                    second_layer = lc.SecondLayer,
+                    friction_coefficient = lc.FrictionCoefficient,
+                    normal_direction = lc.NormalDirection,
+                    first_tangent_direction = lc.FirstTangentDirection,
+                    second_tangent_direction = lc.SecondTangentDirection,
+                    normal_penalty = lc.NormalPenalty,
+                    tangential_penalty = lc.TangentialPenalty,
+                    pinball_search_radius = lc.PinballSearchRadius,
+                };
+                jsoncable.layer_connections.Add(jconnection);
+            }
+
+            // Materials
+            jsoncable.materials = new List<JSONMaterial>();
+            foreach (LayerMaterial m in LayerMaterials)
+            {
+                if (m.Type == "isotropic")
+                {
+                    Isotropic iso = m as Isotropic;
+                    JSONIsotropic jmaterial = new JSONIsotropic
                     {
-                        Isotropic iso = m as Isotropic;
-                        JSONIsotropic jmaterial = new JSONIsotropic
-                        {
-                            young_modulus = iso.Young,
-                            poisson_ratio = iso.Poisson,
-                            type = m.Type,
-                            id = iso.ID,
-                            density = iso.Density
-                        };
-                        jsoncable.materials.Add(jmaterial);
-                    }
-                    else if (m.Type == "orthotropic")
+                        young_modulus = iso.Young,
+                        poisson_ratio = iso.Poisson,
+                        type = m.Type,
+                        id = iso.ID,
+                        density = iso.Density
+                    };
+                    jsoncable.materials.Add(jmaterial);
+                }
+                else if (m.Type == "orthotropic")
+                {
+                    Orthotropic ortho = m as Orthotropic;
+                    JSONOrthotropic jmaterial = new JSONOrthotropic
                     {
-                        Orthotropic ortho = m as Orthotropic;
-                        JSONOrthotropic jmaterial = new JSONOrthotropic
-                        {
-                            young = ortho.Young,
-                            poisson = ortho.Poisson,
-                            shear = ortho.Shear,
-                        };
-                        jsoncable.materials.Add(jmaterial);
-                    }
+                        young = ortho.Young,
+                        poisson = ortho.Poisson,
+                        shear = ortho.Shear,
+                        type = m.Type,
+                        id = ortho.ID,
+                        density = ortho.Density
+                    };
+                    jsoncable.materials.Add(jmaterial);
                 }
             }
         }

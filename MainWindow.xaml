@@ -17,10 +17,7 @@
             <RowDefinition Height="4*" MinHeight="400"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <Button Margin="8,0,8,4">
-                New
-            </Button>
-            <Button Margin="8,0,8,4">
+            <Button Margin="8,0,8,4" Name="OpenButton" Click="OpenButtonClick">
                 Open
             </Button>
             <Button Margin="8,0,8,4" Name="SaveButton" Click="SaveButtonClick">
