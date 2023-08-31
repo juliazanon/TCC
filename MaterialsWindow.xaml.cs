@@ -25,6 +25,7 @@ namespace TCC
         private List<LayerMaterial> materials;
         private Isotropic layerIsotropic;
         private Orthotropic layerOrthotropic;
+        private bool isEdit = false;
 
         public event EventHandler SubmitButtonClick;
         public MaterialsWindow(List<LayerMaterial> materials)
@@ -32,6 +33,37 @@ namespace TCC
             InitializeComponent();
             this.materials = materials;
             IsotropicRadioButton.IsChecked = true;
+        }
+        public MaterialsWindow(List<LayerMaterial> materials, LayerMaterial material)
+        {
+            InitializeComponent();
+            this.materials = materials;
+            IsotropicRadioButton.IsChecked = true;
+            isEdit = true;
+
+            NameTextBox.Text = material.Name.ToString();
+            DensityTextBox.Text = material.Density.ToString();
+            if (material.Type == "isotropic")
+            {
+                Isotropic iso = material as Isotropic;
+                IsotropicRadioButton.IsChecked = true;
+                YoungTextBox.Text = iso.Young.ToString();
+                PoissonTextBox.Text = iso.Poisson.ToString();
+            }
+            else if (material.Type == "orthotropic")
+            {
+                Orthotropic ortho = material as Orthotropic;
+                OrthotropicRadioButton.IsChecked = true;
+                EXTextBox.Text = ortho.Young[0].ToString();
+                EYTextBox.Text = ortho.Young[1].ToString();
+                EZTextBox.Text = ortho.Young[2].ToString();
+                NuXYTextBox.Text = ortho.Poisson[0].ToString();
+                NuXZTextBox.Text = ortho.Poisson[1].ToString();
+                NuYZTextBox.Text = ortho.Poisson[2].ToString();
+                GXYTextBox.Text = ortho.Shear[0].ToString();
+                GXZTextBox.Text = ortho.Shear[1].ToString();
+                GYZTextBox.Text = ortho.Shear[2].ToString();
+            }
         }
         public Isotropic LayerIsotropic { get { return layerIsotropic; } }
         public Orthotropic LayerOrthotropic { get { return layerOrthotropic; } }
@@ -88,7 +120,7 @@ namespace TCC
             if (IsotropicRadioButton.IsChecked == true)
             {
                 layerIsotropic = new Isotropic { Density = 1.0, ID = 1, Name = "New Material", Type = "isotropic" };
-                layerIsotropic.ID = materials.Count + 1;
+                if (!isEdit) layerIsotropic.ID = materials.Count + 1;
                 layerIsotropic.Name = NameTextBox.Text;
                 double.TryParse(DensityTextBox.Text, out double result);
                 layerIsotropic.Density = result;

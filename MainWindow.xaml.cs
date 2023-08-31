@@ -170,8 +170,15 @@ namespace TCC
         private void ButtonMaterialList(object sender, RoutedEventArgs e)
         {
             MaterialListWindow windowMaterial = new MaterialListWindow(cable.LayerMaterials);
-            //windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
+            windowMaterial.Closed += MaterialsListWindow_Closed;
             windowMaterial.Show();
+            this.IsEnabled = false;
+            isChildWindowOpen = true;
+        }
+        private void MaterialsListWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            isChildWindowOpen = false;
         }
 
         //  Sections
@@ -206,8 +213,15 @@ namespace TCC
         private void ButtonSectionList(object sender, RoutedEventArgs e)
         {
             SectionListWindow windowSectionList = new SectionListWindow(cable.Sections);
-            //windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
+            windowSectionList.Closed += SectionsListWindow_Closed;
             windowSectionList.Show();
+            this.IsEnabled = false;
+            isChildWindowOpen = true;
+        }
+        private void SectionsListWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            isChildWindowOpen = false;
         }
         private void SaveButtonClick(object sender, EventArgs e)
         {
