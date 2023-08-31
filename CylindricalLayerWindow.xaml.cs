@@ -21,7 +21,7 @@ namespace TCC
     public partial class CylindricalLayerWindow : Window
     {
         private CylinderLayer cylinderLayer;
-        private List<Layer> layerList;
+        private List<Layer> layers;
         private LayerMaterial material;
         private List<Area> areas = new List<Area>();
         private bool isChildWindowOpen = false;
@@ -33,7 +33,7 @@ namespace TCC
         {
             InitializeComponent();
             
-            layerList = layers;
+            this.layers = layers;
 
             //  Materials comboBox
             if (materials.Count == 0)
@@ -109,9 +109,9 @@ namespace TCC
 
         private void SubmitNewLayer(object sender, RoutedEventArgs e)
         {
-            if (layerList.Count != 0)
+            if (layers.Count != 0)
             {
-                if (layerList.Any(obj => obj.Name == NameTextBox.Text))
+                if (layers.Any(obj => obj.Name == NameTextBox.Text))
                 {
                     InputWarning("Name");
                     return;

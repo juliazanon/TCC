@@ -86,9 +86,11 @@ namespace TCC
             this.IsEnabled = true;
             isChildWindowOpen = false;
         }
+
+        // Helix
         private void ButtonNewHelix(object sender, RoutedEventArgs e)
         {
-            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Sections, cable.LayerMaterials);
+            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Layers,cable.Sections, cable.LayerMaterials);
             windowHelix.SubmitButtonClick += SubmitHelixButtonClick;
             windowHelix.Closed += HelixWindow_Closed;
             windowHelix.Show();

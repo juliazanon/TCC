@@ -22,14 +22,16 @@ namespace TCC
     public partial class HelicalLayerWindow : Window
     {
         private HelixLayer helixLayer;
-
+        private List<Layer> layers;
+        
         public event EventHandler SubmitButtonClick;
 
         public HelixLayer HelixLayer { get { return helixLayer; } }
 
-        public HelicalLayerWindow(List<Section> sections, List<LayerMaterial> materials)
+        public HelicalLayerWindow(List<Layer> layers,List<Section> sections, List<LayerMaterial> materials)
         {
             InitializeComponent();
+            this.layers = layers;
 
             //  Section comboBox
             if (sections.Count == 0)
@@ -137,6 +139,15 @@ namespace TCC
 
         private void SubmitNewLayer(object sender, RoutedEventArgs e)
         {
+            if (layers.Count != 0)  // Conditions
+            {
+                if (layers.Any(obj => obj.Name == NameTextBox.Text))  // Name already used
+                {
+                    InputWarning("Name");
+                    return;
+                }
+            }
+
             helixLayer = new HelixLayer
             {
                 Name = NameTextBox.Text,
@@ -285,6 +296,14 @@ namespace TCC
             if (e.Key == Key.Enter)
             {
                 if (SectionWarning.Visibility == Visibility.Collapsed) SubmitNewLayer(sender, e);
+            }
+        }
+        private void InputWarning(string inputfild)
+        {
+            if (inputfild == "Name")
+            {
+                NameWarningTextBlock.Text = "Name already used";
+                NameWarningTextBlock.Height = 18;
             }
         }
 
