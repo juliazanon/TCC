@@ -38,6 +38,9 @@
     <Reference Include="GlmNet, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\GlmNet.0.7.0\lib\net40\GlmNet.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SharpGL, Version=3.1.1.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
       <HintPath>packages\SharpGL.3.1.1\lib\net472\SharpGL.dll</HintPath>
     </Reference>
@@ -53,6 +56,7 @@
     <Reference Include="System.Drawing.Common, Version=4.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Drawing.Common.4.7.3\lib\net461\System.Drawing.Common.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,7 +75,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="JSONClasses\JSONArea.cs" />
+    <Compile Include="JSONClasses\JSONBoundaries.cs" />
     <Compile Include="JSONClasses\JSONCable.cs" />
+    <Compile Include="JSONClasses\JSONCylinderLayer.cs" />
+    <Compile Include="JSONClasses\JSONHelixLayer.cs" />
+    <Compile Include="JSONClasses\JSONIsotropic.cs" />
+    <Compile Include="JSONClasses\JSONLayer.cs" />
+    <Compile Include="JSONClasses\JSONLayerConnection.cs" />
+    <Compile Include="JSONClasses\JSONLine.cs" />
+    <Compile Include="JSONClasses\JSONMaterial.cs" />
+    <Compile Include="JSONClasses\JSONOrthotropic.cs" />
+    <Compile Include="JSONClasses\JSONRectangularSection.cs" />
+    <Compile Include="JSONClasses\JSONSection.cs" />
+    <Compile Include="JSONClasses\JSONTubularSection.cs" />
     <Compile Include="MainClasses\Area.cs" />
     <Compile Include="MainClasses\Boundaries.cs" />
     <Compile Include="MainClasses\Cable.cs" />

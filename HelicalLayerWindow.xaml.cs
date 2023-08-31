@@ -140,7 +140,6 @@ namespace TCC
             helixLayer = new HelixLayer
             {
                 Name = NameTextBox.Text,
-                Type = "helix",
                 Line = new Line
                 {
                     Start = new Boundaries(),
@@ -160,6 +159,9 @@ namespace TCC
             helixLayer.InitialAngle = result;
             int.TryParse(DivisionsTextBox.Text, out intresult);
             helixLayer.Divisions = intresult;
+
+            if (helixLayer.Wires == 1) helixLayer.Type = "helix";
+            else if (helixLayer.Wires > 1) helixLayer.Type = "armor";
 
             LayerMaterial selectedMaterial = (LayerMaterial)MaterialComboBox.SelectedItem;
             helixLayer.Material = selectedMaterial;

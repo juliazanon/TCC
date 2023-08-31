@@ -104,24 +104,21 @@ namespace TCC
                 layerOrthotropic.Name = NameTextBox.Text;
                 double.TryParse(DensityTextBox.Text, out double result);
                 layerOrthotropic.Density = result;
-                double.TryParse(EXTextBox.Text, out result);
-                layerOrthotropic.Ex = result;
-                double.TryParse(EYTextBox.Text, out result);
-                layerOrthotropic.Ey = result;
-                double.TryParse(EZTextBox.Text, out result);
-                layerOrthotropic.Ez = result;
-                double.TryParse(NuXYTextBox.Text, out result);
-                layerOrthotropic.Nxy = result;
-                double.TryParse(NuXZTextBox.Text, out result);
-                layerOrthotropic.Nxz = result;
-                double.TryParse(NuYZTextBox.Text, out result);
-                layerOrthotropic.Nyz = result;
-                double.TryParse(GXYTextBox.Text, out result);
-                layerOrthotropic.Gxy = result;
-                double.TryParse(GXZTextBox.Text, out result);
-                layerOrthotropic.Gxz = result;
-                double.TryParse(GYZTextBox.Text, out result);
-                layerOrthotropic.Gyz = result;
+
+                double.TryParse(EXTextBox.Text, out double xresult);
+                double.TryParse(EYTextBox.Text, out double yresult);
+                double.TryParse(EZTextBox.Text, out double zresult);
+                layerOrthotropic.Young = new double[] { xresult, yresult, zresult };
+
+                double.TryParse(NuXYTextBox.Text, out xresult);
+                double.TryParse(NuXZTextBox.Text, out yresult);
+                double.TryParse(NuYZTextBox.Text, out zresult);
+                layerOrthotropic.Poisson = new double[] { xresult, yresult, zresult };
+
+                double.TryParse(GXYTextBox.Text, out xresult);
+                double.TryParse(GXZTextBox.Text, out yresult);
+                double.TryParse(GYZTextBox.Text, out zresult);
+                layerOrthotropic.Shear = new double[] { xresult, yresult, zresult };
             }
 
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);

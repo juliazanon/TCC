@@ -22,7 +22,7 @@ namespace TCC
         private List<Section> sections;
         private RectangularSection rectangularSection;
         private TubularSection tubularSection;
-        private string section = "Rectangular";
+        private string section = "rectangular";
 
         public event EventHandler SubmitButtonClick;
 
@@ -46,7 +46,7 @@ namespace TCC
 
             if (selectedParameter == "Rectangular")
             {
-                section = "Rectangular";
+                section = "rectangular";
                 // Show Rectangular
                 Rectangular.Visibility = Visibility.Visible;
 
@@ -55,7 +55,7 @@ namespace TCC
             }
             else if (selectedParameter == "Tubular")
             {
-                section = "Tubular";
+                section = "tubular";
                 // Show Cylindrical
                 Cylindrical.Visibility = Visibility.Visible;
 
@@ -73,13 +73,13 @@ namespace TCC
         }
         private void SubmitNewSection(object sender, RoutedEventArgs e)
         {
-            if (section == "Rectangular")
+            if (section == "rectangular")
             {
                 rectangularSection = new RectangularSection
                 {
                     Name = "New Section",
                     ID = 0,
-                    Type = "Rectangular",
+                    Type = "rectangular",
                     Width = 1.0,
                     Height = 1.0
                 };
@@ -91,13 +91,13 @@ namespace TCC
                 double.TryParse(HeightTextBox.Text, out result);
                 rectangularSection.Height = result;
             }
-            else if (section == "Tubular")
+            else if (section == "tubular")
             {
                 tubularSection = new TubularSection
                 {
                     Name = "New Section",
                     ID = 0,
-                    Type = "Tubular",
+                    Type = "tubular",
                     InternalRadius = 0.0,
                     ExternalRadius = 1.0
                 };

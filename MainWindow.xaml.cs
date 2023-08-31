@@ -76,8 +76,8 @@ namespace TCC
             observableLayer.Add(layer);
             itemsControl.ItemsSource = observableLayer;
 
-            //CylinderLayer aux = cable.Layers[0] as CylinderLayer;
-            //teste.Text = aux.Areas[0].Frontier.DesignOnly.ToString();
+            CylinderLayer aux = cable.Layers[0] as CylinderLayer;
+            teste.Text = aux.Type;
         }
         private void CylinderWindow_Closed(object sender, EventArgs e)
         {
@@ -148,7 +148,6 @@ namespace TCC
                 Isotropic materialIsotropic = windowMaterial.LayerIsotropic;
 
                 cable.LayerMaterials.Add(materialIsotropic);
-                teste.Text = materialIsotropic.Type;
             }
 
             else if (windowMaterial.LayerOrthotropic != null)
