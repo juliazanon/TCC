@@ -38,6 +38,7 @@ namespace TCC
     {
         Cable cable;
         ObservableCollection<Layer> observableLayer = new ObservableCollection<Layer>();
+        ObservableCollection<LayerConnection> observableConnection = new ObservableCollection<LayerConnection>();
         bool isChildWindowOpen = false;
         Button previoussrcButton;
 
@@ -46,6 +47,7 @@ namespace TCC
             InitializeComponent();
 
             itemsControl.ItemsSource = observableLayer;
+            connectionsControl.ItemsSource = observableConnection;
 
             cable = new Cable
             {
@@ -124,6 +126,8 @@ namespace TCC
             LayerConnection layerConnection = windowConnection.LayerConnection;
 
             cable.LayerConnections.Add(layerConnection);
+            observableConnection.Add(layerConnection);
+            connectionsControl.ItemsSource = observableConnection;
         }
         private void ConnectionsWindow_Closed(object sender, EventArgs e)
         {
@@ -236,6 +240,21 @@ namespace TCC
         }
 
         private void ButtonSelectLayer(object sender, RoutedEventArgs e)
+        {
+            // string clickedButton = (Button)sender.Content.ToString();
+            if (previoussrcButton != null)
+            {
+                previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+            }
+            Button srcButton = e.Source as Button;
+            srcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF));
+            Grid contentGrid = (Grid)(sender as Button).Content;
+            TextBlock contentTextBlock = (TextBlock)(contentGrid as Grid).Children.Cast<UIElement>().FirstOrDefault(f => Grid.GetColumn(f) == 0);
+            string text = contentTextBlock.Text;
+            teste.Text = text;
+            previoussrcButton = srcButton;
+        }
+        private void ButtonSelectConnection(object sender, RoutedEventArgs e)
         {
             // string clickedButton = (Button)sender.Content.ToString();
             if (previoussrcButton != null)

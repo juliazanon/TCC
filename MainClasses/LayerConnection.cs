@@ -8,6 +8,7 @@ namespace TCC.Classes
 {
     public class LayerConnection
     {
+        public string Name { get; set; }
         public string Type { get; set; }
         public string FirstLayer { get; set; }
         public string SecondLayer { get; set; }

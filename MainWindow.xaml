@@ -158,9 +158,15 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="4*" MinWidth="600"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Background="#FFF0F0F5">
-                <TextBlock FontSize="18" Margin="4" HorizontalAlignment="Center" FontWeight="DemiBold">Layers</TextBlock>
-                <ItemsControl x:Name="itemsControl" Margin="8,4" Background="#FFF4F4F5">
+            <Grid Background="#FFF0F0F5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" FontSize="18" Margin="4" HorizontalAlignment="Center" FontWeight="DemiBold">Layers</TextBlock>
+                <ItemsControl Grid.Row="1" x:Name="itemsControl" Margin="8,4" Background="#FFF4F4F5">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Button Click="ButtonSelectLayer" Background="#E0E0E0">
@@ -176,7 +182,24 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </StackPanel>
+                <TextBlock Grid.Row="2" FontSize="18" Margin="4" HorizontalAlignment="Center" FontWeight="DemiBold">Connections</TextBlock>
+                <ItemsControl Grid.Row="3" x:Name="connectionsControl" Margin="8,4" Background="#FFF4F4F5">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Click="ButtonSelectConnection" Background="#E0E0E0">
+                                <Grid Background="#E0E0E0" Margin="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="2" Padding="4,2,4,2" Background="#F3F3F3"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Type}" Margin="2" Padding="4,2,4,2" Background="#F3F3F3"/>
+                                </Grid>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
             <gl:OpenGLControl x:Name="GLControl" OpenGLDraw="OpenGLDraw" Grid.Column="1"/>
         </Grid>
     </Grid>

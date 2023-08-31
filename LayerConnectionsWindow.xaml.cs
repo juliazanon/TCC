@@ -81,6 +81,7 @@ namespace TCC
             if (FrictionalRadioButton.IsChecked == true) { layerConnection.Type = "frictional"; }
             else { layerConnection.Type = "bonded"; }
 
+            layerConnection.Name = NameConnectionTextBox.Text;
             layerConnection.FirstLayer = firstLayer.Name;
             layerConnection.SecondLayer = secondLayer.Name;
 
@@ -112,7 +113,13 @@ namespace TCC
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
         }
-
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SubmitNewLayerConnection(sender, e);
+            }
+        }
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Check if the entered character is a digit or a dot

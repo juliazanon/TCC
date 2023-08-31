@@ -5,27 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="Layer Connections" Height="460" Width="400">
+        Title="Layer Connections" Height="460" Width="400"
+        KeyDown="Window_KeyDown">
     <ScrollViewer>
         <StackPanel>
             <TextBlock Margin="4">Type of connection</TextBlock>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="4">
+                <TextBlock Margin="4">Name</TextBlock>
+                <TextBox Width="200" Name="NameConnectionTextBox" Text="New Connection"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="4">
                 <RadioButton Content="Frictional" Name="FrictionalRadioButton" IsChecked="True"/>
                 <RadioButton Margin="20,0,0,0" Content="Bonded" Name="BondedRadioButton"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock>First Layer:</TextBlock>
+                <TextBlock Margin="4">First Layer:</TextBlock>
                 <ComboBox Name="FirstLayerComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
                                       DisplayMemberPath="Name" SelectedValuePath="Name" SelectionChanged="FirstLayerComboBox_SelectionChanged">
                 </ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock>Second Layer:</TextBlock>
+                <TextBlock Margin="4">Second Layer:</TextBlock>
                 <ComboBox Name="SecondLayerComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
                                       DisplayMemberPath="Name" SelectedValuePath="Name" SelectionChanged="SecondLayerComboBox_SelectionChanged">
                 </ComboBox>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="4">
+            <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="4">Friction Coefficient:</TextBlock>
                 <TextBox Width="200" Name="FrictionTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
             </StackPanel>
