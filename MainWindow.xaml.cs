@@ -63,7 +63,7 @@ namespace TCC
         //  Layers
         private void ButtonNewCylinder(object sender, RoutedEventArgs e)
         {
-            CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow(cable.LayerMaterials);
+            CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow(cable.Layers ,cable.LayerMaterials);
             windowCylinder.SubmitButtonClick += SubmitCylinderButtonClick;
             windowCylinder.Closed += CylinderWindow_Closed;
             windowCylinder.Show();

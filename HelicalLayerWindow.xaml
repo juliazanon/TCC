@@ -87,7 +87,7 @@
                     <TextBlock Margin="4,0,0,0">Status:</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="4">
                         <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
-                        <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxComboBox" SelectionChanged="FxComboBox_SelectionChanged">
+                        <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxComboBox">
                             <ComboBoxItem Content="Free" IsSelected="True"/>
                             <ComboBoxItem Content="Fixed"/>
                             <ComboBoxItem Content="Imposed"/>
