@@ -132,7 +132,7 @@ namespace TCC
             else if (OrthotropicRadioButton.IsChecked == true)
             {
                 layerOrthotropic = new Orthotropic { Density = 1.0, ID = 1, Name = "New Material", Type = "orthotropic" };
-                layerOrthotropic.ID = materials.Count + 1;
+                if (!isEdit) layerOrthotropic.ID = materials.Count + 1;
                 layerOrthotropic.Name = NameTextBox.Text;
                 double.TryParse(DensityTextBox.Text, out double result);
                 layerOrthotropic.Density = result;

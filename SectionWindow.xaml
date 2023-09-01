@@ -15,12 +15,12 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Background="#E6E6E6" Margin="4">
             <TextBlock Margin="4" FontWeight="DemiBold">Section Name:</TextBlock>
-            <TextBox Margin="4" Name="SectionName" Text="New Section"></TextBox>
+            <TextBox Margin="4" Name="NameTextBox" Text="New Section"></TextBox>
             <StackPanel Orientation="Horizontal" Margin="4">
                 <TextBlock Margin="0,0,4,0">Type</TextBlock>
-                <ComboBox Name="sectionComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5">
-                    <ComboBoxItem Content="Rectangular" IsSelected="True"/>
-                    <ComboBoxItem Content="Tubular"/>
+                <ComboBox Name="TypeComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5">
+                    <ComboBoxItem Content="rectangular" IsSelected="True"/>
+                    <ComboBoxItem Content="tubular"/>
                 </ComboBox>
             </StackPanel>
         </StackPanel>
