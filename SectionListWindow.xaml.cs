@@ -124,7 +124,9 @@ namespace TCC
             }
             else
             {
-                WarningWindow windowWarning = new WarningWindow();
+                WarningWindow windowWarning = new WarningWindow(
+                    "This Section is part of a layer. Deleting it will also delete the layer. Are you sure you want to continue?"
+                    );
                 windowWarning.ConfirmButtonClick += ConfirmButtonClick;
                 windowWarning.CancelButtonClick += CancelButtonClick;
                 windowWarning.Show();

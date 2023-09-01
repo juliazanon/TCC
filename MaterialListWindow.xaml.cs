@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using TCC.Classes;
+using static System.Collections.Specialized.BitVector32;
 
 namespace TCC
 {
@@ -25,14 +26,15 @@ namespace TCC
     {
         private List<LayerMaterial> materials;
         private string materialName;
+        private Cable cable;
         ObservableCollection<LayerMaterial> observableMaterials = new ObservableCollection<LayerMaterial>();
         bool isChildWindowOpen = false;
 
-        // public List<LayerMaterial> Materials { get { return materials; } }
-        public MaterialListWindow(List<LayerMaterial> materials)
+        public MaterialListWindow(Cable cable)
         {
             InitializeComponent();
-            this.materials = materials;
+            this.materials = cable.LayerMaterials;
+            this.cable = cable;
 
             for (int i = 0; i < materials.Count(); i++) {
                 if (materials[i] is Isotropic)
@@ -96,12 +98,53 @@ namespace TCC
             }
         }
 
+        Layer materialLayer;
         private void DeleteMaterialButton(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             materialName = button.Tag.ToString();
+            bool foundLayer = false;
+            foreach (Layer l in cable.Layers)
+            {
+                Layer layer = l as Layer;
+                if (layer.Material.Name == materialName)
+                {
+                    foundLayer = true;
+                    materialLayer = layer;
+                }
+            }
+
+            if (!foundLayer)
+            {
+                // Delete Material if no layer is found with it
+                for (int i = 0; i < materials.Count; i++)
+                {
+                    if (materials[i].Name == materialName)
+                    {
+                        observableMaterials.Remove(materials[i]);
+                        PopUpTextBlock.Text = materialName + " Deleted Successfully";
+                        materials.Remove(materials[i]);
+                        popup.IsOpen = true;
+                    }
+                }
+            }
+            else
+            {
+                WarningWindow windowWarning = new WarningWindow(
+                    "This Material is part of a layer. Deleting it will modify the layer to no material. Are you sure you want to continue?"
+                    );
+                windowWarning.ConfirmButtonClick += ConfirmButtonClick;
+                windowWarning.CancelButtonClick += CancelButtonClick;
+                windowWarning.Show();
+            }
+        }
+        private void ConfirmButtonClick(object sender, EventArgs e)
+        {
             for (int i = 0; i < materials.Count; i++)
             {
+                // First modify layer
+                materialLayer.Material = new LayerMaterial();
+                // Then delete section after confirmation
                 if (materials[i].Name == materialName)
                 {
                     observableMaterials.Remove(materials[i]);
@@ -110,6 +153,10 @@ namespace TCC
                     popup.IsOpen = true;
                 }
             }
+        }
+        private void CancelButtonClick(object sender, EventArgs e)
+        {
+            return;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

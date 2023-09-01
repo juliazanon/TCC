@@ -22,9 +22,10 @@ namespace TCC
         public event EventHandler ConfirmButtonClick;
         public event EventHandler CancelButtonClick;
 
-        public WarningWindow()
+        public WarningWindow(string text)
         {
             InitializeComponent();
+            ContentTextBlock.Text = text;
         }
 
         private void YesButtonClick(object sender, RoutedEventArgs e)

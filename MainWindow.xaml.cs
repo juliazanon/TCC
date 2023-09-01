@@ -194,7 +194,7 @@ namespace TCC
 
         private void ButtonMaterialList(object sender, RoutedEventArgs e)
         {
-            MaterialListWindow windowMaterial = new MaterialListWindow(cable.LayerMaterials);
+            MaterialListWindow windowMaterial = new MaterialListWindow(cable);
             windowMaterial.Closed += ChildWindow_Closed;
             windowMaterial.Show();
             this.IsEnabled = false;

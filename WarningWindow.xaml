@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="WarningWindow" Height="200" Width="400">
+        Title="Warning" Height="200" Width="400">
     <StackPanel>
-        <TextBlock>This Section is part of a layer, are you sure you want to continue?</TextBlock>
+        <TextBlock Name="ContentTextBlock"/>
         <Button Click="YesButtonClick">Yes</Button>
         <Button Click="NoButtonClick">No</Button>
     </StackPanel>
