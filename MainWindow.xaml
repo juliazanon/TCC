@@ -16,6 +16,12 @@
             <RowDefinition Height="*" MaxHeight="200" MinHeight="150"/>
             <RowDefinition Height="4*" MinHeight="400"/>
         </Grid.RowDefinitions>
+        <Popup x:Name="popup" IsOpen="False" Placement="Relative" Width="Auto" Height="50" Opened="Popup_Opened">
+            <Border Background="LightGreen" BorderBrush="Black" BorderThickness="1">
+                <TextBlock Name="PopUpTextBlock" Text="Object created successfully" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Background="LightGreen" FontWeight="DemiBold" Foreground="DarkSlateGray" Margin="4,0,4,0"/>
+            </Border>
+        </Popup>
         <StackPanel Orientation="Horizontal">
             <Button Margin="8,0,8,4" Name="OpenButton" Click="OpenButtonClick">
                 Open
