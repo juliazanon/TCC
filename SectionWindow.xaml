@@ -16,10 +16,10 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Background="#E6E6E6" Margin="4">
             <TextBlock Margin="4" FontWeight="DemiBold" FontSize="16">Section Name:</TextBlock>
-            <TextBox Margin="4,0,4,4" Name="SectionName" Text="New Section" FontSize="13"></TextBox>
-            <TextBlock Height="0" Margin="4,0,4,0" Name="NameWarningTextBlock" Foreground="Red"></TextBlock>
-            <StackPanel Orientation="Horizontal" Margin="4">
-                <TextBlock Margin="0,0,4,0">Type</TextBlock>
+            <TextBox Margin="4,0,4,4" Name="NameTextBox" Text="New Section" FontSize="13"></TextBox>
+            <TextBlock Height="0" Margin="4,0" Name="NameWarningTextBlock" Foreground="Red"></TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="4" VerticalAlignment="Center">
+                <TextBlock VerticalAlignment="Center" Margin="0,0,4,0">Type</TextBlock>
                 <ComboBox Name="TypeComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5">
                     <ComboBoxItem Content="rectangular" IsSelected="True"/>
                     <ComboBoxItem Content="tubular"/>
