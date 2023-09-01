@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using TCC.Classes;
 
 namespace TCC
@@ -81,11 +82,15 @@ namespace TCC
                     {
                         materials[i] = windowMaterial.LayerIsotropic;
                         observableMaterials[i] = windowMaterial.LayerIsotropic;
+                        PopUpTextBlock.Text = windowMaterial.LayerIsotropic.Name + " Edited Successfully";
+                        popup.IsOpen = true;
                     }
                     else if (materials[i].Type == "orthotropic")
                     {
                         materials[i] = windowMaterial.LayerOrthotropic;
                         observableMaterials[i] = windowMaterial.LayerOrthotropic;
+                        PopUpTextBlock.Text = windowMaterial.LayerOrthotropic.Name + " Edited Successfully";
+                        popup.IsOpen = true;
                     }
                 }
             }
@@ -100,7 +105,9 @@ namespace TCC
                 if (materials[i].Name == materialName)
                 {
                     observableMaterials.Remove(materials[i]);
+                    PopUpTextBlock.Text = materialName + " Deleted Successfully";
                     materials.Remove(materials[i]);
+                    popup.IsOpen = true;
                 }
             }
         }
@@ -108,6 +115,27 @@ namespace TCC
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (isChildWindowOpen) e.Cancel = true;
+        }
+
+        private void Popup_Opened(object sender, EventArgs e)
+        {
+            StartCloseTimer();
+        }
+
+        private void StartCloseTimer()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(3d);
+            timer.Tick += TimerTick;
+            timer.Start();
+        }
+
+        private void TimerTick(object sender, EventArgs e)
+        {
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
+            timer.Tick -= TimerTick;
+            popup.IsOpen = false;
         }
     }
 }

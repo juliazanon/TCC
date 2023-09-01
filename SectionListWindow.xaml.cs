@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using TCC.Classes;
 
 namespace TCC
@@ -70,11 +71,15 @@ namespace TCC
                     {
                         sections[i] = windowMaterial.RectangularSection;
                         observableSections[i] = windowMaterial.RectangularSection;
+                        PopUpTextBlock.Text = windowMaterial.RectangularSection.Name + " Edited Successfully";
+                        popup.IsOpen = true;
                     }
                     else if (sections[i].Type == "tubular")
                     {
                         sections[i] = windowMaterial.TubularSection;
                         observableSections[i] = windowMaterial.TubularSection;
+                        PopUpTextBlock.Text = windowMaterial.TubularSection.Name + " Edited Successfully";
+                        popup.IsOpen = true;
                     }
                 }
             }
@@ -89,7 +94,9 @@ namespace TCC
                 if (sections[i].Name == sectionName)
                 {
                     observableSections.Remove(sections[i]);
+                    PopUpTextBlock.Text = sectionName + " Deleted Successfully";
                     sections.Remove(sections[i]);
+                    popup.IsOpen = true;
                 }
             }
         }
@@ -98,5 +105,25 @@ namespace TCC
             if (isChildWindowOpen) e.Cancel = true;
         }
 
+        private void Popup_Opened(object sender, EventArgs e)
+        {
+            StartCloseTimer();
+        }
+
+        private void StartCloseTimer()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(3d);
+            timer.Tick += TimerTick;
+            timer.Start();
+        }
+
+        private void TimerTick(object sender, EventArgs e)
+        {
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
+            timer.Tick -= TimerTick;
+            popup.IsOpen = false;
+        }
     }
 }

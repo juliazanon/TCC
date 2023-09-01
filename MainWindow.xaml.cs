@@ -28,6 +28,7 @@ using System.Drawing.Drawing2D;
 using SharpGL.SceneGraph.Assets;
 using TCC.Classes;
 using System.Windows.Documents.DocumentStructures;
+using System.Windows.Threading;
 
 namespace TCC
 {
@@ -79,7 +80,8 @@ namespace TCC
             observableLayer.Add(layer);
             itemsControl.ItemsSource = observableLayer;
 
-            CylinderLayer aux = cable.Layers[0] as CylinderLayer;
+            PopUpTextBlock.Text = layer.Name + " Created Successfully";
+            popup.IsOpen = true;
         }
 
         // Helix Layer
@@ -100,6 +102,9 @@ namespace TCC
             cable.Layers.Add(layer);
             observableLayer.Add(layer);
             itemsControl.ItemsSource = observableLayer;
+
+            PopUpTextBlock.Text = layer.Name + " Created Successfully";
+            popup.IsOpen = true;
         }
 
         // Connection Layer
@@ -118,6 +123,9 @@ namespace TCC
             cable.LayerConnections.Add(layerConnection);
             observableConnection.Add(layerConnection);
             connectionsControl.ItemsSource = observableConnection;
+
+            PopUpTextBlock.Text = layerConnection.Name + " Created Successfully";
+            popup.IsOpen = true;
         }
 
         // Edit / Delete Layers
@@ -134,7 +142,9 @@ namespace TCC
                     if (cable.Layers[i].Name == selectedLayer)
                     {
                         observableLayer.Remove(cable.Layers[i]);
+                        PopUpTextBlock.Text = cable.Layers[i].Name + " Deleted Successfully";
                         cable.Layers.Remove(cable.Layers[i]);
+                        popup.IsOpen = true;
                     }
                 }
                 for (int i = 0; i < cable.LayerConnections.Count; i++)
@@ -142,7 +152,9 @@ namespace TCC
                     if (cable.LayerConnections[i].Name == selectedLayer)
                     {
                         observableConnection.Remove(cable.LayerConnections[i]);
+                        PopUpTextBlock.Text = cable.LayerConnections[i].Name + " Deleted Successfully";
                         cable.LayerConnections.Remove(cable.LayerConnections[i]);
+                        popup.IsOpen = true;
                     }
                 }
             }
@@ -166,6 +178,8 @@ namespace TCC
                 Isotropic materialIsotropic = windowMaterial.LayerIsotropic;
 
                 cable.LayerMaterials.Add(materialIsotropic);
+                PopUpTextBlock.Text = materialIsotropic.Name + " Created Successfully";
+                popup.IsOpen = true;
             }
 
             else if (windowMaterial.LayerOrthotropic != null)
@@ -173,6 +187,8 @@ namespace TCC
                 Orthotropic materialOrthotropic = windowMaterial.LayerOrthotropic;
 
                 cable.LayerMaterials.Add(materialOrthotropic);
+                PopUpTextBlock.Text = materialOrthotropic.Name + " Created Successfully";
+                popup.IsOpen = true;
             }
         }
 
@@ -202,11 +218,15 @@ namespace TCC
             {
                 RectangularSection rectangularSection = windowSection.RectangularSection;
                 cable.Sections.Add(rectangularSection);
+                PopUpTextBlock.Text = rectangularSection.Name + " Created Successfully";
+                popup.IsOpen = true;
             }
             else if (windowSection.TubularSection != null)
             {
                 TubularSection tubularSection = windowSection.TubularSection;
                 cable.Sections.Add(tubularSection);
+                PopUpTextBlock.Text = tubularSection.Name + " Created Successfully";
+                popup.IsOpen = true;
             }
         }
 
@@ -311,6 +331,27 @@ namespace TCC
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (isChildWindowOpen) e.Cancel = true;
+        }
+
+        private void Popup_Opened(object sender, EventArgs e)
+        {
+            StartCloseTimer();
+        }
+
+        private void StartCloseTimer()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(3d);
+            timer.Tick += TimerTick;
+            timer.Start();
+        }
+
+        private void TimerTick(object sender, EventArgs e)
+        {
+            DispatcherTimer timer = (DispatcherTimer)sender;
+            timer.Stop();
+            timer.Tick -= TimerTick;
+            popup.IsOpen = false;
         }
 
         // Graphics
