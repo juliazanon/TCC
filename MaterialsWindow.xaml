@@ -5,82 +5,104 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="Materials" Height="340" Width="520"
-        MinHeight="200" MinWidth="520"
+        Title="Materials"
+        SizeToContent="Height" Width="500"
         KeyDown="Window_KeyDown">
-    <ScrollViewer>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100" Name="GeralInputGridRow"/>
-                <RowDefinition Height="*" MinHeight="100"/>
-                <RowDefinition Height="26"/>
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Margin="6" Background="#E6E6E6">
-                <Grid Margin="4">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="0" Name="NameWarningGridRow"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="4">Name:</TextBlock>
-                    <TextBox Grid.Row="0" Grid.Column="1" Margin="4" Grid.ColumnSpan="2" Name="NameTextBox" Text="New Material"></TextBox>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="18" Margin="4,0,4,0" Name="NameWarningTextBlock" Foreground="Red"></TextBlock>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="4">Density:</TextBlock>
-                    <TextBox Grid.Row="2" Grid.Column="1" Margin="4" Grid.ColumnSpan="2" Name="DensityTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="4">Type:</TextBlock>
-                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                        <RadioButton Content="Isotropic" Name="IsotropicRadioButton" Checked="RadioButton_Checked"/>
-                        <RadioButton Content="Orthotropic" Name="OrthotropicRadioButton" Checked="RadioButton_Checked" />
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
-            <StackPanel Grid.Row="1" Margin="6" Background="#E6E6E6">
-                <!-- Isotropic -->
-                <TextBlock Name="MaterialIsotropic" Margin="4,4,4,0">Material: Isotropic</TextBlock>
-                <Label Margin="4,4,4,0" Name="YoungLabel" Content="Young" PreviewTextInput="NumericTextBox_PreviewTextInput"/>
-                <TextBox Margin="4,0,4,0" Name="YoungTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
-                <Label Margin="4,4,4,0" Name="PoissonLabel" Content="Poisson" />
-                <TextBox Margin="4,0,4,0" Name="PoissonTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
-                <!-- Orthotropic -->
-                <TextBlock Name="MaterialOrthotropic" Margin="4,4,4,0">Material: Orthotropic</TextBlock>
-                <TextBlock Margin="4,4,4,2" Name="ETitle">Young</TextBlock>
-                <StackPanel Orientation="Horizontal" Name="EInputs" MaxHeight="24" VerticalAlignment="Center">
-                    <Label Margin="4,0,0,0" Name="EXLabel" Content="EX" MinWidth="50"/>
-                    <TextBox Margin="4,0,0,0" Name="EXTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
-                    <Label Margin="4,0,0,0" Name="EYLabel" Content="EY" MinWidth="50"/>
-                    <TextBox Margin="4,0,0,0" Name="EYTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
-                    <Label Margin="4,0,0,0" Name="EZLabel" Content="EZ" MinWidth="50"/>
-                    <TextBox Margin="4,0,0,0" Name="EZTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition MinHeight="32" MaxHeight="35"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Margin="10,4" Grid.ColumnSpan="2" FontSize="18" FontWeight="DemiBold" Name="MaterialTitle"></TextBlock>
+        <StackPanel Grid.Row="1" Margin="6,2,6,6" Background="#E6E6E6">
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Name="NameWarningGridRow"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="4">Name:</TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="4" Grid.ColumnSpan="2" Name="NameTextBox" Text="New Material"></TextBox>
+                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="0" Margin="4,0,4,0" Name="NameWarningTextBlock" Foreground="Red"></TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="0" Margin="4">Density:</TextBlock>
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="4" Grid.ColumnSpan="2" Name="DensityTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                <TextBlock Grid.Row="3" Grid.Column="0" Margin="4">Type:</TextBlock>
+                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <RadioButton Content="Isotropic" Name="IsotropicRadioButton" Checked="RadioButton_Checked" Margin="8,0"/>
+                    <RadioButton Content="Orthotropic" Name="OrthotropicRadioButton" Checked="RadioButton_Checked" Margin="8,0"/>
                 </StackPanel>
-                <TextBlock Margin="4,4,4,2" Name="NuTitle">Poisson</TextBlock>
-                <StackPanel Orientation="Horizontal" Name="NuInputs" MaxHeight="24" VerticalAlignment="Center">
-                    <Label Margin="4,0,0,0" Name="NuXYLabel" Content="NuXY" MinWidth="50"/>
-                    <TextBox Margin="4,0,0,0" Name="NuXYTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
-                    <Label Margin="4,0,0,0" Name="NuXZLabel" Content="NuXZ" MinWidth="50"/>
-                    <TextBox Margin="4,0,0,0" Name="NuXZTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
-                    <Label Margin="4,0,0,0" Name="NuYZLabel" Content="NuYZ" MinWidth="50"/>
-                    <TextBox Margin="4,0,0,0" Name="NuYZTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
-                </StackPanel>
-                <TextBlock Margin="4,4,4,2" Name="GTitle">Shear</TextBlock>
-                <StackPanel Orientation="Horizontal" Name="GInputs" MaxHeight="24" VerticalAlignment="Center">
-                    <Label Margin="4,0,0,0" Name="GXYLabel" Content="GXY" MinWidth="50"/>
-                    <TextBox Margin="4,0,0,0" Name="GXYTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
-                    <Label Margin="4,0,0,0" Name="GXZLabel" Content="GXZ" MinWidth="50"/>
-                    <TextBox Margin="4,0,0,0" Name="GXZTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
-                    <Label Margin="4,0,0,0" Name="GYZLabel" Content="GYZ" MinWidth="50"/>
-                    <TextBox Margin="4,0,0,0" Name="GYZTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">
-                <Button Margin="8,4,8,4" Click="SubmitNewMaterial">
-                    Submit
-                </Button>
-            </StackPanel>
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="6,6,6,0" Background="#E6E6E6">
+            <!-- Isotropic -->
+            <TextBlock Name="MaterialIsotropic" Margin="4,4,4,0" FontSize="16" FontWeight="DemiBold">Material: Isotropic</TextBlock>
+            <Label Margin="4,4,4,0" Name="YoungLabel" Content="Young" PreviewTextInput="NumericTextBox_PreviewTextInput"/>
+            <TextBox Margin="4,0,8,0" Name="YoungTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
+            <Label Margin="4,4,4,0" Name="PoissonLabel" Content="Poisson" />
+            <TextBox Margin="4,0,8,8" Name="PoissonTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
+            <!-- Orthotropic -->
+            <TextBlock Name="MaterialOrthotropic" Margin="4,4,4,0" FontSize="16" FontWeight="DemiBold">Material: Orthotropic</TextBlock>
+            <TextBlock Margin="4,4,4,2" Name="ETitle">Young</TextBlock>
+            <Grid Name="EInputs" Margin="4,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Margin="4,0" Name="EXLabel" Content="EX" MinWidth="50"/>
+                <TextBox Grid.Column="1" Margin="4,0" Name="EXTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
+                <Label Grid.Column="2" Margin="4,0" Name="EYLabel" Content="EY" MinWidth="50"/>
+                <TextBox Grid.Column="3" Margin="4,0" Name="EYTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
+                <Label Grid.Column="4" Margin="4,0" Name="EZLabel" Content="EZ" MinWidth="50"/>
+                <TextBox Grid.Column="5" Margin="4,0" Name="EZTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
+            </Grid>
+            <TextBlock Margin="4,4,4,2" Name="NuTitle">Poisson</TextBlock>
+            <Grid Name="NuInputs" Margin="4,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Margin="4,0" Name="NuXYLabel" Content="NuXY" MinWidth="50"/>
+                <TextBox Grid.Column="1" Margin="4,0" Name="NuXYTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
+                <Label Grid.Column="2" Margin="4,0" Name="NuXZLabel" Content="NuXZ" MinWidth="50"/>
+                <TextBox Grid.Column="3" Margin="4,0" Name="NuXZTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
+                <Label Grid.Column="4" Margin="4,0" Name="NuYZLabel" Content="NuYZ" MinWidth="50"/>
+                <TextBox Grid.Column="5" Margin="4,0" Name="NuYZTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
+            </Grid>
+            <TextBlock Margin="4,4,4,2" Name="GTitle">Shear</TextBlock>
+            <Grid Name="GInputs" Margin="4,0,4,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Margin="4,0" Name="GXYLabel" Content="GXY" MinWidth="50"/>
+                <TextBox Grid.Column="1" Margin="4,0" Name="GXYTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
+                <Label Grid.Column="2" Margin="4,0" Name="GXZLabel" Content="GXZ" MinWidth="50"/>
+                <TextBox Grid.Column="3" Margin="4,0" Name="GXZTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
+                <Label Grid.Column="4" Margin="4,0" Name="GYZLabel" Content="GYZ" MinWidth="50"/>
+                <TextBox Grid.Column="5" Margin="4,0" Name="GYZTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Margin="4" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Click="SubmitNewMaterial" Margin="4,2" Padding="8,2">Submit</Button>
+        </StackPanel>
         </Grid>
-    </ScrollViewer>
 </Window>

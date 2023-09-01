@@ -31,12 +31,14 @@ namespace TCC
         public MaterialsWindow(List<LayerMaterial> materials)
         {
             InitializeComponent();
+            MaterialTitle.Text = "Create Material";
             this.materials = materials;
             IsotropicRadioButton.IsChecked = true;
         }
         public MaterialsWindow(List<LayerMaterial> materials, LayerMaterial material)
         {
             InitializeComponent();
+            MaterialTitle.Text = "Edit Material";
             this.materials = materials;
             isEdit = true;
             IsotropicRadioButton.IsEnabled = false;
@@ -171,8 +173,7 @@ namespace TCC
             if (inputfild == "Name")
             {
                 NameWarningTextBlock.Text = "Name already used";
-                NameWarningGridRow.Height = new GridLength(18);
-                GeralInputGridRow.Height = new GridLength(118);
+                NameWarningTextBlock.Height = 18;
             }
         }
 
