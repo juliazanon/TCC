@@ -128,7 +128,6 @@ namespace TCC
             {
                 NameWarningTextBlock.Text = "Name already used";
                 NameWarningTextBlock.Height = 18;
-                GeralMenuRow.Height = new GridLength(108);
             }
         }
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

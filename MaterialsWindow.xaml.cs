@@ -138,8 +138,7 @@ namespace TCC
             if (inputfild == "Name")
             {
                 NameWarningTextBlock.Text = "Name already used";
-                NameWarningGridRow.Height = new GridLength(18);
-                GeralInputGridRow.Height = new GridLength(118);
+                NameWarningTextBlock.Height = 18;
             }
         }
 
