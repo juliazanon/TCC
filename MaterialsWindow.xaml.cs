@@ -38,8 +38,9 @@ namespace TCC
         {
             InitializeComponent();
             this.materials = materials;
-            IsotropicRadioButton.IsChecked = true;
             isEdit = true;
+            IsotropicRadioButton.IsEnabled = false;
+            OrthotropicRadioButton.IsEnabled = false;
 
             NameTextBox.Text = material.Name.ToString();
             DensityTextBox.Text = material.Density.ToString();

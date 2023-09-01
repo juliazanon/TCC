@@ -39,20 +39,24 @@ namespace TCC
         {
             InitializeComponent();
             this.sections = sections;
-            Cylindrical.Visibility = Visibility.Collapsed;
-            TypeComboBox.SelectionChanged += SectionComboBox_SelectionChanged;
             this.isEdit = true;
+            TypeComboBox.IsEnabled = false;
 
             NameTextBox.Text = section.Name;
-            TypeComboBox.SelectedItem = section.Type;
             if (section.Type == "rectangular")
             {
+                Cylindrical.Visibility = Visibility.Collapsed;
+                TypeComboBox.SelectedIndex = 0;
+
                 RectangularSection rs = section as RectangularSection;
                 WidthTextBox.Text = rs.Width.ToString();
                 HeightTextBox.Text = rs.Height.ToString();
             }
             else if (section.Type == "tubular")
             {
+                Rectangular.Visibility = Visibility.Collapsed;
+                TypeComboBox.SelectedIndex = 1;
+
                 TubularSection ts = section as TubularSection;
                 InternalRadiusTextBox.Text = ts.InternalRadius.ToString();
                 ExternalRadiusTextBox.Text = ts.ExternalRadius.ToString();
