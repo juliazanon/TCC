@@ -133,31 +133,72 @@ namespace TCC
         {
             // TODO;
         }
+
+        LayerConnection connectionLayer;
         private void ButtonDeleteLayer(object sender, RoutedEventArgs e)
         {
             if (selectedLayer != "")
             {
-                for (int i = 0; i < cable.Layers.Count; i++)
+                bool foundConnection = false;
+                foreach (LayerConnection lc in cable.LayerConnections)
                 {
-                    if (cable.Layers[i].Name == selectedLayer)
+                    if (lc.FirstLayer == selectedLayer || lc.SecondLayer == selectedLayer)
                     {
-                        observableLayer.Remove(cable.Layers[i]);
-                        PopUpTextBlock.Text = cable.Layers[i].Name + " Deleted Successfully";
-                        cable.Layers.Remove(cable.Layers[i]);
-                        popup.IsOpen = true;
+                        foundConnection = true;
+                        connectionLayer = lc;
                     }
                 }
-                for (int i = 0; i < cable.LayerConnections.Count; i++)
+                if (!foundConnection)
                 {
-                    if (cable.LayerConnections[i].Name == selectedLayer)
+                    // Delete Layer if no connection is found with it
+                    for (int i = 0; i < cable.Layers.Count; i++)
                     {
-                        observableConnection.Remove(cable.LayerConnections[i]);
-                        PopUpTextBlock.Text = cable.LayerConnections[i].Name + " Deleted Successfully";
-                        cable.LayerConnections.Remove(cable.LayerConnections[i]);
-                        popup.IsOpen = true;
+                        if (cable.Layers[i].Name == selectedLayer)
+                        {
+                            observableLayer.Remove(cable.Layers[i]);
+                            PopUpTextBlock.Text = cable.Layers[i].Name + " Deleted Successfully";
+                            cable.Layers.Remove(cable.Layers[i]);
+                            popup.IsOpen = true;
+                        }
                     }
+                }
+                else
+                {
+                    WarningWindow windowWarning = new WarningWindow(
+                    "This Layer is part of a Connection. Deleting it will also delete the connection. Are you sure you want to continue?"
+                    );
+                    windowWarning.ConfirmButtonClick += ConfirmButtonClick;
+                    windowWarning.CancelButtonClick += CancelButtonClick;
+                    windowWarning.Show();
                 }
             }
+        }
+        private void ConfirmButtonClick(object sender, EventArgs e)
+        {
+            for (int i = 0; i < cable.Layers.Count; i++)
+            {
+                if (cable.Layers[i].Name == selectedLayer)
+                {
+                    observableLayer.Remove(cable.Layers[i]);
+                    PopUpTextBlock.Text = cable.Layers[i].Name + " Deleted Successfully";
+                    cable.Layers.Remove(cable.Layers[i]);
+                    popup.IsOpen = true;
+                }
+            }
+            for (int i = 0; i < cable.LayerConnections.Count; i++)
+            {
+                if (cable.LayerConnections[i].FirstLayer == selectedLayer || cable.LayerConnections[i].SecondLayer == selectedLayer)
+                {
+                    observableConnection.Remove(cable.LayerConnections[i]);
+                    PopUpTextBlock.Text = cable.LayerConnections[i].Name + " Deleted Successfully";
+                    cable.LayerConnections.Remove(cable.LayerConnections[i]);
+                    popup.IsOpen = true;
+                }
+            }
+        }
+        private void CancelButtonClick(object sender, EventArgs e)
+        {
+            return;
         }
 
         //  Materials
@@ -194,7 +235,7 @@ namespace TCC
 
         private void ButtonMaterialList(object sender, RoutedEventArgs e)
         {
-            MaterialListWindow windowMaterial = new MaterialListWindow(cable.LayerMaterials);
+            MaterialListWindow windowMaterial = new MaterialListWindow(cable);
             windowMaterial.Closed += ChildWindow_Closed;
             windowMaterial.Show();
             this.IsEnabled = false;
@@ -232,7 +273,7 @@ namespace TCC
 
         private void ButtonSectionList(object sender, RoutedEventArgs e)
         {
-            SectionListWindow windowSectionList = new SectionListWindow(cable.Sections);
+            SectionListWindow windowSectionList = new SectionListWindow(cable, observableLayer, observableConnection);
             windowSectionList.Closed += ChildWindow_Closed;
             windowSectionList.Show();
             this.IsEnabled = false;
