@@ -11,7 +11,7 @@
     <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="100" Name="GeralInputGridRow"/>
                 <RowDefinition Height="*" MinHeight="100"/>
                 <RowDefinition Height="26"/>
             </Grid.RowDefinitions>
@@ -19,6 +19,7 @@
                 <Grid Margin="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="0" Name="NameWarningGridRow"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
@@ -28,10 +29,11 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="4">Name:</TextBlock>
                     <TextBox Grid.Row="0" Grid.Column="1" Margin="4" Grid.ColumnSpan="2" Name="NameTextBox" Text="New Material"></TextBox>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="4">Density:</TextBlock>
-                    <TextBox Grid.Row="1" Grid.Column="1" Margin="4" Grid.ColumnSpan="2" Name="DensityTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="4">Type:</TextBlock>
-                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="18" Margin="4,0,4,0" Name="NameWarningTextBlock" Foreground="Red"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="4">Density:</TextBlock>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="4" Grid.ColumnSpan="2" Name="DensityTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="4">Type:</TextBlock>
+                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                         <RadioButton Content="Isotropic" Name="IsotropicRadioButton" Checked="RadioButton_Checked"/>
                         <RadioButton Content="Orthotropic" Name="OrthotropicRadioButton" Checked="RadioButton_Checked" />
                     </StackPanel>

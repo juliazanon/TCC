@@ -21,6 +21,7 @@ namespace TCC
     public partial class CylindricalLayerWindow : Window
     {
         private CylinderLayer cylinderLayer;
+        private List<Layer> layers;
         private LayerMaterial material;
         private List<Area> areas = new List<Area>();
         private bool isChildWindowOpen = false;
@@ -28,9 +29,11 @@ namespace TCC
         public event EventHandler SubmitButtonClick;
 
         public CylinderLayer CylinderLayer { get { return cylinderLayer; } }
-        public CylindricalLayerWindow(List<LayerMaterial> materials)
+        public CylindricalLayerWindow(List<Layer> layers,List<LayerMaterial> materials)
         {
             InitializeComponent();
+            
+            this.layers = layers;
 
             //  Materials comboBox
             if (materials.Count == 0)
@@ -106,6 +109,15 @@ namespace TCC
 
         private void SubmitNewLayer(object sender, RoutedEventArgs e)
         {
+            if (layers.Count != 0)
+            {
+                if (layers.Any(obj => obj.Name == NameTextBox.Text))
+                {
+                    InputWarning("Name");
+                    return;
+                }
+            }
+
             cylinderLayer = new CylinderLayer
             {
                 Name = NameTextBox.Text,
@@ -137,7 +149,15 @@ namespace TCC
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
         }
-
+        private void InputWarning(string inputfild)
+        {
+            if (inputfild == "Name")
+            {
+                NameWarningTextBlock.Text = "Name already used";
+                NameWarningTextBlock.Height = 18;
+            }
+        }
+        
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Check if the entered character is a digit or a dot

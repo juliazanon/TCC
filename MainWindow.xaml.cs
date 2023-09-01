@@ -63,7 +63,7 @@ namespace TCC
         //  Layers
         private void ButtonNewCylinder(object sender, RoutedEventArgs e)
         {
-            CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow(cable.LayerMaterials);
+            CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow(cable.Layers ,cable.LayerMaterials);
             windowCylinder.SubmitButtonClick += SubmitCylinderButtonClick;
             windowCylinder.Closed += CylinderWindow_Closed;
             windowCylinder.Show();
@@ -86,9 +86,11 @@ namespace TCC
             this.IsEnabled = true;
             isChildWindowOpen = false;
         }
+
+        // Helix
         private void ButtonNewHelix(object sender, RoutedEventArgs e)
         {
-            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Sections, cable.LayerMaterials);
+            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Layers,cable.Sections, cable.LayerMaterials);
             windowHelix.SubmitButtonClick += SubmitHelixButtonClick;
             windowHelix.Closed += HelixWindow_Closed;
             windowHelix.Show();
@@ -114,7 +116,7 @@ namespace TCC
         }
         private void ButtonNewConnection(object sender, RoutedEventArgs e)
         {
-            LayerConnectionsWindow windowConnection = new LayerConnectionsWindow(cable.Layers);
+            LayerConnectionsWindow windowConnection = new LayerConnectionsWindow(cable.LayerConnections, cable.Layers);
             windowConnection.SubmitButtonClick += SubmitConnectionButtonClick;
             windowConnection.Closed += ConnectionsWindow_Closed;
             windowConnection.Show();

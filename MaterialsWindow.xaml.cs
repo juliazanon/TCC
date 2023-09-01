@@ -118,6 +118,15 @@ namespace TCC
         }
         private void SubmitNewMaterial(object sender, RoutedEventArgs e)
         {
+            if (materials.Count != 0)  // Conditions
+            {
+                if (materials.Any(obj => obj.Name == NameTextBox.Text))  // Name already used
+                {
+                    InputWarning("Name");
+                    return;
+                }
+            }
+
             if (IsotropicRadioButton.IsChecked == true)
             {
                 layerIsotropic = new Isotropic { Density = 1.0, ID = 1, Name = "New Material", Type = "isotropic" };
@@ -156,6 +165,15 @@ namespace TCC
 
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
+        }
+        private void InputWarning(string inputfild)
+        {
+            if (inputfild == "Name")
+            {
+                NameWarningTextBlock.Text = "Name already used";
+                NameWarningGridRow.Height = new GridLength(18);
+                GeralInputGridRow.Height = new GridLength(118);
+            }
         }
 
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
