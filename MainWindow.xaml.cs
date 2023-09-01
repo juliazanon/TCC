@@ -29,6 +29,7 @@ using SharpGL.SceneGraph.Assets;
 using TCC.Classes;
 using System.Windows.Documents.DocumentStructures;
 using System.Windows.Threading;
+using System.Windows.Media.Media3D;
 
 namespace TCC
 {
@@ -129,12 +130,54 @@ namespace TCC
         }
 
         // Edit / Delete Layers
+        string layerName = "";
         private void ButtonEditLayer(object sender, RoutedEventArgs e)
         {
-            // TODO;
+            if (selectedLayer != "")
+            {
+                foreach (Layer l in cable.Layers)
+                {
+                    if (l.Name == selectedLayer)
+                    {
+                        layerName = l.Name;
+                        if (l.Type == "helix" || l.Type == "armor")
+                        {
+                            HelixLayer hl = l as HelixLayer;
+                            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Layers, cable.Sections, cable.LayerMaterials, hl);
+                            windowHelix.SubmitButtonClick += EditHelixButtonClick;
+                            windowHelix.Closed += ChildWindow_Closed;
+                            windowHelix.Show();
+
+                            this.IsEnabled = false;
+                            isChildWindowOpen = true;
+                        }
+                        else if (l.Type == "cylinder")
+                        {
+
+                        }
+                    }
+                }
+            }
+        }
+        private void EditHelixButtonClick(object sender, EventArgs e)
+        {
+            HelicalLayerWindow windowHelix = sender as HelicalLayerWindow;
+            HelixLayer layer = windowHelix.HelixLayer;
+            for (int i = 0; i < cable.Layers.Count; i++)
+            {
+                if (layerName == cable.Layers[i].Name)
+                {
+                    cable.Layers[i] = layer;
+                    observableLayer[i] = layer;
+                    PopUpTextBlock.Text = layer.Name + " Edited Successfully";
+                    popup.IsOpen = true;
+                }
+            }
+
+            previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+            previoussrcButton = null;
         }
 
-        LayerConnection connectionLayer;
         private void ButtonDeleteLayer(object sender, RoutedEventArgs e)
         {
             if (selectedLayer != "")
@@ -145,7 +188,6 @@ namespace TCC
                     if (lc.FirstLayer == selectedLayer || lc.SecondLayer == selectedLayer)
                     {
                         foundConnection = true;
-                        connectionLayer = lc;
                     }
                 }
                 if (!foundConnection)
@@ -161,6 +203,17 @@ namespace TCC
                             popup.IsOpen = true;
                         }
                     }
+                    for (int i = 0; i < cable.LayerConnections.Count; i++)
+                    {
+                        if (cable.LayerConnections[i].Name == selectedLayer)
+                        {
+                            observableConnection.Remove(cable.LayerConnections[i]);
+                            PopUpTextBlock.Text = cable.LayerConnections[i].Name + " Deleted Successfully";
+                            cable.LayerConnections.Remove(cable.LayerConnections[i]);
+                            popup.IsOpen = true;
+                        }
+                    }
+
                 }
                 else
                 {

@@ -99,7 +99,7 @@ namespace TCC
             bool foundLayer = false;
             foreach (Layer l in cable.Layers)
             {
-                if (l.Type == "helix")
+                if (l.Type == "helix" || l.Type == "armor")
                 {
                     HelixLayer layer = l as HelixLayer;
                     if (layer.Section.Name == sectionName)
