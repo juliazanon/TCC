@@ -22,14 +22,18 @@ namespace TCC
     public partial class SectionListWindow : Window
     {
         private string sectionName;
+        private Cable cable;
         private List<Section> sections;
+        private ObservableCollection<Layer> observableLayer;
         ObservableCollection<Section> observableSections = new ObservableCollection<Section>();
         bool isChildWindowOpen = false;
 
-        public SectionListWindow(List<Section> sections)
+        public SectionListWindow(Cable cable, ObservableCollection<Layer> observableLayer)
         {
             InitializeComponent();
-            this.sections = sections;
+            sections = cable.Sections;
+            this.cable = cable;
+            this.observableLayer = observableLayer;
 
             for (int i = 0; i < sections.Count(); i++)
             {
@@ -85,10 +89,54 @@ namespace TCC
             }
         }
 
+        Layer sectionLayer;
         private void DeleteSectionButton(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             sectionName = button.Tag.ToString();
+            bool foundLayer = false;
+            foreach (Layer l in cable.Layers)
+            {
+                if (l.Type == "helix")
+                {
+                    HelixLayer layer = l as HelixLayer;
+                    if (layer.Section.Name == sectionName)
+                    {
+                        foundLayer = true;
+                        sectionLayer = layer;
+                    }
+                }
+            }
+
+            if (!foundLayer)
+            {
+                // Delete Section if no layer is found with it
+                for (int i = 0; i < sections.Count; i++)
+                {
+                    if (sections[i].Name == sectionName)
+                    {
+                        observableSections.Remove(sections[i]);
+                        PopUpTextBlock.Text = sectionName + " Deleted Successfully";
+                        sections.Remove(sections[i]);
+                        popup.IsOpen = true;
+                    }
+                }
+            }
+            else
+            {
+                WarningWindow windowWarning = new WarningWindow();
+                windowWarning.ConfirmButtonClick += ConfirmButtonClick;
+                windowWarning.CancelButtonClick += CancelButtonClick;
+                windowWarning.Show();
+            }
+        }
+        private void ConfirmButtonClick(object sender, EventArgs e)
+        {
+            // First delete layer
+            cable.Layers.Remove(sectionLayer);
+            observableLayer.Remove(sectionLayer);
+
+            // Then delete section after confirmation
             for (int i = 0; i < sections.Count; i++)
             {
                 if (sections[i].Name == sectionName)
@@ -99,6 +147,10 @@ namespace TCC
                     popup.IsOpen = true;
                 }
             }
+        }
+        private void CancelButtonClick(object sender, EventArgs e)
+        {
+            return;
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

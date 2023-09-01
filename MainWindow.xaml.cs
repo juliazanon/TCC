@@ -232,7 +232,7 @@ namespace TCC
 
         private void ButtonSectionList(object sender, RoutedEventArgs e)
         {
-            SectionListWindow windowSectionList = new SectionListWindow(cable.Sections);
+            SectionListWindow windowSectionList = new SectionListWindow(cable, observableLayer);
             windowSectionList.Closed += ChildWindow_Closed;
             windowSectionList.Show();
             this.IsEnabled = false;
