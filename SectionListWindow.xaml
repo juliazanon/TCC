@@ -8,7 +8,8 @@
         Title="Section List" Height="450" Width="400"
         Closing="Window_Closing">
     <StackPanel>
-        <Popup x:Name="popup" IsOpen="False" Placement="Relative" Width="Auto" Height="50" Opened="Popup_Opened">
+        <Popup x:Name="popup" IsOpen="False" Placement="Relative" Width="Auto" Height="50" Opened="Popup_Opened"
+               PlacementTarget="{Binding ElementName=Main}" AllowsTransparency="True" PopupAnimation="Fade">
             <Border Background="LightGreen" BorderBrush="Black" BorderThickness="1">
                 <TextBlock Name="PopUpTextBlock" Text="Object created successfully" HorizontalAlignment="Center" VerticalAlignment="Center"
                            Background="LightGreen" FontWeight="DemiBold" Foreground="DarkSlateGray" Margin="4,0,4,0"/>
