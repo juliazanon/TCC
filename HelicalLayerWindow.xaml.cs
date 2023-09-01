@@ -23,6 +23,7 @@ namespace TCC
     {
         private HelixLayer helixLayer;
         private List<Layer> layers;
+        private string editName;
         
         public event EventHandler SubmitButtonClick;
 
@@ -86,6 +87,7 @@ namespace TCC
         {
             InitializeComponent();
             this.layers = layers;
+            editName = layer.Name;
 
             //  Section comboBox
             if (sections.Count == 0)
@@ -282,7 +284,7 @@ namespace TCC
         {
             if (layers.Count != 0)  // Conditions
             {
-                if (layers.Any(obj => obj.Name == NameTextBox.Text))  // Name already used
+                if (layers.Any(obj => obj.Name == NameTextBox.Text) && NameTextBox.Text != editName)  // Name already used
                 {
                     InputWarning("Name");
                     return;
