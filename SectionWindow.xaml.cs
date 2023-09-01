@@ -30,6 +30,7 @@ namespace TCC
         public SectionWindow(List<Section> sections)
         {
             InitializeComponent();
+            SectionTitle.Text = "Create New Section";
             this.sections = sections;
 
             Cylindrical.Visibility = Visibility.Collapsed;
@@ -38,6 +39,7 @@ namespace TCC
         public SectionWindow(List<Section> sections, Section section)
         {
             InitializeComponent();
+            SectionTitle.Text = "Edit Section";
             this.sections = sections;
             this.isEdit = true;
             TypeComboBox.IsEnabled = false;

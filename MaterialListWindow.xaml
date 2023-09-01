@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="Material List" Height="450" Width="400"
+        Title="Material List" SizeToContent="Height" Width="400"
         Closing="Window_Closing">
     <StackPanel>
         <Popup x:Name="popup" IsOpen="False" Placement="Relative" Width="Auto" Height="50" Opened="Popup_Opened"
@@ -15,24 +15,26 @@
                            Background="LightGreen" FontWeight="DemiBold" Foreground="DarkSlateGray" Margin="4,0,4,0"/>
             </Border>
         </Popup>
-        <TextBlock Margin="4" FontSize="18" FontWeight="DemiBold">List of Material</TextBlock>
-        <ItemsControl x:Name="itemsControl" Margin="8,4" Background="#FFF4F4F5">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid Background="#E0E0E0" Margin="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="2" Padding="4,2,4,2" Background="#F3F3F3"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Type}" Margin="2" Padding="4,2,4,2" Background="#F3F3F3"/>
-                        <Button Grid.Column="2" Margin="4" Click="EditMaterialButton" Tag="{Binding Name}">Edit</Button>
-                        <Button Grid.Column="3" Margin="4" Click="DeleteMaterialButton" Tag="{Binding Name}">Delete</Button>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <TextBlock Margin="8,4" FontSize="18" FontWeight="DemiBold" TextAlignment="Center">List of Material</TextBlock>
+        <ScrollViewer Height="400">
+            <ItemsControl x:Name="itemsControl" Margin="8,4" MinHeight="400" Background="#F0F0F0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="#E0E0E0" Margin="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="35"/>
+                                <ColumnDefinition Width="45"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="2" Padding="4,3" Background="#F3F3F3"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Type}" Margin="2" Padding="4,3" Background="#F3F3F3"/>
+                            <Button Grid.Column="2" Margin="2" Click="EditMaterialButton" Tag="{Binding Name}">Edit</Button>
+                            <Button Grid.Column="3" Margin="2" Click="DeleteMaterialButton" Tag="{Binding Name}">Delete</Button>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </StackPanel>
 </Window>
