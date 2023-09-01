@@ -103,7 +103,7 @@ namespace TCC
         {
             if (sections.Count != 0)  // Conditions
             {
-                if (sections.Any(obj => obj.Name == SectionName.Text))  // Name already used
+                if (sections.Any(obj => obj.Name == NameTextBox.Text))  // Name already used
                 {
                     InputWarning("Name");
                     return;
