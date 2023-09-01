@@ -31,12 +31,14 @@ namespace TCC
         public MaterialsWindow(List<LayerMaterial> materials)
         {
             InitializeComponent();
+            MaterialTitle.Text = "Create Material";
             this.materials = materials;
             IsotropicRadioButton.IsChecked = true;
         }
         public MaterialsWindow(List<LayerMaterial> materials, LayerMaterial material)
         {
             InitializeComponent();
+            MaterialTitle.Text = "Edit Material";
             this.materials = materials;
             isEdit = true;
             IsotropicRadioButton.IsEnabled = false;
