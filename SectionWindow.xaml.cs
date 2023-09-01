@@ -30,6 +30,8 @@ namespace TCC
         public SectionWindow(List<Section> sections)
         {
             InitializeComponent();
+            NameTextBox.Focus();
+            NameTextBox.CaretIndex = NameTextBox.Text.Length;
             SectionTitle.Text = "Create New Section";
             this.sections = sections;
 
@@ -39,6 +41,8 @@ namespace TCC
         public SectionWindow(List<Section> sections, Section section)
         {
             InitializeComponent();
+            NameTextBox.Focus();
+            NameTextBox.CaretIndex = NameTextBox.Text.Length;
             SectionTitle.Text = "Edit Section";
             this.sections = sections;
             this.isEdit = true;

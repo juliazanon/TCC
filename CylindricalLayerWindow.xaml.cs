@@ -32,7 +32,8 @@ namespace TCC
         public CylindricalLayerWindow(List<Layer> layers,List<LayerMaterial> materials)
         {
             InitializeComponent();
-            
+            NameTextBox.Focus();
+            NameTextBox.CaretIndex = NameTextBox.Text.Length;
             this.layers = layers;
 
             //  Materials comboBox
