@@ -28,7 +28,6 @@ namespace TCC
         public CylindricalAreasWindow(string areaType)
         {
             InitializeComponent();
-
             WindowTitle.Text = areaType;
             this.areaType = areaType;
 

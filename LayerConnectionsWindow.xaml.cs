@@ -31,6 +31,8 @@ namespace TCC
         public LayerConnectionsWindow(List<LayerConnection> connections,List<Layer> layers)
         {
             InitializeComponent();
+            NameConnectionTextBox.Focus();
+            NameConnectionTextBox.CaretIndex = NameConnectionTextBox.Text.Length;
             this.connections = connections;
 
             if (layers.Count == 0)

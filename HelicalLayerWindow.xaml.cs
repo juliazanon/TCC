@@ -33,6 +33,8 @@ namespace TCC
         public HelicalLayerWindow(List<Layer> layers,List<Section> sections, List<LayerMaterial> materials)
         {
             InitializeComponent();
+            NameTextBox.Focus();
+            NameTextBox.CaretIndex = NameTextBox.Text.Length;
             this.layers = layers;
 
             //  Section comboBox

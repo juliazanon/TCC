@@ -5,10 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="Warning" Height="200" Width="400">
-    <StackPanel>
-        <TextBlock Name="ContentTextBlock"/>
-        <Button Click="YesButtonClick">Yes</Button>
-        <Button Click="NoButtonClick">No</Button>
-    </StackPanel>
+        Title="Warning" Height="150" Width="350">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*" MinHeight="45"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Name="ContentTextBlock" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" MaxWidth="300" TextWrapping="Wrap"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Click="YesButtonClick" Margin="10" Height="24" Width="39">Yes</Button>
+            <Button Click="NoButtonClick" Margin="10" Height="24" Width="38">No</Button>
+        </StackPanel>
+    </Grid>
 </Window>

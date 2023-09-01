@@ -365,7 +365,7 @@ namespace TCC
             else
             {
                 // Select button
-                srcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF));
+                srcButton.Background = new SolidColorBrush(Color.FromArgb(0xA0, 0xA0, 0xFF, 0xFF));
                 previoussrcButton = srcButton;
 
                 // Retrieve selected layer
@@ -397,7 +397,7 @@ namespace TCC
             else
             {
                 // Select button
-                srcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF));
+                srcButton.Background = new SolidColorBrush(Color.FromArgb(0xA0, 0xA0, 0xFF, 0xFF));
                 previoussrcButton = srcButton;
 
                 // Retrieve selected connection

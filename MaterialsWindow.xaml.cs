@@ -31,6 +31,8 @@ namespace TCC
         public MaterialsWindow(List<LayerMaterial> materials)
         {
             InitializeComponent();
+            NameTextBox.Focus();
+            NameTextBox.CaretIndex = NameTextBox.Text.Length;
             MaterialTitle.Text = "Create Material";
             this.materials = materials;
             IsotropicRadioButton.IsChecked = true;
@@ -38,6 +40,8 @@ namespace TCC
         public MaterialsWindow(List<LayerMaterial> materials, LayerMaterial material)
         {
             InitializeComponent();
+            NameTextBox.Focus();
+            NameTextBox.CaretIndex = NameTextBox.Text.Length;
             MaterialTitle.Text = "Edit Material";
             this.materials = materials;
             editName = material.Name;
