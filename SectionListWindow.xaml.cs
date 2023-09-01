@@ -25,15 +25,17 @@ namespace TCC
         private Cable cable;
         private List<Section> sections;
         private ObservableCollection<Layer> observableLayer;
+        private ObservableCollection<LayerConnection> observableConnection;
         ObservableCollection<Section> observableSections = new ObservableCollection<Section>();
         bool isChildWindowOpen = false;
 
-        public SectionListWindow(Cable cable, ObservableCollection<Layer> observableLayer)
+        public SectionListWindow(Cable cable, ObservableCollection<Layer> observableLayer, ObservableCollection<LayerConnection> observableConnection)
         {
             InitializeComponent();
             sections = cable.Sections;
             this.cable = cable;
             this.observableLayer = observableLayer;
+            this.observableConnection = observableConnection;
 
             for (int i = 0; i < sections.Count(); i++)
             {
@@ -125,7 +127,8 @@ namespace TCC
             else
             {
                 WarningWindow windowWarning = new WarningWindow(
-                    "This Section is part of a layer. Deleting it will also delete the layer. Are you sure you want to continue?"
+                    "This Section is part of a layer. Deleting it will also delete the layer. " +
+                    "If the layer has a connection, it will also be deleted. Are you sure you want to continue?"
                     );
                 windowWarning.ConfirmButtonClick += ConfirmButtonClick;
                 windowWarning.CancelButtonClick += CancelButtonClick;
@@ -137,6 +140,17 @@ namespace TCC
             // First delete layer
             cable.Layers.Remove(sectionLayer);
             observableLayer.Remove(sectionLayer);
+            // Delete also connection if it exists
+            for (int i = 0; i < cable.LayerConnections.Count; i++)
+            {
+                if (cable.LayerConnections[i].FirstLayer == sectionLayer.Name || cable.LayerConnections[i].SecondLayer == sectionLayer.Name)
+                {
+                    observableConnection.Remove(cable.LayerConnections[i]);
+                    PopUpTextBlock.Text = cable.LayerConnections[i].Name + " Deleted Successfully";
+                    cable.LayerConnections.Remove(cable.LayerConnections[i]);
+                    popup.IsOpen = true;
+                }
+            }
 
             // Then delete section after confirmation
             for (int i = 0; i < sections.Count; i++)

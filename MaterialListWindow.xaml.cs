@@ -106,11 +106,10 @@ namespace TCC
             bool foundLayer = false;
             foreach (Layer l in cable.Layers)
             {
-                Layer layer = l as Layer;
-                if (layer.Material.Name == materialName)
+                if (l.Material.Name == materialName)
                 {
                     foundLayer = true;
-                    materialLayer = layer;
+                    materialLayer = l;
                 }
             }
 
@@ -140,11 +139,11 @@ namespace TCC
         }
         private void ConfirmButtonClick(object sender, EventArgs e)
         {
+            // First modify layer
+            materialLayer.Material = new LayerMaterial();
+            // Then delete section after confirmation
             for (int i = 0; i < materials.Count; i++)
             {
-                // First modify layer
-                materialLayer.Material = new LayerMaterial();
-                // Then delete section after confirmation
                 if (materials[i].Name == materialName)
                 {
                     observableMaterials.Remove(materials[i]);
