@@ -40,7 +40,7 @@ namespace TCC
         ObservableCollection<Layer> observableLayer = new ObservableCollection<Layer>();
         ObservableCollection<LayerConnection> observableConnection = new ObservableCollection<LayerConnection>();
         bool isChildWindowOpen = false;
-        Button previoussrcButton;
+        string selectedLayer = "";
 
         public MainWindow()
         {
@@ -60,12 +60,12 @@ namespace TCC
         }
 
         //  Menu
-        //  Layers
+        //  Cylinder Layer
         private void ButtonNewCylinder(object sender, RoutedEventArgs e)
         {
-            CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow(cable.Layers ,cable.LayerMaterials);
+            CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow(cable.Layers, cable.LayerMaterials);
             windowCylinder.SubmitButtonClick += SubmitCylinderButtonClick;
-            windowCylinder.Closed += CylinderWindow_Closed;
+            windowCylinder.Closed += ChildWindow_Closed;
             windowCylinder.Show();
             this.IsEnabled = false;
             isChildWindowOpen = true;
@@ -81,18 +81,13 @@ namespace TCC
 
             CylinderLayer aux = cable.Layers[0] as CylinderLayer;
         }
-        private void CylinderWindow_Closed(object sender, EventArgs e)
-        {
-            this.IsEnabled = true;
-            isChildWindowOpen = false;
-        }
 
-        // Helix
+        // Helix Layer
         private void ButtonNewHelix(object sender, RoutedEventArgs e)
         {
-            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Layers,cable.Sections, cable.LayerMaterials);
+            HelicalLayerWindow windowHelix = new HelicalLayerWindow(cable.Layers, cable.Sections, cable.LayerMaterials);
             windowHelix.SubmitButtonClick += SubmitHelixButtonClick;
-            windowHelix.Closed += HelixWindow_Closed;
+            windowHelix.Closed += ChildWindow_Closed;
             windowHelix.Show();
             this.IsEnabled = false;
             isChildWindowOpen = true;
@@ -105,20 +100,14 @@ namespace TCC
             cable.Layers.Add(layer);
             observableLayer.Add(layer);
             itemsControl.ItemsSource = observableLayer;
+        }
 
-            //HelixLayer aux = cable.Layers[0] as HelixLayer;
-            //teste.Text = aux.Section.Type;
-        }
-        private void HelixWindow_Closed(object sender, EventArgs e)
-        {
-            this.IsEnabled = true;
-            isChildWindowOpen = false;
-        }
+        // Connection Layer
         private void ButtonNewConnection(object sender, RoutedEventArgs e)
         {
             LayerConnectionsWindow windowConnection = new LayerConnectionsWindow(cable.LayerConnections, cable.Layers);
             windowConnection.SubmitButtonClick += SubmitConnectionButtonClick;
-            windowConnection.Closed += ConnectionsWindow_Closed;
+            windowConnection.Closed += ChildWindow_Closed;
             windowConnection.Show();
         }
         private void SubmitConnectionButtonClick(object sender, EventArgs e)
@@ -130,10 +119,33 @@ namespace TCC
             observableConnection.Add(layerConnection);
             connectionsControl.ItemsSource = observableConnection;
         }
-        private void ConnectionsWindow_Closed(object sender, EventArgs e)
+
+        // Edit / Delete Layers
+        private void ButtonEditLayer(object sender, RoutedEventArgs e)
         {
-            this.IsEnabled = true;
-            isChildWindowOpen = false;
+            // TODO;
+        }
+        private void ButtonDeleteLayer(object sender, RoutedEventArgs e)
+        {
+            if (selectedLayer != "")
+            {
+                for (int i = 0; i < cable.Layers.Count; i++)
+                {
+                    if (cable.Layers[i].Name == selectedLayer)
+                    {
+                        observableLayer.Remove(cable.Layers[i]);
+                        cable.Layers.Remove(cable.Layers[i]);
+                    }
+                }
+                for (int i = 0; i < cable.LayerConnections.Count; i++)
+                {
+                    if (cable.LayerConnections[i].Name == selectedLayer)
+                    {
+                        observableConnection.Remove(cable.LayerConnections[i]);
+                        cable.LayerConnections.Remove(cable.LayerConnections[i]);
+                    }
+                }
+            }
         }
 
         //  Materials
@@ -141,7 +153,7 @@ namespace TCC
         {
             MaterialsWindow windowMaterial = new MaterialsWindow(cable.LayerMaterials);
             windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
-            windowMaterial.Closed += MaterialWindow_Closed;
+            windowMaterial.Closed += ChildWindow_Closed;
             windowMaterial.Show();
             this.IsEnabled = false;
             isChildWindowOpen = true;
@@ -163,25 +175,22 @@ namespace TCC
                 cable.LayerMaterials.Add(materialOrthotropic);
             }
         }
-        private void MaterialWindow_Closed(object sender, EventArgs e)
-        {
-            this.IsEnabled = true;
-            isChildWindowOpen = false;
-        }
 
         private void ButtonMaterialList(object sender, RoutedEventArgs e)
         {
             MaterialListWindow windowMaterial = new MaterialListWindow(cable.LayerMaterials);
-            //windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
+            windowMaterial.Closed += ChildWindow_Closed;
             windowMaterial.Show();
+            this.IsEnabled = false;
+            isChildWindowOpen = true;
         }
 
-        //  Sections
+        // Sections
         private void ButtonNewSection(object sender, RoutedEventArgs e)
         {
             SectionWindow windowSection = new SectionWindow(cable.Sections);
             windowSection.SubmitButtonClick += SubmitSectionButtonClick;
-            windowSection.Closed += SectionWindow_Closed;
+            windowSection.Closed += ChildWindow_Closed;
             windowSection.Show();
             this.IsEnabled = false;
             isChildWindowOpen = true;
@@ -200,17 +209,17 @@ namespace TCC
                 cable.Sections.Add(tubularSection);
             }
         }
-        private void SectionWindow_Closed(object sender, EventArgs e)
-        {
-            this.IsEnabled = true;
-            isChildWindowOpen = false;
-        }
+
         private void ButtonSectionList(object sender, RoutedEventArgs e)
         {
             SectionListWindow windowSectionList = new SectionListWindow(cable.Sections);
-            //windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
+            windowSectionList.Closed += ChildWindow_Closed;
             windowSectionList.Show();
+            this.IsEnabled = false;
+            isChildWindowOpen = true;
         }
+
+        // Upper menu
         private void SaveButtonClick(object sender, EventArgs e)
         {
             cable.SaveFile();
@@ -218,21 +227,94 @@ namespace TCC
 
         private void OpenButtonClick(object sender, EventArgs e)
         {
-            
+            // TODO;
         }
 
+        // List of layers and connections
+        Button previoussrcButton;
+        private void ButtonSelectLayer(object sender, RoutedEventArgs e)
+        {
+            if (previoussrcButton != null)
+            {
+                // Unselect previous layer
+                previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+            }
+
+            Button srcButton = e.Source as Button;
+            if (srcButton == previoussrcButton)
+            {
+                // If button is already selected, return to original state
+                srcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+                selectedLayer = "";
+                previoussrcButton = null;
+            }
+            else
+            {
+                // Select button
+                srcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF));
+                previoussrcButton = srcButton;
+
+                // Retrieve selected layer
+                Grid contentGrid = (Grid)(sender as Button).Content;
+                TextBlock contentTextBlock = (TextBlock)contentGrid.Children.Cast<UIElement>().FirstOrDefault(f => Grid.GetColumn(f) == 0);
+                foreach (Layer l in cable.Layers)
+                {
+                    if (l.Name == contentTextBlock.Text) selectedLayer = l.Name;
+                }
+            }
+        }
+
+        private void ButtonSelectConnection(object sender, RoutedEventArgs e)
+        {
+            if (previoussrcButton != null)
+            {
+                // Unselect previous connection
+                previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+            }
+
+            Button srcButton = e.Source as Button;
+            if (srcButton == previoussrcButton)
+            {
+                // If button is already selected, return to original state
+                srcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+                selectedLayer = "";
+                previoussrcButton = null;
+            }
+            else
+            {
+                // Select button
+                srcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF));
+                previoussrcButton = srcButton;
+
+                // Retrieve selected connection
+                Grid contentGrid = (Grid)(sender as Button).Content;
+                TextBlock contentTextBlock = (TextBlock)(contentGrid as Grid).Children.Cast<UIElement>().FirstOrDefault(f => Grid.GetColumn(f) == 0);
+                foreach (LayerConnection lc in cable.LayerConnections)
+                {
+                    if (lc.Name == contentTextBlock.Text) selectedLayer = lc.Name;
+                }
+            }
+        }
+
+        // Helper functions
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.OemPlus || e.Key == Key.Add) { scale += 0.01f; }
             else if (e.Key == Key.OemMinus || e.Key == Key.Subtract) { scale -= 0.01f; }
         }
 
+        private void ChildWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            isChildWindowOpen = false;
+        }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (isChildWindowOpen) e.Cancel = true;
         }
 
-        //  Camera parameters
+        // Graphics
+        // Camera parameters
         float[] _viewPoint = new float[] { 0.0f, 0.0f, 0.0f };
         float[] _position = new float[] { 0.0f, 0.0f, 10.0f };
         float[] _upVector = new float[] { 0.0f, 1.0f, 0.0f };
@@ -245,38 +327,6 @@ namespace TCC
             else if (clickedButton.Name == "ButtonZoomOut") { scale -= 0.01f; }
         }
 
-        private void ButtonSelectLayer(object sender, RoutedEventArgs e)
-        {
-            // string clickedButton = (Button)sender.Content.ToString();
-            if (previoussrcButton != null)
-            {
-                previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
-            }
-            Button srcButton = e.Source as Button;
-            srcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF));
-            Grid contentGrid = (Grid)(sender as Button).Content;
-            TextBlock contentTextBlock = (TextBlock)(contentGrid as Grid).Children.Cast<UIElement>().FirstOrDefault(f => Grid.GetColumn(f) == 0);
-            string text = contentTextBlock.Text;
-            teste.Text = text;
-            previoussrcButton = srcButton;
-        }
-        private void ButtonSelectConnection(object sender, RoutedEventArgs e)
-        {
-            // string clickedButton = (Button)sender.Content.ToString();
-            if (previoussrcButton != null)
-            {
-                previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
-            }
-            Button srcButton = e.Source as Button;
-            srcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0xFF, 0xFF));
-            Grid contentGrid = (Grid)(sender as Button).Content;
-            TextBlock contentTextBlock = (TextBlock)(contentGrid as Grid).Children.Cast<UIElement>().FirstOrDefault(f => Grid.GetColumn(f) == 0);
-            string text = contentTextBlock.Text;
-            teste.Text = text;
-            previoussrcButton = srcButton;
-        }
-
-        // Graphics
         private void OpenGLDraw(object sender, SharpGL.WPF.OpenGLRoutedEventArgs args)
         {
             OpenGL gl = GLControl.OpenGL;

@@ -22,10 +22,17 @@ namespace TCC
     /// </summary>
     public partial class MaterialListWindow : Window
     {
+        private List<LayerMaterial> materials;
+        private string materialName;
         ObservableCollection<LayerMaterial> observableMaterials = new ObservableCollection<LayerMaterial>();
+        bool isChildWindowOpen = false;
+
+        // public List<LayerMaterial> Materials { get { return materials; } }
         public MaterialListWindow(List<LayerMaterial> materials)
         {
             InitializeComponent();
+            this.materials = materials;
+
             for (int i = 0; i < materials.Count(); i++) {
                 if (materials[i] is Isotropic)
                 {
@@ -39,6 +46,68 @@ namespace TCC
                 }
             }
             itemsControl.ItemsSource = observableMaterials;
+        }
+
+        private void EditMaterialButton(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            materialName = button.Tag.ToString();
+            LayerMaterial material = new LayerMaterial();
+            foreach (LayerMaterial m in materials) if (m.Name == materialName) material = m;
+            if (material != null)
+            {
+                MaterialsWindow windowMaterial = new MaterialsWindow(materials, material);
+                windowMaterial.SubmitButtonClick += SubmitMaterialButtonClick;
+                windowMaterial.Closed += MaterialWindow_Closed;
+                windowMaterial.Show();
+            }
+
+            this.IsEnabled = false;
+            isChildWindowOpen = true;
+        }
+        private void MaterialWindow_Closed(object sender, EventArgs e)
+        {
+            this.IsEnabled = true;
+            isChildWindowOpen = false;
+        }
+        private void SubmitMaterialButtonClick(object sender, EventArgs e)
+        {
+            MaterialsWindow windowMaterial = sender as MaterialsWindow;
+            for (int i = 0; i < materials.Count; i++)
+            {
+                if (materials[i].Name == materialName)
+                {
+                    if (materials[i].Type == "isotropic")
+                    {
+                        materials[i] = windowMaterial.LayerIsotropic;
+                        observableMaterials[i] = windowMaterial.LayerIsotropic;
+                    }
+                    else if (materials[i].Type == "orthotropic")
+                    {
+                        materials[i] = windowMaterial.LayerOrthotropic;
+                        observableMaterials[i] = windowMaterial.LayerOrthotropic;
+                    }
+                }
+            }
+        }
+
+        private void DeleteMaterialButton(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            materialName = button.Tag.ToString();
+            for (int i = 0; i < materials.Count; i++)
+            {
+                if (materials[i].Name == materialName)
+                {
+                    observableMaterials.Remove(materials[i]);
+                    materials.Remove(materials[i]);
+                }
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (isChildWindowOpen) e.Cancel = true;
         }
     }
 }

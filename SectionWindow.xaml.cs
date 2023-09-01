@@ -23,6 +23,7 @@ namespace TCC
         private RectangularSection rectangularSection;
         private TubularSection tubularSection;
         private string section = "rectangular";
+        private bool isEdit = false;
 
         public event EventHandler SubmitButtonClick;
 
@@ -32,7 +33,34 @@ namespace TCC
             this.sections = sections;
 
             Cylindrical.Visibility = Visibility.Collapsed;
-            sectionComboBox.SelectionChanged += SectionComboBox_SelectionChanged;
+            TypeComboBox.SelectionChanged += SectionComboBox_SelectionChanged;
+        }
+        public SectionWindow(List<Section> sections, Section section)
+        {
+            InitializeComponent();
+            this.sections = sections;
+            this.isEdit = true;
+            TypeComboBox.IsEnabled = false;
+
+            NameTextBox.Text = section.Name;
+            if (section.Type == "rectangular")
+            {
+                Cylindrical.Visibility = Visibility.Collapsed;
+                TypeComboBox.SelectedIndex = 0;
+
+                RectangularSection rs = section as RectangularSection;
+                WidthTextBox.Text = rs.Width.ToString();
+                HeightTextBox.Text = rs.Height.ToString();
+            }
+            else if (section.Type == "tubular")
+            {
+                Rectangular.Visibility = Visibility.Collapsed;
+                TypeComboBox.SelectedIndex = 1;
+
+                TubularSection ts = section as TubularSection;
+                InternalRadiusTextBox.Text = ts.InternalRadius.ToString();
+                ExternalRadiusTextBox.Text = ts.ExternalRadius.ToString();
+            }
         }
 
         public RectangularSection RectangularSection { get { return rectangularSection; } }
@@ -44,7 +72,7 @@ namespace TCC
 
             string selectedParameter = ((ComboBoxItem)comboBox.SelectedItem).Content.ToString();
 
-            if (selectedParameter == "Rectangular")
+            if (selectedParameter == "rectangular")
             {
                 section = "rectangular";
                 // Show Rectangular
@@ -53,7 +81,7 @@ namespace TCC
                 // Hide Cylindrical
                 Cylindrical.Visibility = Visibility.Collapsed;
             }
-            else if (selectedParameter == "Tubular")
+            else if (selectedParameter == "tubular")
             {
                 section = "tubular";
                 // Show Cylindrical
@@ -75,7 +103,7 @@ namespace TCC
         {
             if (sections.Count != 0)  // Conditions
             {
-                if (sections.Any(obj => obj.Name == SectionName.Text))  // Name already used
+                if (sections.Any(obj => obj.Name == NameTextBox.Text))  // Name already used
                 {
                     InputWarning("Name");
                     return;
@@ -93,8 +121,8 @@ namespace TCC
                     Height = 1.0
                 };
 
-                rectangularSection.Name = SectionName.Text;
-                rectangularSection.ID = sections.Count + 1;
+                rectangularSection.Name = NameTextBox.Text;
+                if (!isEdit) rectangularSection.ID = sections.Count + 1;
                 double.TryParse(WidthTextBox.Text, out double result);
                 rectangularSection.Width = result;
                 double.TryParse(HeightTextBox.Text, out result);
@@ -111,8 +139,8 @@ namespace TCC
                     ExternalRadius = 1.0
                 };
 
-                tubularSection.Name = SectionName.Text;
-                tubularSection.ID = sections.Count + 1;
+                tubularSection.Name = NameTextBox.Text;
+                if (!isEdit) tubularSection.ID = sections.Count + 1;
                 double.TryParse(InternalRadiusTextBox.Text, out double result);
                 tubularSection.InternalRadius = result;
                 double.TryParse(ExternalRadiusTextBox.Text, out result);

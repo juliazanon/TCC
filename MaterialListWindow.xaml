@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="Material List" Height="450" Width="400">
+        Title="Material List" Height="450" Width="400"
+        Closing="Window_Closing">
     <StackPanel>
         <TextBlock Margin="4" FontSize="18" FontWeight="DemiBold">List of Material</TextBlock>
         <ItemsControl x:Name="itemsControl" Margin="8,4" Background="#FFF4F4F5">
@@ -20,8 +21,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="2" Padding="4,2,4,2" Background="#F3F3F3"/>
                         <TextBlock Grid.Column="1" Text="{Binding Type}" Margin="2" Padding="4,2,4,2" Background="#F3F3F3"/>
-                        <Button Grid.Column="2" Margin="4">Edit</Button>
-                        <Button Grid.Column="3" Margin="4">Delete</Button>
+                        <Button Grid.Column="2" Margin="4" Click="EditMaterialButton" Tag="{Binding Name}">Edit</Button>
+                        <Button Grid.Column="3" Margin="4" Click="DeleteMaterialButton" Tag="{Binding Name}">Delete</Button>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
