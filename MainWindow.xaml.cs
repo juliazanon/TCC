@@ -164,6 +164,20 @@ namespace TCC
                         }
                     }
                 }
+                foreach (LayerConnection lc in cable.LayerConnections)
+                {
+                    if (lc.Name == selectedLayer)
+                    {
+                        layerName = lc.Name;
+                        LayerConnectionsWindow windowConnection = new LayerConnectionsWindow(cable.LayerConnections, cable.Layers, lc);
+                        windowConnection.SubmitButtonClick += EditConnectionButtonClick;
+                        windowConnection.Closed += ChildWindow_Closed;
+                        windowConnection.Show();
+
+                        this.IsEnabled = false;
+                        isChildWindowOpen = true;
+                    }
+                }
             }
         }
         private void EditCylinderButtonClick(object sender, EventArgs e)
@@ -178,11 +192,11 @@ namespace TCC
                     observableLayer[i] = layer;
                     PopUpTextBlock.Text = layer.Name + " Edited Successfully";
                     popup.IsOpen = true;
+
+                    previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+                    previoussrcButton = null;
                 }
             }
-
-            previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
-            previoussrcButton = null;
         }
         private void EditHelixButtonClick(object sender, EventArgs e)
         {
@@ -196,11 +210,29 @@ namespace TCC
                     observableLayer[i] = layer;
                     PopUpTextBlock.Text = layer.Name + " Edited Successfully";
                     popup.IsOpen = true;
+
+                    previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+                    previoussrcButton = null;
                 }
             }
+        }
+        private void EditConnectionButtonClick(object sender, EventArgs e)
+        {
+            LayerConnectionsWindow windowConnection = sender as LayerConnectionsWindow;
+            LayerConnection connection = windowConnection.LayerConnection;
+            for (int i = 0; i < cable.LayerConnections.Count; i++)
+            {
+                if (layerName == cable.LayerConnections[i].Name)
+                {
+                    cable.LayerConnections[i] = connection;
+                    observableConnection[i] = connection;
+                    PopUpTextBlock.Text = connection.Name + " Edited Successfully";
+                    popup.IsOpen = true;
 
-            previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
-            previoussrcButton = null;
+                    previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+                    previoussrcButton = null;
+                }
+            }
         }
 
         private void ButtonDeleteLayer(object sender, RoutedEventArgs e)
