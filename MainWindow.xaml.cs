@@ -153,11 +153,36 @@ namespace TCC
                         }
                         else if (l.Type == "cylinder")
                         {
+                            CylinderLayer cl = l as CylinderLayer;
+                            CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow(cable.Layers, cable.LayerMaterials, cl);
+                            windowCylinder.SubmitButtonClick += EditCylinderButtonClick;
+                            windowCylinder.Closed += ChildWindow_Closed;
+                            windowCylinder.Show();
 
+                            this.IsEnabled = false;
+                            isChildWindowOpen = true;
                         }
                     }
                 }
             }
+        }
+        private void EditCylinderButtonClick(object sender, EventArgs e)
+        {
+            CylindricalLayerWindow windowCylinder = sender as CylindricalLayerWindow;
+            CylinderLayer layer = windowCylinder.CylinderLayer;
+            for (int i = 0; i < cable.Layers.Count; i++)
+            {
+                if (layerName == cable.Layers[i].Name)
+                {
+                    cable.Layers[i] = layer;
+                    observableLayer[i] = layer;
+                    PopUpTextBlock.Text = layer.Name + " Edited Successfully";
+                    popup.IsOpen = true;
+                }
+            }
+
+            previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+            previoussrcButton = null;
         }
         private void EditHelixButtonClick(object sender, EventArgs e)
         {

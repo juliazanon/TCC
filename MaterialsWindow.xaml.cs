@@ -28,6 +28,8 @@ namespace TCC
         private string editName = "";
 
         public event EventHandler SubmitButtonClick;
+
+        // New Material constructor
         public MaterialsWindow(List<LayerMaterial> materials)
         {
             InitializeComponent();
@@ -37,6 +39,7 @@ namespace TCC
             this.materials = materials;
             IsotropicRadioButton.IsChecked = true;
         }
+        // Edit Material constructor
         public MaterialsWindow(List<LayerMaterial> materials, LayerMaterial material)
         {
             InitializeComponent();

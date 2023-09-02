@@ -27,6 +27,7 @@ namespace TCC
 
         public event EventHandler SubmitButtonClick;
 
+        // New Section constructor
         public SectionWindow(List<Section> sections)
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace TCC
             Cylindrical.Visibility = Visibility.Collapsed;
             TypeComboBox.SelectionChanged += SectionComboBox_SelectionChanged;
         }
+        // Edit Section constructor
         public SectionWindow(List<Section> sections, Section section)
         {
             InitializeComponent();
