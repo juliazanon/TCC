@@ -23,10 +23,11 @@ namespace TCC
         private RectangularSection rectangularSection;
         private TubularSection tubularSection;
         private string section = "rectangular";
-        private bool isEdit = false;
+        private string editName = "";
 
         public event EventHandler SubmitButtonClick;
 
+        // New Section constructor
         public SectionWindow(List<Section> sections)
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace TCC
             Cylindrical.Visibility = Visibility.Collapsed;
             TypeComboBox.SelectionChanged += SectionComboBox_SelectionChanged;
         }
+        // Edit Section constructor
         public SectionWindow(List<Section> sections, Section section)
         {
             InitializeComponent();
@@ -45,7 +47,7 @@ namespace TCC
             NameTextBox.CaretIndex = NameTextBox.Text.Length;
             SectionTitle.Text = "Edit Section";
             this.sections = sections;
-            this.isEdit = true;
+            editName = section.Name;
             TypeComboBox.IsEnabled = false;
 
             NameTextBox.Text = section.Name;
@@ -109,7 +111,7 @@ namespace TCC
         {
             if (sections.Count != 0)  // Conditions
             {
-                if (sections.Any(obj => obj.Name == NameTextBox.Text))  // Name already used
+                if (sections.Any(obj => obj.Name == NameTextBox.Text) && NameTextBox.Text != editName)  // Name already used
                 {
                     InputWarning("Name");
                     return;
@@ -128,7 +130,7 @@ namespace TCC
                 };
 
                 rectangularSection.Name = NameTextBox.Text;
-                if (!isEdit) rectangularSection.ID = sections.Count + 1;
+                if (editName == "") rectangularSection.ID = sections.Count + 1;
                 double.TryParse(WidthTextBox.Text, out double result);
                 rectangularSection.Width = result;
                 double.TryParse(HeightTextBox.Text, out result);
@@ -146,7 +148,7 @@ namespace TCC
                 };
 
                 tubularSection.Name = NameTextBox.Text;
-                if (!isEdit) tubularSection.ID = sections.Count + 1;
+                if (editName == "") tubularSection.ID = sections.Count + 1;
                 double.TryParse(InternalRadiusTextBox.Text, out double result);
                 tubularSection.InternalRadius = result;
                 double.TryParse(ExternalRadiusTextBox.Text, out result);

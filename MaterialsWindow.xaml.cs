@@ -25,9 +25,11 @@ namespace TCC
         private List<LayerMaterial> materials;
         private Isotropic layerIsotropic;
         private Orthotropic layerOrthotropic;
-        private bool isEdit = false;
+        private string editName = "";
 
         public event EventHandler SubmitButtonClick;
+
+        // New Material constructor
         public MaterialsWindow(List<LayerMaterial> materials)
         {
             InitializeComponent();
@@ -37,6 +39,7 @@ namespace TCC
             this.materials = materials;
             IsotropicRadioButton.IsChecked = true;
         }
+        // Edit Material constructor
         public MaterialsWindow(List<LayerMaterial> materials, LayerMaterial material)
         {
             InitializeComponent();
@@ -44,7 +47,7 @@ namespace TCC
             NameTextBox.CaretIndex = NameTextBox.Text.Length;
             MaterialTitle.Text = "Edit Material";
             this.materials = materials;
-            isEdit = true;
+            editName = material.Name;
             IsotropicRadioButton.IsEnabled = false;
             OrthotropicRadioButton.IsEnabled = false;
 
@@ -126,7 +129,7 @@ namespace TCC
         {
             if (materials.Count != 0)  // Conditions
             {
-                if (materials.Any(obj => obj.Name == NameTextBox.Text))  // Name already used
+                if (materials.Any(obj => obj.Name == NameTextBox.Text) && NameTextBox.Text != editName)  // Name already used
                 {
                     InputWarning("Name");
                     return;
@@ -136,7 +139,7 @@ namespace TCC
             if (IsotropicRadioButton.IsChecked == true)
             {
                 layerIsotropic = new Isotropic { Density = 1.0, ID = 1, Name = "New Material", Type = "isotropic" };
-                if (!isEdit) layerIsotropic.ID = materials.Count + 1;
+                if (editName == "") layerIsotropic.ID = materials.Count + 1;
                 layerIsotropic.Name = NameTextBox.Text;
                 double.TryParse(DensityTextBox.Text, out double result);
                 layerIsotropic.Density = result;
@@ -148,7 +151,7 @@ namespace TCC
             else if (OrthotropicRadioButton.IsChecked == true)
             {
                 layerOrthotropic = new Orthotropic { Density = 1.0, ID = 1, Name = "New Material", Type = "orthotropic" };
-                if (!isEdit) layerOrthotropic.ID = materials.Count + 1;
+                if (editName == "") layerOrthotropic.ID = materials.Count + 1;
                 layerOrthotropic.Name = NameTextBox.Text;
                 double.TryParse(DensityTextBox.Text, out double result);
                 layerOrthotropic.Density = result;

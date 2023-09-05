@@ -153,9 +153,48 @@ namespace TCC
                         }
                         else if (l.Type == "cylinder")
                         {
+                            CylinderLayer cl = l as CylinderLayer;
+                            CylindricalLayerWindow windowCylinder = new CylindricalLayerWindow(cable.Layers, cable.LayerMaterials, cl);
+                            windowCylinder.SubmitButtonClick += EditCylinderButtonClick;
+                            windowCylinder.Closed += ChildWindow_Closed;
+                            windowCylinder.Show();
 
+                            this.IsEnabled = false;
+                            isChildWindowOpen = true;
                         }
                     }
+                }
+                foreach (LayerConnection lc in cable.LayerConnections)
+                {
+                    if (lc.Name == selectedLayer)
+                    {
+                        layerName = lc.Name;
+                        LayerConnectionsWindow windowConnection = new LayerConnectionsWindow(cable.LayerConnections, cable.Layers, lc);
+                        windowConnection.SubmitButtonClick += EditConnectionButtonClick;
+                        windowConnection.Closed += ChildWindow_Closed;
+                        windowConnection.Show();
+
+                        this.IsEnabled = false;
+                        isChildWindowOpen = true;
+                    }
+                }
+            }
+        }
+        private void EditCylinderButtonClick(object sender, EventArgs e)
+        {
+            CylindricalLayerWindow windowCylinder = sender as CylindricalLayerWindow;
+            CylinderLayer layer = windowCylinder.CylinderLayer;
+            for (int i = 0; i < cable.Layers.Count; i++)
+            {
+                if (layerName == cable.Layers[i].Name)
+                {
+                    cable.Layers[i] = layer;
+                    observableLayer[i] = layer;
+                    PopUpTextBlock.Text = layer.Name + " Edited Successfully";
+                    popup.IsOpen = true;
+
+                    previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+                    previoussrcButton = null;
                 }
             }
         }
@@ -171,11 +210,29 @@ namespace TCC
                     observableLayer[i] = layer;
                     PopUpTextBlock.Text = layer.Name + " Edited Successfully";
                     popup.IsOpen = true;
+
+                    previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+                    previoussrcButton = null;
                 }
             }
+        }
+        private void EditConnectionButtonClick(object sender, EventArgs e)
+        {
+            LayerConnectionsWindow windowConnection = sender as LayerConnectionsWindow;
+            LayerConnection connection = windowConnection.LayerConnection;
+            for (int i = 0; i < cable.LayerConnections.Count; i++)
+            {
+                if (layerName == cable.LayerConnections[i].Name)
+                {
+                    cable.LayerConnections[i] = connection;
+                    observableConnection[i] = connection;
+                    PopUpTextBlock.Text = connection.Name + " Edited Successfully";
+                    popup.IsOpen = true;
 
-            previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
-            previoussrcButton = null;
+                    previoussrcButton.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xE0, 0xE0, 0xE0));
+                    previoussrcButton = null;
+                }
+            }
         }
 
         private void ButtonDeleteLayer(object sender, RoutedEventArgs e)
