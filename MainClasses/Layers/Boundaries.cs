@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TCC.Classes
+namespace TCC.MainClasses
 {
-    public class Line
+    public class Boundaries
     {
-        public int FourierOrder { get; set; }
+        public int ID { get; set; }
         public bool DesignOnly { get; set; }
-        public Boundaries Start { get; set; }
-        public Boundaries End { get; set; }
-        public double[] DistributedLoads { get; set; }
+        public string CoordinateSystem { get; set; }
+        public double[] Coordinates { get; set; }
+        public double[] Loads { get; set; }
         public string[] Status { get; set; }
         public double[] ImposedDisplacements { get; set; }
     }

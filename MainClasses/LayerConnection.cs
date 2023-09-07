@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TCC.Classes
+namespace TCC.MainClasses
 {
     public class LayerConnection
     {
+        public string Name { get; set; }
         public string Type { get; set; }
         public string FirstLayer { get; set; }
         public string SecondLayer { get; set; }

@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TCC.Classes
+namespace TCC.MainClasses
 {
-    public class LayerMaterial
+    public class Section
     {
-        public double Density { get; set; }
-        public int ID { get; set; }
         public string Name { get; set; }
+        public int ID { get; set; }
         public string Type { get; set; }
     }
 }

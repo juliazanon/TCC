@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TCC.Classes
+namespace TCC.MainClasses
 {
     public class CylinderLayer : Layer
     {

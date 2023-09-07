@@ -56,6 +56,7 @@
     <Reference Include="System.Drawing.Common, Version=4.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Drawing.Common.4.7.3\lib\net461\System.Drawing.Common.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,34 +76,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="JSONClasses\JSONArea.cs" />
-    <Compile Include="JSONClasses\JSONBoundaries.cs" />
+    <Compile Include="JSONClasses\Layers\JSONArea.cs" />
+    <Compile Include="JSONClasses\Layers\JSONBoundaries.cs" />
     <Compile Include="JSONClasses\JSONCable.cs" />
-    <Compile Include="JSONClasses\JSONCylinderLayer.cs" />
-    <Compile Include="JSONClasses\JSONHelixLayer.cs" />
-    <Compile Include="JSONClasses\JSONIsotropic.cs" />
-    <Compile Include="JSONClasses\JSONLayer.cs" />
+    <Compile Include="JSONClasses\Layers\JSONCylinderLayer.cs" />
+    <Compile Include="JSONClasses\Layers\JSONHelixLayer.cs" />
+    <Compile Include="JSONClasses\Layers\LayerConverter.cs" />
+    <Compile Include="JSONClasses\Materials\JSONIsotropic.cs" />
+    <Compile Include="JSONClasses\Layers\JSONLayer.cs" />
     <Compile Include="JSONClasses\JSONLayerConnection.cs" />
-    <Compile Include="JSONClasses\JSONLine.cs" />
-    <Compile Include="JSONClasses\JSONMaterial.cs" />
-    <Compile Include="JSONClasses\JSONOrthotropic.cs" />
-    <Compile Include="JSONClasses\JSONRectangularSection.cs" />
-    <Compile Include="JSONClasses\JSONSection.cs" />
-    <Compile Include="JSONClasses\JSONTubularSection.cs" />
-    <Compile Include="MainClasses\Area.cs" />
-    <Compile Include="MainClasses\Boundaries.cs" />
+    <Compile Include="JSONClasses\Layers\JSONLine.cs" />
+    <Compile Include="JSONClasses\Materials\JSONMaterial.cs" />
+    <Compile Include="JSONClasses\Materials\JSONOrthotropic.cs" />
+    <Compile Include="JSONClasses\Sections\JSONRectangularSection.cs" />
+    <Compile Include="JSONClasses\Sections\JSONSection.cs" />
+    <Compile Include="JSONClasses\Sections\JSONTubularSection.cs" />
+    <Compile Include="JSONClasses\Sections\SectionConverter.cs" />
+    <Compile Include="MainClasses\Layers\Area.cs" />
+    <Compile Include="MainClasses\Layers\Boundaries.cs" />
     <Compile Include="MainClasses\Cable.cs" />
-    <Compile Include="MainClasses\CylinderLayer.cs" />
-    <Compile Include="MainClasses\TubularSection.cs" />
-    <Compile Include="MainClasses\HelixLayer.cs" />
-    <Compile Include="MainClasses\Isotropic.cs" />
-    <Compile Include="MainClasses\Layer.cs" />
+    <Compile Include="MainClasses\Layers\CylinderLayer.cs" />
+    <Compile Include="JSONClasses\Materials\MaterialConverter.cs" />
+    <Compile Include="MainClasses\Sections\TubularSection.cs" />
+    <Compile Include="MainClasses\Layers\HelixLayer.cs" />
+    <Compile Include="MainClasses\Materials\Isotropic.cs" />
+    <Compile Include="MainClasses\Layers\Layer.cs" />
     <Compile Include="MainClasses\LayerConnection.cs" />
-    <Compile Include="MainClasses\LayerMaterial.cs" />
-    <Compile Include="MainClasses\Line.cs" />
-    <Compile Include="MainClasses\Orthotropic.cs" />
-    <Compile Include="MainClasses\RectangularSection.cs" />
-    <Compile Include="MainClasses\Section.cs" />
+    <Compile Include="MainClasses\Materials\LayerMaterial.cs" />
+    <Compile Include="MainClasses\Layers\Line.cs" />
+    <Compile Include="MainClasses\Materials\Orthotropic.cs" />
+    <Compile Include="MainClasses\Sections\RectangularSection.cs" />
+    <Compile Include="MainClasses\Sections\Section.cs" />
     <Compile Include="CylindricalAreasWindow.xaml.cs">
       <DependentUpon>CylindricalAreasWindow.xaml</DependentUpon>
     </Compile>
@@ -115,14 +119,24 @@
     <Compile Include="LayerConnectionsWindow.xaml.cs">
       <DependentUpon>LayerConnectionsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainClasses\SpecifiedConcreteClassConverter.cs" />
+    <Compile Include="MaterialListWindow.xaml.cs">
+      <DependentUpon>MaterialListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MaterialsWindow.xaml.cs">
       <DependentUpon>MaterialsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SectionListWindow.xaml.cs">
+      <DependentUpon>SectionListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SectionWindow.xaml.cs">
       <DependentUpon>SectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WarningWindow.xaml.cs">
+      <DependentUpon>WarningWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="CylindricalAreasWindow.xaml">
       <SubType>Designer</SubType>
@@ -152,7 +166,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MaterialListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MaterialsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SectionListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StartWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WarningWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

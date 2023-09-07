@@ -9,13 +9,21 @@
         Title="TCC" Height="644" Width="1138"
         MinHeight="644" MinWidth="1138"
         KeyDown="Window_KeyDown"
-        Closing="Window_Closing">
+        Closing="Window_Closing"
+        Name="Main">
     <Grid Margin="12,12,12,12" ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>
             <RowDefinition Height="*" MaxHeight="200" MinHeight="150"/>
             <RowDefinition Height="4*" MinHeight="400"/>
         </Grid.RowDefinitions>
+        <Popup x:Name="popup" IsOpen="False" Placement="Relative" Width="Auto" Height="50" Opened="Popup_Opened"
+               PlacementTarget="{Binding ElementName=Main}" AllowsTransparency="True" PopupAnimation="Fade">
+            <Border Background="LightGreen" BorderBrush="Black" BorderThickness="1">
+                <TextBlock Name="PopUpTextBlock" Text="Object created successfully" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Background="LightGreen" FontWeight="DemiBold" Foreground="DarkSlateGray" Margin="4,0,4,0"/>
+            </Border>
+        </Popup>
         <StackPanel Orientation="Horizontal">
             <Button Margin="8,0,8,4" Name="OpenButton" Click="OpenButtonClick">
                 Open
@@ -58,7 +66,7 @@
                     <Button Grid.Row="1" Grid.Column="2" Margin="4" Width="48" MaxHeight="48" BorderThickness="1" Click="ButtonNewConnection">Connection</Button>
                 </Grid>
                 <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-                    <Button Margin="3" BorderThickness="1">
+                    <Button Margin="3" BorderThickness="1" Click="ButtonEditLayer">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="5"/>
@@ -66,7 +74,7 @@
                         </Button.Resources>
                         Edit
                     </Button>
-                    <Button Margin="3" BorderThickness="1">
+                    <Button Margin="3" BorderThickness="1" Click="ButtonDeleteLayer">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="5"/>
@@ -111,7 +119,7 @@
                         <TextBlock>New Material</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="36, 5" BorderThickness="1">
+                <Button Margin="36, 5" BorderThickness="1" Click="ButtonMaterialList">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -134,7 +142,7 @@
                         <TextBlock>New Section</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="36, 5" BorderThickness="1">
+                <Button Margin="36, 5" BorderThickness="1" Click="ButtonSectionList">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -155,23 +163,52 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="4*" MinWidth="600"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Background="#FFF0F0F5">
-                <TextBlock FontSize="18" Margin="4" HorizontalAlignment="Center" FontWeight="DemiBold">Layers</TextBlock>
-                <ItemsControl x:Name="itemsControl" Margin="8,4" Background="#FFF4F4F5">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Background="#E0E0E0" Margin="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="2" Padding="4,2,4,2" Background="#F3F3F3"/>
-                                <TextBlock Grid.Column="1" Text="{Binding Type}" Margin="2" Padding="4,2,4,2" Background="#F3F3F3"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </StackPanel>
+            <Grid Background="#FFF0F0F5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" FontSize="18" Margin="4" HorizontalAlignment="Center" FontWeight="DemiBold">Layers</TextBlock>
+                <ScrollViewer Grid.Row="1">
+                    <ItemsControl x:Name="itemsControl" Margin="8,4" Background="#FFFFFF">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Click="ButtonSelectLayer" Background="#E0E0E0" BorderBrush="Transparent" Padding="0">
+                                    <Grid Background="Transparent" Width="200" Margin="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="0,0,2,0" Padding="4,2" Background="#AAFFFFFF"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Type}" Padding="4,2" Background="#AAFFFFFF"/>
+                                    </Grid>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+                <TextBlock Grid.Row="2" FontSize="18" Margin="4" HorizontalAlignment="Center" FontWeight="DemiBold">Connections</TextBlock>
+                <ScrollViewer Grid.Row="3">
+                    <ItemsControl x:Name="connectionsControl" Margin="8,4" Background="#FFFFFF">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Click="ButtonSelectConnection" Background="#E0E0E0" BorderBrush="Transparent" Padding="0">
+                                    <Grid Background="Transparent" Width="200" Margin="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="0,0,2,0" Padding="4,2" Background="#AAFFFFFF"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Type}" Padding="4,2" Background="#AAFFFFFF"/>
+                                    </Grid>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
             <gl:OpenGLControl x:Name="GLControl" OpenGLDraw="OpenGLDraw" Grid.Column="1"/>
         </Grid>
     </Grid>

@@ -10,7 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using TCC.Classes;
+using TCC.MainClasses;
 
 namespace TCC
 {
@@ -25,10 +25,10 @@ namespace TCC
 
         public Area Area { get { return area; } }
 
+        // New Area constructor
         public CylindricalAreasWindow(string areaType)
         {
             InitializeComponent();
-
             WindowTitle.Text = areaType;
             this.areaType = areaType;
 
@@ -41,6 +41,116 @@ namespace TCC
             //  Handle the ComboBox SelectionChange
             CoordinateComboBoxStart.SelectionChanged += ComboBox_SelectionChanged_CoordinateStart;
             CoordinateComboBoxEnd.SelectionChanged += ComboBox_SelectionChanged_CoordinateEnd;
+        }
+        // Edit Area constructor
+        public CylindricalAreasWindow(string areaType, Area area)
+        {
+            InitializeComponent();
+            WindowTitle.Text = areaType;
+            this.areaType = areaType;
+
+            // Hide Cylindrical Coordinates elements
+            TextBlockCilyndricalCoord1Start.Visibility = Visibility.Collapsed;
+            TextBlockCilyndricalCoord2Start.Visibility = Visibility.Collapsed;
+            TextBlockCilyndricalCoord1End.Visibility = Visibility.Collapsed;
+            TextBlockCilyndricalCoord2End.Visibility = Visibility.Collapsed;
+
+            //  Handle the ComboBox SelectionChange
+            CoordinateComboBoxStart.SelectionChanged += ComboBox_SelectionChanged_CoordinateStart;
+            CoordinateComboBoxEnd.SelectionChanged += ComboBox_SelectionChanged_CoordinateEnd;
+
+            XPressureTextBox.Text = area.Pressure[0].ToString();
+            YPressureTextBox.Text = area.Pressure[1].ToString();
+            ZPressureTextBox.Text = area.Pressure[2].ToString();
+            RxPressureTextBox.Text = area.Pressure[3].ToString();
+            RyPressureTextBox.Text = area.Pressure[4].ToString();
+            RzPressureTextBox.Text = area.Pressure[5].ToString();
+            FxStatusComboBox.Text = area.Status[0];
+            FyStatusComboBox.Text = area.Status[1];
+            FzStatusComboBox.Text = area.Status[2];
+            TxStatusComboBox.Text = area.Status[3];
+            TyStatusComboBox.Text = area.Status[4];
+            TzStatusComboBox.Text = area.Status[5];
+            FxDispTextBox.Text = area.ImposedDisplacements[0].ToString();
+            FyDispTextBox.Text = area.ImposedDisplacements[1].ToString();
+            FzDispTextBox.Text = area.ImposedDisplacements[2].ToString();
+            TxDispTextBox.Text = area.ImposedDisplacements[3].ToString();
+            TyDispTextBox.Text = area.ImposedDisplacements[4].ToString();
+            TzDispTextBox.Text = area.ImposedDisplacements[5].ToString();
+            // Frontier
+            DesignCheckBoxFrontier.IsChecked = area.Frontier.DesignOnly;
+            FxTextBoxFrontier.Text = area.Frontier.DistributedLoads[0].ToString();
+            FyTextBoxFrontier.Text = area.Frontier.DistributedLoads[1].ToString();
+            FzTextBoxFrontier.Text = area.Frontier.DistributedLoads[2].ToString();
+            TxTextBoxFrontier.Text = area.Frontier.DistributedLoads[3].ToString();
+            TyTextBoxFrontier.Text = area.Frontier.DistributedLoads[4].ToString();
+            TzTextBoxFrontier.Text = area.Frontier.DistributedLoads[5].ToString();
+            FxStatusComboBoxFrontier.Text = area.Frontier.Status[0];
+            FyStatusComboBoxFrontier.Text = area.Frontier.Status[1];
+            FzStatusComboBoxFrontier.Text = area.Frontier.Status[2];
+            TxStatusComboBoxFrontier.Text = area.Frontier.Status[3];
+            TyStatusComboBoxFrontier.Text = area.Frontier.Status[4];
+            TzStatusComboBoxFrontier.Text = area.Frontier.Status[5];
+            FxDispTextBoxFrontier.Text = area.Frontier.ImposedDisplacements[0].ToString();
+            FyDispTextBoxFrontier.Text = area.Frontier.ImposedDisplacements[1].ToString();
+            FzDispTextBoxFrontier.Text = area.Frontier.ImposedDisplacements[2].ToString();
+            TxDispTextBoxFrontier.Text = area.Frontier.ImposedDisplacements[3].ToString();
+            TyDispTextBoxFrontier.Text = area.Frontier.ImposedDisplacements[4].ToString();
+            TzDispTextBoxFrontier.Text = area.Frontier.ImposedDisplacements[5].ToString();
+            // Start
+            DesignCheckBoxStart.IsChecked = area.Frontier.Start.DesignOnly;
+            CoordinateComboBoxStart.SelectedItem = area.Frontier.Start.CoordinateSystem;
+            XCoordTextBoxStart.Text = area.Frontier.Start.Coordinates[0].ToString();
+            YCoordTextBoxStart.Text = area.Frontier.Start.Coordinates[1].ToString();
+            ZCoordTextBoxStart.Text = area.Frontier.Start.Coordinates[2].ToString();
+            RxCoordTextBoxStart.Text = area.Frontier.Start.Coordinates[3].ToString();
+            RyCoordTextBoxStart.Text = area.Frontier.Start.Coordinates[4].ToString();
+            RzCoordTextBoxStart.Text = area.Frontier.Start.Coordinates[5].ToString();
+            FxTextBoxStart.Text = area.Frontier.Start.Loads[0].ToString();
+            FyTextBoxStart.Text = area.Frontier.Start.Loads[1].ToString();
+            FzTextBoxStart.Text = area.Frontier.Start.Loads[2].ToString();
+            TxTextBoxStart.Text = area.Frontier.Start.Loads[3].ToString();
+            TyTextBoxStart.Text = area.Frontier.Start.Loads[4].ToString();
+            TzTextBoxStart.Text = area.Frontier.Start.Loads[5].ToString();
+            FxComboBoxStart.Text = area.Frontier.Start.Status[0];
+            FyComboBoxStart.Text = area.Frontier.Start.Status[1];
+            FzComboBoxStart.Text = area.Frontier.Start.Status[2];
+            TxComboBoxStart.Text = area.Frontier.Start.Status[3];
+            TyComboBoxStart.Text = area.Frontier.Start.Status[4];
+            TzComboBoxStart.Text = area.Frontier.Start.Status[5];
+            FxDispTextBoxStart.Text = area.Frontier.Start.ImposedDisplacements[0].ToString();
+            FyDispTextBoxStart.Text = area.Frontier.Start.ImposedDisplacements[1].ToString();
+            FzDispTextBoxStart.Text = area.Frontier.Start.ImposedDisplacements[2].ToString();
+            TxDispTextBoxStart.Text = area.Frontier.Start.ImposedDisplacements[3].ToString();
+            TyDispTextBoxStart.Text = area.Frontier.Start.ImposedDisplacements[4].ToString();
+            TzDispTextBoxStart.Text = area.Frontier.Start.ImposedDisplacements[5].ToString();
+            // End
+            DesignCheckBoxEnd.IsChecked = area.Frontier.End.DesignOnly;
+            CoordinateComboBoxEnd.SelectedItem = area.Frontier.End.CoordinateSystem;
+            XCoordTextBoxEnd.Text = area.Frontier.End.Coordinates[0].ToString();
+            YCoordTextBoxEnd.Text = area.Frontier.End.Coordinates[1].ToString();
+            ZCoordTextBoxEnd.Text = area.Frontier.End.Coordinates[2].ToString();
+            RxCoordTextBoxEnd.Text = area.Frontier.End.Coordinates[3].ToString();
+            RyCoordTextBoxEnd.Text = area.Frontier.End.Coordinates[4].ToString();
+            RzCoordTextBoxEnd.Text = area.Frontier.End.Coordinates[5].ToString();
+            FxTextBoxEnd.Text = area.Frontier.End.Loads[0].ToString();
+            FyTextBoxEnd.Text = area.Frontier.End.Loads[1].ToString();
+            FzTextBoxEnd.Text = area.Frontier.End.Loads[2].ToString();
+            TxTextBoxEnd.Text = area.Frontier.End.Loads[3].ToString();
+            TyTextBoxEnd.Text = area.Frontier.End.Loads[4].ToString();
+            TzTextBoxEnd.Text = area.Frontier.End.Loads[5].ToString();
+            FxComboBoxEnd.Text = area.Frontier.End.Status[0];
+            FyComboBoxEnd.Text = area.Frontier.End.Status[1];
+            FzComboBoxEnd.Text = area.Frontier.End.Status[2];
+            TxComboBoxEnd.Text = area.Frontier.End.Status[3];
+            TyComboBoxEnd.Text = area.Frontier.End.Status[4];
+            TzComboBoxEnd.Text = area.Frontier.End.Status[5];
+            FxDispTextBoxEnd.Text = area.Frontier.End.ImposedDisplacements[0].ToString();
+            FyDispTextBoxEnd.Text = area.Frontier.End.ImposedDisplacements[1].ToString();
+            FzDispTextBoxEnd.Text = area.Frontier.End.ImposedDisplacements[2].ToString();
+            TxDispTextBoxEnd.Text = area.Frontier.End.ImposedDisplacements[3].ToString();
+            TyDispTextBoxEnd.Text = area.Frontier.End.ImposedDisplacements[4].ToString();
+            TzDispTextBoxEnd.Text = area.Frontier.End.ImposedDisplacements[5].ToString();
         }
 
         //  Combobox coordinate

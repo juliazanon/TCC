@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Windows.Forms;
 
-namespace TCC.Classes
+namespace TCC.MainClasses
 {
     public class Cable
     {
@@ -21,7 +21,7 @@ namespace TCC.Classes
             string json = File.ReadAllText(filepath);
             JSONCable cable = JsonConvert.DeserializeObject<JSONCable>(json);
 
-            //ReverseCopy(cable);
+            ReverseCopy(cable);
 
             return cable;
         }
@@ -53,6 +53,7 @@ namespace TCC.Classes
 
             // Sections
             Sections = new List<Section>();
+            int nsections = 1;
             foreach (JSONSection s in cable.sections)
             {
                 if (s.type == "rectangular")
@@ -60,29 +61,34 @@ namespace TCC.Classes
                     JSONRectangularSection rs = s as JSONRectangularSection;
                     RectangularSection section = new RectangularSection
                     {
+                        Name = "Section" + nsections.ToString(),
                         Height = rs.height,
                         Width = rs.width,
                         ID = rs.id,
                         Type = rs.type
                     };
                     Sections.Add(section);
+                    nsections++;
                 }
                 else if (s.type == "tubular")
                 {
                     JSONTubularSection ts = s as JSONTubularSection;
                     TubularSection section = new TubularSection
                     {
+                        Name = "Section" + nsections.ToString(),
                         InternalRadius = ts.internal_radius,
                         ExternalRadius = ts.external_radius,
                         ID = ts.id,
                         Type = ts.type
                     };
                     Sections.Add(section);
+                    nsections++;
                 }
             }
 
             // Materials
             LayerMaterials = new List<LayerMaterial>();
+            int nmaterials = 1;
             foreach (JSONMaterial m in cable.materials)
             {
                 if (m.type == "isotropic")
@@ -90,6 +96,7 @@ namespace TCC.Classes
                     JSONIsotropic iso = m as JSONIsotropic;
                     Isotropic material = new Isotropic
                     {
+                        Name = "Material" + nmaterials.ToString(),
                         Young = iso.young_modulus,
                         Poisson = iso.poisson_ratio,
                         Type = m.type,
@@ -97,20 +104,29 @@ namespace TCC.Classes
                         Density = iso.density
                     };
                     LayerMaterials.Add(material);
+                    nmaterials++;
                 }
                 else if (m.type == "orthotropic")
                 {
                     JSONOrthotropic ortho = m as JSONOrthotropic;
                     Orthotropic material = new Orthotropic
                     {
-                        Young = ortho.young,
-                        Poisson = ortho.poisson,
-                        Shear = ortho.shear,
+                        Name = "Material" + nmaterials.ToString(),
+                        EX = ortho.Ex,
+                        EY = ortho.Ey,
+                        EZ = ortho.Ez,
+                        NuXY = ortho.nuxy,
+                        NuXZ = ortho.nuxz,
+                        NuYZ = ortho.nuyz,
+                        GXY = ortho.Gxy,
+                        GXZ = ortho.Gxz,
+                        GYZ = ortho.Gyz,
                         Type = m.type,
                         ID = ortho.id,
                         Density = ortho.density
                     };
                     LayerMaterials.Add(material);
+                    nmaterials++;
                 }
             }
 
@@ -152,7 +168,7 @@ namespace TCC.Classes
                         Status = hl.line.status,
                         ImposedDisplacements = hl.line.imposed_displacements
                     };
-                    LayerMaterial material = new LayerMaterial();
+                    LayerMaterial material = null;
                     Section section = new Section();
                     foreach (LayerMaterial m in LayerMaterials)
                     {
@@ -240,7 +256,7 @@ namespace TCC.Classes
                         };
                         areas.Add(area);
                     }
-                    LayerMaterial material = new LayerMaterial();
+                    LayerMaterial material = null;
                     foreach (LayerMaterial m in LayerMaterials)
                     {
                         if (m.ID == cl.material) material = m;
@@ -265,10 +281,12 @@ namespace TCC.Classes
 
             // Layer connections
             LayerConnections = new List<LayerConnection>();
+            int nconnections = 1;
             foreach (JSONLayerConnection lc in cable.layer_connections)
             {
                 LayerConnection connection = new LayerConnection
                 {
+                    Name = "Connection" + nconnections.ToString(),
                     Type = lc.type,
                     FirstLayer = lc.first_layer,
                     SecondLayer = lc.second_layer,
@@ -281,6 +299,7 @@ namespace TCC.Classes
                     PinballSearchRadius = lc.pinball_search_radius,
                 };
                 LayerConnections.Add(connection);
+                nconnections++;
             }
         }
 
@@ -495,9 +514,15 @@ namespace TCC.Classes
                     Orthotropic ortho = m as Orthotropic;
                     JSONOrthotropic jmaterial = new JSONOrthotropic
                     {
-                        young = ortho.Young,
-                        poisson = ortho.Poisson,
-                        shear = ortho.Shear,
+                        Ex = ortho.EX,
+                        Ey = ortho.EY,
+                        Ez = ortho.EZ,
+                        nuxy = ortho.NuXY,
+                        nuxz = ortho.NuXZ,
+                        nuyz = ortho.NuYZ,
+                        Gxy = ortho.GXY,
+                        Gxz = ortho.GXZ,
+                        Gyz = ortho.GYZ,
                         type = m.Type,
                         id = ortho.ID,
                         density = ortho.Density

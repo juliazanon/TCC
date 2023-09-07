@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Animation;
 
-namespace TCC.Classes
+namespace TCC.MainClasses
 {
     public class HelixLayer : Layer
     {
