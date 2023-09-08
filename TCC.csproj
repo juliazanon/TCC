@@ -76,27 +76,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="JSONClasses\Layers\JSONArea.cs" />
-    <Compile Include="JSONClasses\Layers\JSONBoundaries.cs" />
-    <Compile Include="JSONClasses\JSONCable.cs" />
-    <Compile Include="JSONClasses\Layers\JSONCylinderLayer.cs" />
-    <Compile Include="JSONClasses\Layers\JSONHelixLayer.cs" />
-    <Compile Include="JSONClasses\Layers\LayerConverter.cs" />
-    <Compile Include="JSONClasses\Materials\JSONIsotropic.cs" />
-    <Compile Include="JSONClasses\Layers\JSONLayer.cs" />
-    <Compile Include="JSONClasses\JSONLayerConnection.cs" />
-    <Compile Include="JSONClasses\Layers\JSONLine.cs" />
-    <Compile Include="JSONClasses\Materials\JSONMaterial.cs" />
-    <Compile Include="JSONClasses\Materials\JSONOrthotropic.cs" />
-    <Compile Include="JSONClasses\Sections\JSONRectangularSection.cs" />
-    <Compile Include="JSONClasses\Sections\JSONSection.cs" />
-    <Compile Include="JSONClasses\Sections\JSONTubularSection.cs" />
-    <Compile Include="JSONClasses\Sections\SectionConverter.cs" />
     <Compile Include="MainClasses\Layers\Area.cs" />
     <Compile Include="MainClasses\Layers\Boundaries.cs" />
     <Compile Include="MainClasses\Cable.cs" />
     <Compile Include="MainClasses\Layers\CylinderLayer.cs" />
-    <Compile Include="JSONClasses\Materials\MaterialConverter.cs" />
+    <Compile Include="MainClasses\Layers\LayerConverter.cs" />
+    <Compile Include="MainClasses\Materials\MaterialConverter.cs" />
+    <Compile Include="MainClasses\Sections\SectionConverter.cs" />
     <Compile Include="MainClasses\Sections\TubularSection.cs" />
     <Compile Include="MainClasses\Layers\HelixLayer.cs" />
     <Compile Include="MainClasses\Materials\Isotropic.cs" />

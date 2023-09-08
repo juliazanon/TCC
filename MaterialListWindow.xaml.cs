@@ -132,30 +132,25 @@ namespace TCC
                 WarningWindow windowWarning = new WarningWindow(
                     "This Material is part of a layer. Deleting it will modify the layer to no material. Are you sure you want to continue?"
                     );
-                windowWarning.ConfirmButtonClick += ConfirmButtonClick;
-                windowWarning.CancelButtonClick += CancelButtonClick;
-                windowWarning.Show();
-            }
-        }
-        private void ConfirmButtonClick(object sender, EventArgs e)
-        {
-            // First modify layer
-            materialLayer.Material = null;
-            // Then delete section after confirmation
-            for (int i = 0; i < materials.Count; i++)
-            {
-                if (materials[i].Name == materialName)
+                windowWarning.Owner = Application.Current.MainWindow;
+
+                if (windowWarning.ShowDialog() == true)
                 {
-                    observableMaterials.Remove(materials[i]);
-                    PopUpTextBlock.Text = materialName + " Deleted Successfully";
-                    materials.Remove(materials[i]);
-                    popup.IsOpen = true;
+                    // First modify layer
+                    materialLayer.Material = null;
+                    // Then delete section after confirmation
+                    for (int i = 0; i < materials.Count; i++)
+                    {
+                        if (materials[i].Name == materialName)
+                        {
+                            observableMaterials.Remove(materials[i]);
+                            PopUpTextBlock.Text = materialName + " Deleted Successfully";
+                            materials.Remove(materials[i]);
+                            popup.IsOpen = true;
+                        }
+                    }
                 }
             }
-        }
-        private void CancelButtonClick(object sender, EventArgs e)
-        {
-            return;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

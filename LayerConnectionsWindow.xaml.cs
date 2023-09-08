@@ -42,7 +42,7 @@ namespace TCC
             {
                 List<Layer> layerList = new List<Layer>
                 {
-                    new Layer { Name = "No Layer Created" },
+                    new CylinderLayer { Name = "No Layer Created" },
                 };
                 FirstLayerComboBox.ItemsSource = layerList;
                 FirstLayerComboBox.SelectedIndex = 0;
@@ -76,7 +76,7 @@ namespace TCC
             {
                 List<Layer> layerList = new List<Layer>
                 {
-                    new Layer { Name = "No Layer Created" },
+                    new CylinderLayer { Name = "No Layer Created" },
                 };
                 FirstLayerComboBox.ItemsSource = layerList;
                 FirstLayerComboBox.SelectedIndex = 0;

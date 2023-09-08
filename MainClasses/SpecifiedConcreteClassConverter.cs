@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TCC.JSONClasses;
 
 namespace TCC.MainClasses
 {
@@ -13,11 +12,11 @@ namespace TCC.MainClasses
     {
         protected override JsonConverter ResolveContractConverter(Type objectType)
         {
-            if (typeof(JSONSection).IsAssignableFrom(objectType) && !objectType.IsAbstract)
+            if (typeof(Section).IsAssignableFrom(objectType) && !objectType.IsAbstract)
                 return null; // pretend TableSortRuleConvert is not specified (thus avoiding a stack overflow)
-            else if (typeof(JSONMaterial).IsAssignableFrom(objectType) && !objectType.IsAbstract)
+            else if (typeof(LayerMaterial).IsAssignableFrom(objectType) && !objectType.IsAbstract)
                 return null; // pretend TableSortRuleConvert is not specified (thus avoiding a stack overflow)
-            else if (typeof(JSONLayer).IsAssignableFrom(objectType) && !objectType.IsAbstract)
+            else if (typeof(Layer).IsAssignableFrom(objectType) && !objectType.IsAbstract)
                 return null; // pretend TableSortRuleConvert is not specified (thus avoiding a stack overflow)
             return base.ResolveContractConverter(objectType);
         }

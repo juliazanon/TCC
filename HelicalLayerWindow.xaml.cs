@@ -42,7 +42,7 @@ namespace TCC
             {
                 List<Section> sectionList = new List<Section>
                 {
-                    new Section { ID = 0, Name = "No Section Created" },
+                    new RectangularSection { ID = 0, Name = "No Section Created" },
                 };
                 SectionComboBox.ItemsSource = sectionList;
                 SectionComboBox.SelectedIndex = 0;
@@ -98,7 +98,7 @@ namespace TCC
             {
                 List<Section> sectionList = new List<Section>
                 {
-                    new Section { ID = 0, Name = "No Section Created" },
+                    new RectangularSection { ID = 0, Name = "No Section Created" },
                 };
                 SectionComboBox.ItemsSource = sectionList;
                 SectionComboBox.SelectedIndex = 0;

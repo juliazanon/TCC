@@ -48,7 +48,7 @@ namespace TCC
         {
             Button button = sender as Button;
             sectionName = button.Tag.ToString();
-            Section section = new Section();
+            Section section = null;
             foreach (Section s in sections) if (s.Name == sectionName) section = s;
             if (section != null)
             {
@@ -130,44 +130,40 @@ namespace TCC
                     "This Section is part of a layer. Deleting it will also delete the layer. " +
                     "If the layer has a connection, it will also be deleted. Are you sure you want to continue?"
                     );
-                windowWarning.ConfirmButtonClick += ConfirmButtonClick;
-                windowWarning.CancelButtonClick += CancelButtonClick;
-                windowWarning.Show();
-            }
-        }
-        private void ConfirmButtonClick(object sender, EventArgs e)
-        {
-            // First delete layer
-            cable.Layers.Remove(sectionLayer);
-            observableLayer.Remove(sectionLayer);
-            // Delete also connection if it exists
-            for (int i = 0; i < cable.LayerConnections.Count; i++)
-            {
-                if (cable.LayerConnections[i].FirstLayer == sectionLayer.Name || cable.LayerConnections[i].SecondLayer == sectionLayer.Name)
-                {
-                    observableConnection.Remove(cable.LayerConnections[i]);
-                    PopUpTextBlock.Text = cable.LayerConnections[i].Name + " Deleted Successfully";
-                    cable.LayerConnections.Remove(cable.LayerConnections[i]);
-                    popup.IsOpen = true;
-                }
-            }
+                windowWarning.Owner = Application.Current.MainWindow;
 
-            // Then delete section after confirmation
-            for (int i = 0; i < sections.Count; i++)
-            {
-                if (sections[i].Name == sectionName)
+                if (windowWarning.ShowDialog() == true)
                 {
-                    observableSections.Remove(sections[i]);
-                    PopUpTextBlock.Text = sectionName + " Deleted Successfully";
-                    sections.Remove(sections[i]);
-                    popup.IsOpen = true;
+                    // First delete layer
+                    cable.Layers.Remove(sectionLayer);
+                    observableLayer.Remove(sectionLayer);
+                    // Delete also connection if it exists
+                    for (int i = 0; i < cable.LayerConnections.Count; i++)
+                    {
+                        if (cable.LayerConnections[i].FirstLayer == sectionLayer.Name || cable.LayerConnections[i].SecondLayer == sectionLayer.Name)
+                        {
+                            observableConnection.Remove(cable.LayerConnections[i]);
+                            PopUpTextBlock.Text = cable.LayerConnections[i].Name + " Deleted Successfully";
+                            cable.LayerConnections.Remove(cable.LayerConnections[i]);
+                            popup.IsOpen = true;
+                        }
+                    }
+
+                    // Then delete section after confirmation
+                    for (int i = 0; i < sections.Count; i++)
+                    {
+                        if (sections[i].Name == sectionName)
+                        {
+                            observableSections.Remove(sections[i]);
+                            PopUpTextBlock.Text = sectionName + " Deleted Successfully";
+                            sections.Remove(sections[i]);
+                            popup.IsOpen = true;
+                        }
+                    }
                 }
             }
         }
-        private void CancelButtonClick(object sender, EventArgs e)
-        {
-            return;
-        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (isChildWindowOpen) e.Cancel = true;

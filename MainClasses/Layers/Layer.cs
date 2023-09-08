@@ -1,25 +1,35 @@
-﻿using SharpGL;
+﻿using Newtonsoft.Json;
+using SharpGL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using TCC.MainClasses.Layers;
 
 namespace TCC.MainClasses
 {
-    public class Layer
+    [DataContract]
+    [JsonConverter(typeof(LayerConverter))]
+    public abstract class Layer
     {
-        private string name;
-        private string type;
-        private LayerMaterial material;
-        private double length;
-        private double[] bodyLoad;
+        public Layer() { }
 
-        public string Name { get { return name; } set { name = value; } }
-        public double Length { get { return length; } set { length = value; } }
-        public string Type { get { return type; } set { type = value; } }
-        public LayerMaterial Material { get { return material; } set { material = value; } }
-        public double[] BodyLoad { get { return bodyLoad; } set { bodyLoad = value; } }
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+        
+        [DataMember(Name = "length")]
+        public double Length { get; set; }
+
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
+        
+        [DataMember(Name = "material")]
+        public LayerMaterial Material { get; set; }
+        
+        [DataMember(Name = "body_load")]
+        public double[] BodyLoad { get; set; }
 
         public virtual void Draw(OpenGL gl)
         {

@@ -1,21 +1,22 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using SharpGL.SceneGraph.Quadrics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TCC.MainClasses;
+using System.Windows.Forms;
 
-namespace TCC.JSONClasses.Sections
+namespace TCC.MainClasses.Layers
 {
-    public class SectionConverter : JsonConverter
+    public class LayerConverter : JsonConverter
     {
         static readonly JsonSerializerSettings SpecifiedSubclassConversion = new JsonSerializerSettings() { ContractResolver = new SpecifiedConcreteClassConverter() };
 
         public override bool CanConvert(Type objectType)
         {
-            return (objectType == typeof(JSONSection));
+            return (objectType == typeof(Layer));
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -23,10 +24,12 @@ namespace TCC.JSONClasses.Sections
             JObject jo = JObject.Load(reader);
             switch (jo["type"].Value<String>())
             {
-                case "rectangular":
-                    return JsonConvert.DeserializeObject<JSONRectangularSection>(jo.ToString(), SpecifiedSubclassConversion);
-                case "tubular":
-                    return JsonConvert.DeserializeObject<JSONTubularSection>(jo.ToString(), SpecifiedSubclassConversion);
+                case "helix":
+                    return JsonConvert.DeserializeObject<HelixLayer>(jo.ToString(), SpecifiedSubclassConversion);
+                case "cylinder":
+                    return JsonConvert.DeserializeObject<CylinderLayer>(jo.ToString(), SpecifiedSubclassConversion);
+                case "armor":
+                    return JsonConvert.DeserializeObject<HelixLayer>(jo.ToString(), SpecifiedSubclassConversion);
                 default:
                     throw new Exception();
             }
