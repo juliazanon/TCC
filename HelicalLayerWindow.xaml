@@ -569,8 +569,8 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <StackPanel Grid.Row="2" HorizontalAlignment="Right">
-            <Button Click="SubmitNewLayer" Name="SubmitButton" Margin="5,2" Padding="10,4" 
+        <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Button Click="SubmitNewLayer" Name="SubmitButton" Margin="24,2" Padding="10,4" 
                     Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                     FontWeight="SemiBold" Foreground="#FFFFFF">
                 <Button.Resources>

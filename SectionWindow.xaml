@@ -87,8 +87,8 @@
                 <TextBox Grid.Column="1" Name="ExternalRadiusTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0" Foreground="{StaticResource FontBrush}"></TextBox>
             </Grid>
         </StackPanel>
-        <StackPanel Grid.Row="3" Margin="4" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Click="SubmitNewSection" Margin="5,2" Padding="10,4" 
+        <StackPanel Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button Click="SubmitNewSection" Margin="6,2" Padding="10,4" 
                     Background="{StaticResource SecundaryBrush}" BorderThickness="0" 
                     FontWeight="SemiBold" Foreground="#F0FFFF">
                 <Button.Resources>

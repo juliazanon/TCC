@@ -120,7 +120,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" Click="ButtonNewArea" Name="InternalButton"
-                                Margin="5,4" Padding="0,4"
+                                Margin="5,4" Padding="10,4"
                                 Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                                 FontWeight="SemiBold" Foreground="#FFFFFF">
                             <Button.Resources>
@@ -131,7 +131,7 @@
                             Internal
                         </Button>
                         <Button Grid.Column="1" Click="ButtonNewArea" Name="BottomButton"
-                                Margin="5,2" Padding="0,4"
+                                Margin="5,4" Padding="10,4"
                                 Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                                 FontWeight="SemiBold" Foreground="#FFFFFF">
                             <Button.Resources>
@@ -142,7 +142,7 @@
                             Bottom
                         </Button>
                         <Button Grid.Column="2" Click="ButtonNewArea" Name="ExternalButton"
-                                Margin="5,4" Padding="0,4"
+                                Margin="5,4" Padding="10,4"
                                 Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                                 FontWeight="SemiBold" Foreground="#FFFFFF">
                             <Button.Resources>
@@ -153,7 +153,7 @@
                             External
                         </Button>
                         <Button Grid.Column="3" Click="ButtonNewArea" Name="TopButton"
-                                Margin="5,4" Padding="0,4"
+                                Margin="5,4" Padding="10,4"
                                 Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                                 FontWeight="SemiBold" Foreground="#FFFFFF">
                             <Button.Resources>
@@ -168,7 +168,7 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">
-            <Button Click="SubmitNewLayer" Margin="5,2" Padding="10,4" 
+            <Button Click="SubmitNewLayer" Margin="6,2" Padding="10,4" 
                     Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                     FontWeight="SemiBold" Foreground="#FFFFFF">
                 <Button.Resources>

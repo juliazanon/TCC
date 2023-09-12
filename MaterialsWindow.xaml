@@ -106,8 +106,10 @@
                 <TextBox Grid.Column="5" Grid.Row="5" Margin="4,0" Name="GYZTextBox" MinWidth="100" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"/>
             </Grid>
         </StackPanel>
-        <StackPanel Grid.Row="3" Margin="4" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Click="SubmitNewMaterial" Margin="5,2" Padding="10,4" Background="{StaticResource SecundaryBrush}" BorderThickness="0" FontWeight="SemiBold" Foreground="#FFFFFF">
+        <StackPanel Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button Click="SubmitNewMaterial" Margin="6,2" Padding="10,4" 
+                    Background="{StaticResource SecundaryBrush}" BorderThickness="0" 
+                    FontWeight="SemiBold" Foreground="#FFFFFF">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="3"/>

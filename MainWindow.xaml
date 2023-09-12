@@ -75,17 +75,17 @@
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Row="0" Margin="15" Background="{StaticResource PrimaryBrush}">
+            <Grid Grid.Row="0" Margin="0,15" Background="{StaticResource PrimaryBrush}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="28"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock FontSize="18" Grid.Row="0" Margin="8,8,8,0" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Tools</TextBlock>
-                <Grid Grid.Row="1" Grid.Column="0" Margin="6,4" Background="{StaticResource TertiaryBrush}">
+                <TextBlock FontSize="18" Grid.Row="0" Margin="8,0" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Tools</TextBlock>
+                <Grid Grid.Row="1" Grid.Column="0" Margin="6,0,0,4" Background="{StaticResource TertiaryBrush}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="24"/>
                         <RowDefinition Height="*"/>
@@ -128,7 +128,7 @@
                     </Button>
                 </Grid>
                 <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-                    <Button Margin="3" Click="ButtonEditLayer"
+                    <Button Margin="6,4" Padding="4,2" Click="ButtonEditLayer"
                             Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                             FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                         <Button.Resources>
@@ -138,7 +138,7 @@
                         </Button.Resources>
                         Edit
                     </Button>
-                    <Button Margin="3" Click="ButtonDeleteLayer"
+                    <Button Margin="6,4" Padding="4,2" Click="ButtonDeleteLayer"
                             Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                             FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                         <Button.Resources>
@@ -151,8 +151,8 @@
                 </StackPanel>
             </Grid>
             <StackPanel Grid.Row="0" Grid.Column="1" Margin="15" Background="{StaticResource PrimaryBrush}">
-                <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Visualizer</TextBlock>
-                <Button Margin="36, 5" Name="ButtonZoomIn" Click="ZoomButtonClick"
+                <TextBlock FontSize="18" Margin="8,4" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Visualizer</TextBlock>
+                <Button Margin="36,5" Padding="4,2" Name="ButtonZoomIn" Click="ZoomButtonClick"
                         Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                         FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                     <Button.Resources>
@@ -164,7 +164,7 @@
                         <TextBlock Foreground="{StaticResource FontBrush}">Zoom In</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="36, 5" Name="ButtonZoomOut" Click="ZoomButtonClick"
+                <Button Margin="36,5" Padding="4,2" Name="ButtonZoomOut" Click="ZoomButtonClick"
                         Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                         FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                     <Button.Resources>
@@ -177,9 +177,9 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="2" Margin="15" Background="{StaticResource PrimaryBrush}">
-                <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Materials</TextBlock>
-                <Button Margin="36, 5" Click="ButtonNewMaterial"
+            <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,15" Background="{StaticResource PrimaryBrush}">
+                <TextBlock FontSize="18" Margin="8,4" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Materials</TextBlock>
+                <Button Margin="36,5" Padding="4,2" Click="ButtonNewMaterial"
                         Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                         FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                     <Button.Resources>
@@ -191,7 +191,7 @@
                         <TextBlock>New Material</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="36, 5" Click="ButtonMaterialList"
+                <Button Margin="36,5" Padding="4,2" Click="ButtonMaterialList"
                         Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                         FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                     <Button.Resources>
@@ -205,8 +205,8 @@
                 </Button>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="3" Margin="15" Background="{StaticResource PrimaryBrush}">
-                <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Sections</TextBlock>
-                <Button Margin="36, 5" Click="ButtonNewSection"
+                <TextBlock FontSize="18" Margin="8,4" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Sections</TextBlock>
+                <Button Margin="36,5" Padding="4,2" Click="ButtonNewSection"
                         Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                         FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                     <Button.Resources>
@@ -218,7 +218,7 @@
                         <TextBlock Foreground="{StaticResource FontBrush}">New Section</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="36, 5" Click="ButtonSectionList"
+                <Button Margin="36,5" Padding="4,2" Click="ButtonSectionList"
                         Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                         FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                     <Button.Resources>
@@ -231,9 +231,9 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="4" Margin="15" Background="#FFF4F4F5">
-                <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold">Console Log</TextBlock>
-                <TextBox Name="teste" Language="en-US"/>
+            <StackPanel Grid.Row="0" Grid.Column="4" Margin="0,15" Background="#FFF4F4F5">
+                <TextBlock FontSize="18" Margin="8,4" FontWeight="DemiBold">Console Log</TextBlock>
+                <TextBox Margin="4,0" Name="teste" Language="en-US"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="2">
@@ -241,7 +241,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="4*" MinWidth="600"/>
             </Grid.ColumnDefinitions>
-            <Grid Background="{StaticResource TertiaryBrush}">
+            <Grid Margin="0,0,14,0" Background="{StaticResource TertiaryBrush}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="3*"/>

@@ -33,7 +33,7 @@
         <Grid.RowDefinitions>
             <RowDefinition MinHeight="30" MaxHeight="35"/>
             <RowDefinition/>
-            <RowDefinition Height="28"/>
+            <RowDefinition Height="32"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Margin="10,4" FontWeight="DemiBold" FontSize="18" Name="WindowTitle" Foreground="{StaticResource Font2Brush}"></TextBlock>
         <ScrollViewer Grid.Row="1">
@@ -538,9 +538,9 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Margin="8,4,8,4" Click="SubmitNewArea"
-                    Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Button Click="SubmitNewArea" Margin="24,2" Padding="10,4"
+                    Background="{StaticResource SecundaryBrush}" BorderThickness="0" 
                     FontWeight="SemiBold" Foreground="#FFFFFF">
                 <Button.Resources>
                     <Style TargetType="Border">

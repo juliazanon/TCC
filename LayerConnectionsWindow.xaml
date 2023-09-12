@@ -143,7 +143,7 @@
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">
-            <Button Click="SubmitNewLayerConnection" Margin="5,2" Padding="10,4" 
+            <Button Click="SubmitNewLayerConnection" Margin="6,2" Padding="10,4" 
                     Background="{StaticResource SecundaryBrush}" BorderThickness="0"
                     FontWeight="SemiBold" Foreground="#FFFFFF">
                 <Button.Resources>
