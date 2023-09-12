@@ -33,8 +33,11 @@ namespace TCC
         public HelicalLayerWindow(List<Layer> layers,List<Section> sections, List<LayerMaterial> materials)
         {
             InitializeComponent();
+            TitleTextBlock.Text = "Create New Helical Layer";
             NameTextBox.Focus();
             NameTextBox.CaretIndex = NameTextBox.Text.Length;
+            ButtonToggleStart.Content = "Hide";
+            ButtonToggleEnd.Content = "Hide";
             this.layers = layers;
 
             //  Section comboBox
@@ -88,8 +91,11 @@ namespace TCC
         public HelicalLayerWindow(List<Layer> layers, List<Section> sections, List<LayerMaterial> materials, HelixLayer layer)
         {
             InitializeComponent();
+            TitleTextBlock.Text = "Edit Helical Layer";
             NameTextBox.Focus();
             NameTextBox.CaretIndex = NameTextBox.Text.Length;
+            ButtonToggleStart.Content = "Hide";
+            ButtonToggleEnd.Content = "Hide";
             this.layers = layers;
             editName = layer.Name;
 
@@ -227,6 +233,33 @@ namespace TCC
             TzDispTextBoxEnd.Text = layer.Line.End.ImposedDisplacements[5].ToString();
         }
 
+        //  Show and Hide Start and End of line
+        private void StackPanel_ShowHide_OptionStart(object sender, EventArgs e)
+        {   
+            if ((sender as Button).Content == "Show")
+            {
+                (sender as Button).Content = "Hide";
+                StackPanelStart.Visibility = Visibility.Visible;
+            } 
+            else if ((sender as Button).Content == "Hide")
+            {
+                (sender as Button).Content = "Show";
+                StackPanelStart.Visibility = Visibility.Collapsed;
+            }
+        }
+        private void StackPanel_ShowHide_OptionEnd(object sender, EventArgs e)
+        {
+            if ((sender as Button).Content == "Show")
+            {
+                (sender as Button).Content = "Hide";
+                StackPanelEnd.Visibility = Visibility.Visible;
+            }
+            else if ((sender as Button).Content == "Hide")
+            {
+                (sender as Button).Content = "Show";
+                StackPanelEnd.Visibility = Visibility.Collapsed;
+            }
+        }
         //  Combobox coordinate
         private void ComboBox_SelectionChanged_CoordinateStart(object sender, SelectionChangedEventArgs e)
         {

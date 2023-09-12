@@ -7,7 +7,24 @@
         mc:Ignorable="d"
         Title="Section List" SizeToContent="Height" Width="400"
         Closing="Window_Closing">
-    <StackPanel>
+    <Window.Resources>
+        <ResourceDictionary>
+            <!-- Define your color variables -->
+            <Color x:Key="PrimaryColor">#C6F0B4</Color>
+            <Color x:Key="SecundaryColor">#9CDB81</Color>
+            <Color x:Key="BackgroundColor">#FCFFF8</Color>
+            <Color x:Key="FontColor">#24331E</Color>
+            <Color x:Key="Font2Color">#2A4A20</Color>
+
+            <!-- You can define SolidColorBrush resources using the color variables -->
+            <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+            <SolidColorBrush x:Key="SecundaryBrush" Color="{StaticResource SecundaryColor}"/>
+            <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+            <SolidColorBrush x:Key="FontBrush" Color="{StaticResource FontColor}"/>
+            <SolidColorBrush x:Key="Font2Brush" Color="{StaticResource Font2Color}"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <StackPanel Background="{StaticResource BackgroundBrush}">
         <Popup x:Name="popup" IsOpen="False" Placement="Relative" Width="Auto" Height="50" Opened="Popup_Opened"
                PlacementTarget="{Binding ElementName=Main}" AllowsTransparency="True" PopupAnimation="Fade">
             <Border Background="LightGreen" BorderBrush="Black" BorderThickness="1">
@@ -15,22 +32,42 @@
                            Background="LightGreen" FontWeight="DemiBold" Foreground="DarkSlateGray" Margin="4,0,4,0"/>
             </Border>
         </Popup>
-        <TextBlock Margin="8,4" FontSize="18" FontWeight="DemiBold" HorizontalAlignment="Center">List of Section</TextBlock>
+        <TextBlock Margin="8,4" FontSize="18" FontWeight="DemiBold" HorizontalAlignment="Center" Foreground="{StaticResource Font2Brush}">List of Section</TextBlock>
         <ScrollViewer Height="400">
-            <ItemsControl x:Name="itemsControl" Margin="8,4" Background="#F0F0F0" MinHeight="400">
+            <ItemsControl x:Name="itemsControl" Margin="8,4" Background="#F8F8F8" MinHeight="400">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid Background="#E0E0E0" Margin="2">
+                        <Grid Background="#FFFFFF" Margin="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="80"/>
                                 <ColumnDefinition Width="35"/>
                                 <ColumnDefinition Width="45"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="2" Padding="4,3" Background="#F3F3F3"/>
-                            <TextBlock Grid.Column="1" Text="{Binding Type}" Margin="2" Padding="4,3" Background="#F3F3F3"/>
-                            <Button Grid.Column="2" Margin="2" Click="EditSectionButton" Tag="{Binding Name}">Edit</Button>
-                            <Button Grid.Column="3" Margin="2" Click="DeleteSectionButton" Tag="{Binding Name}">Delete</Button>
+                            <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="2" Padding="4,3"
+                                       Background="{StaticResource PrimaryBrush}" Foreground="{StaticResource FontBrush}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Type}" Margin="2" Padding="4,3"
+                                       Background="{StaticResource PrimaryBrush}" Foreground="{StaticResource FontBrush}"/>
+                            <Button Grid.Column="2" Margin="2" Click="EditSectionButton" Tag="{Binding Name}" 
+                                    Foreground="#FAFFFA" Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                                    FontWeight="SemiBold">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="3"/>
+                                    </Style>
+                                </Button.Resources>
+                                Edit
+                            </Button>
+                            <Button Grid.Column="3" Margin="2" Click="DeleteSectionButton" Tag="{Binding Name}" 
+                                    Foreground="#FAFFFA" Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                                    FontWeight="SemiBold" >
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="3"/>
+                                    </Style>
+                                </Button.Resources>
+                                Delete
+                            </Button>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

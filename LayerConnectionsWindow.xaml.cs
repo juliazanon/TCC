@@ -34,6 +34,7 @@ namespace TCC
         public LayerConnectionsWindow(List<LayerConnection> connections,List<Layer> layers)
         {
             InitializeComponent();
+            TitleTextBlock.Text = "Create New Connection";
             NameConnectionTextBox.Focus();
             NameConnectionTextBox.CaretIndex = NameConnectionTextBox.Text.Length;
             this.connections = connections;
@@ -67,6 +68,7 @@ namespace TCC
         public LayerConnectionsWindow(List<LayerConnection> connections, List<Layer> layers, LayerConnection connection)
         {
             InitializeComponent();
+            TitleTextBlock.Text = "Edit Connection";
             NameConnectionTextBox.Focus();
             NameConnectionTextBox.CaretIndex = NameConnectionTextBox.Text.Length;
             this.connections = connections;

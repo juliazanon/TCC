@@ -35,7 +35,7 @@ namespace TCC
             InitializeComponent();
             NameTextBox.Focus();
             NameTextBox.CaretIndex = NameTextBox.Text.Length;
-            MaterialTitle.Text = "Create Material";
+            TitleTextBlock.Text = "Create New Material";
             this.materials = materials;
             IsotropicRadioButton.IsChecked = true;
         }
@@ -45,7 +45,7 @@ namespace TCC
             InitializeComponent();
             NameTextBox.Focus();
             NameTextBox.CaretIndex = NameTextBox.Text.Length;
-            MaterialTitle.Text = "Edit Material";
+            TitleTextBlock.Text = "Edit Material";
             this.materials = materials;
             editName = material.Name;
             IsotropicRadioButton.IsEnabled = false;
@@ -91,23 +91,13 @@ namespace TCC
 
                 // Hide Orthotropic material fields
                 MaterialOrthotropic.Visibility = Visibility.Collapsed;
-                ETitle.Visibility = Visibility.Collapsed;
-                EInputs.Visibility = Visibility.Collapsed;
-                NuTitle.Visibility = Visibility.Collapsed;
-                NuInputs.Visibility = Visibility.Collapsed;
-                GTitle.Visibility = Visibility.Collapsed;
-                GInputs.Visibility = Visibility.Collapsed;
+                OrthotropicInputs.Visibility = Visibility.Collapsed;
             }
             else if (OrthotropicRadioButton.IsChecked == true)
             {
                 // Show Orthotropic material fields
                 MaterialOrthotropic.Visibility = Visibility.Visible;
-                ETitle.Visibility = Visibility.Visible;
-                EInputs.Visibility = Visibility.Visible;
-                NuTitle.Visibility = Visibility.Visible;
-                NuInputs.Visibility = Visibility.Visible;
-                GTitle.Visibility = Visibility.Visible;
-                GInputs.Visibility = Visibility.Visible;
+                OrthotropicInputs.Visibility = Visibility.Visible;
 
                 // Hide Isotropic material fields
                 MaterialIsotropic.Visibility = Visibility.Collapsed;

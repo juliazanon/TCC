@@ -5,363 +5,581 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="Helical Layer" Height="700" Width="400"
-        MinHeight="400" MinWidth="800"
+        Title="Helical Layer" Height="700" SizeToContent="Width"
+        MinHeight="400"
         KeyDown="Window_KeyDown">
-    <ScrollViewer>
-        <StackPanel>
-            <TextBlock Grid.Row="0" FontSize="16" Margin="10" FontWeight="DemiBold">Create new Helical Layer</TextBlock>
-            <StackPanel Grid.Row="1" Margin="4" Background="#E6E6E6">
-                <TextBlock Margin="4,4,4,0">Name:</TextBlock>
-                <TextBox Margin="4" Name="NameTextBox" Text="New Layer"></TextBox>
-                <TextBlock Height="0" Margin="4,0,4,0" Name="NameWarningTextBlock" Foreground="Red"></TextBlock>
-                <TextBlock Margin="4,10,10,0" FontWeight="DemiBold">Geometric Parameters</TextBlock>
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="4,2,2,0">Wires:</TextBlock>
-                        <TextBox Margin="22.5,2,4,2" Width="70" Name="WiresTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock Margin="0,0,18.3,0">Radius:</TextBlock>
-                        <TextBox Width="70" Name="RadiusTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                        <TextBlock Margin="4,0,28.5,0">Length:</TextBlock>
-                        <TextBox Width="70" Name="LengthTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock Margin="0,0,2,0">Lay Angle:</TextBlock>
-                        <TextBox Width="70" Name="LayAngleTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                        <TextBlock Margin="4,0,2,0">Initial Angle:</TextBlock>
-                        <TextBox Width="70" Name="InitialAngleTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock VerticalAlignment="Center">Section</TextBlock>
-                        <ComboBox Name="SectionComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="12,5,10,5"
-                                  DisplayMemberPath="Name" SelectedValuePath="ID">
-                        </ComboBox>
-                        <TextBlock Margin="4,0,4,0" VerticalAlignment="Center" Foreground="Red" Name="SectionWarning">(!) Select a Valid Section</TextBlock>
+    <Window.Resources>
+        <ResourceDictionary>
+            <!-- Define your color variables -->
+            <Color x:Key="PrimaryColor">#C6F0B4</Color>
+            <Color x:Key="SecundaryColor">#9CDB81</Color>
+            <Color x:Key="TertiaryColor">#98D99A</Color>
+            <Color x:Key="QuarternaryColor">#C2D998</Color>
+            <Color x:Key="BackgroundColor">#FCFFF8</Color>
+            <Color x:Key="FontColor">#24331E</Color>
+            <Color x:Key="Font2Color">#2A4A20</Color>
+
+            <!-- You can define SolidColorBrush resources using the color variables -->
+            <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+            <SolidColorBrush x:Key="SecundaryBrush" Color="{StaticResource SecundaryColor}"/>
+            <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource TertiaryColor}"/>
+            <SolidColorBrush x:Key="QuaternaryBrush" Color="{StaticResource QuarternaryColor}"/>
+            <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+            <SolidColorBrush x:Key="FontBrush" Color="{StaticResource FontColor}"/>
+            <SolidColorBrush x:Key="Font2Brush" Color="{StaticResource Font2Color}"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="30" MaxHeight="35"/>
+            <RowDefinition/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+        <TextBlock Name="TitleTextBlock" Grid.Row="0" FontSize="18" Margin="10,4" FontWeight="DemiBold" Foreground="{StaticResource Font2Brush}"></TextBlock>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <StackPanel Margin="6,0,6,6" Background="{StaticResource PrimaryBrush}">
+                    <TextBlock Margin="4" FontSize="14" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Helix Name:</TextBlock>
+                    <TextBox Margin="6,0,6,4" Name="NameTextBox" Text="New Layer" FontSize="13" Foreground="{StaticResource FontBrush}"></TextBox>
+                    <TextBlock Height="0" Margin="4,0" Name="NameWarningTextBlock" Foreground="Red"></TextBlock>
+                    <TextBlock Margin="4,6,4,0" FontWeight="DemiBold" FontSize="14" Foreground="{StaticResource FontBrush}">Geometric Parameters</TextBlock>
+                    <StackPanel>
+                        <Grid Margin="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Margin="8,2" TextAlignment="Right" Foreground="{StaticResource FontBrush}">Wires:</TextBlock>
+                                <TextBox Grid.Column="1" Name="WiresTextBox" Margin="4,2" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1" Foreground="{StaticResource FontBrush}"></TextBox>
+                        </Grid>
+                        <Grid Margin="6,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="85"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Margin="8,2" TextAlignment="Right" Foreground="{StaticResource FontBrush}">Radius:</TextBlock>
+                                <TextBox Grid.Column="1" Name="RadiusTextBox" Margin="4,2" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                <TextBlock Grid.Column="2" Margin="8,2" TextAlignment="Right" Foreground="{StaticResource FontBrush}">Length:</TextBlock>
+                                <TextBox Grid.Column="3" Name="LengthTextBox" Margin="4,2" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                        </Grid>
+                        <Grid Margin="6,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="85"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Margin="8,2" TextAlignment="Right" Foreground="{StaticResource FontBrush}">Lay Angle:</TextBlock>
+                                <TextBox Grid.Column="1" Name="LayAngleTextBox" Margin="4,2" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                <TextBlock Grid.Column="2" Margin="8,2" TextAlignment="Right" Foreground="{StaticResource FontBrush}">Initial Angle:</TextBlock>
+                                <TextBox Grid.Column="3" Name="InitialAngleTextBox" Margin="4,2" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                        </Grid>
+                        <Grid Margin="0,2,0,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" VerticalAlignment="Center" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Section</TextBlock>
+                            <ComboBox Grid.Column="1" Name="SectionComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="2"
+                                          DisplayMemberPath="Name" SelectedValuePath="ID" Foreground="{StaticResource FontBrush}">
+                            </ComboBox>
+                            <TextBlock Grid.Column="2" Margin="4,0,4,0" VerticalAlignment="Center" Foreground="Red" Name="SectionWarning">(!) Select a Valid Section</TextBlock>
+                        </Grid>
                     </StackPanel>
                 </StackPanel>
-            </StackPanel>
-            <StackPanel Grid.Row="2" Margin="3">
-                <TextBlock Margin="4,10,10,0" FontWeight="DemiBold">Simulation Parameters</TextBlock>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock VerticalAlignment="Center">Material:</TextBlock>
-                    <ComboBox Name="MaterialComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
-                                  DisplayMemberPath="Name" SelectedValuePath="ID">
-                    </ComboBox>
+                <StackPanel Margin="6,0,6,6" Background="{StaticResource PrimaryBrush}">
+                    <TextBlock Margin="4,6,4,2" FontWeight="DemiBold" FontSize="14" Foreground="{StaticResource FontBrush}">Simulation Parameters</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock VerticalAlignment="Center" Foreground="{StaticResource FontBrush}">Material:</TextBlock>
+                        <ComboBox Name="MaterialComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="10,5,10,5"
+                                          DisplayMemberPath="Name" SelectedValuePath="ID" Foreground="{StaticResource FontBrush}">
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4,4,4,6">
+                        <TextBlock Margin="0,2,4,2" Foreground="{StaticResource FontBrush}">Divisions:</TextBlock>
+                        <TextBox Width="150" Name="DivisionsTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1" Foreground="{StaticResource FontBrush}"></TextBox>
+                    </StackPanel>
+                    <TextBlock Margin="4,2,4,2" Foreground="{StaticResource FontBrush}">Body loads:</TextBlock>
+                    <Grid Margin="10,4,10,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">X:</TextBlock>
+                        <TextBox Grid.Column="1" Name="BodyLoadXTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                        <TextBlock Grid.Column="2" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Y:</TextBlock>
+                        <TextBox Grid.Column="3" Name="BodyLoadYTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                        <TextBlock Grid.Column="4" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Z:</TextBlock>
+                        <TextBox Grid.Column="5" Name="BodyLoadZTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                    </Grid>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock Margin="0,2,4,2">Divisions:</TextBlock>
-                    <TextBox Width="150" Name="DivisionsTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
-                </StackPanel>
-                <TextBlock Margin="4,2,4,2">Body loads:</TextBlock>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock Margin="0,0,2,0">X:</TextBlock>
-                    <TextBox Margin="2.5,0,0,0" Width="100" Name="BodyLoadXTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                    <TextBlock Margin="8,0,2,0">Y:</TextBlock>
-                    <TextBox Margin="2.5,0,0,0" Width="100" Name="BodyLoadYTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                    <TextBlock Margin="8,0,2,0">Z:</TextBlock>
-                    <TextBox Margin="2.5,0,0,0" Width="100" Name="BodyLoadZTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                </StackPanel>
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="4,10,10,0" FontWeight="DemiBold">Element: Line</TextBlock>
-                        <CheckBox VerticalAlignment="Bottom" Content="Design Only" Name="DesignCheckBoxLine" IsChecked="False"/>
-                    </StackPanel>
-                    <TextBlock Margin="4,0,0,0">Distributed Loads:</TextBlock>
-                    <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock >Fx:</TextBlock>
-                        <TextBox Width="100" Name="FxTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                        <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
-                        <TextBox Width="100" Name="FyTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                        <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
-                        <TextBox Width="100" Name="FzTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock >Tx:</TextBlock>
-                        <TextBox Width="100" Name="TxTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                        <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
-                        <TextBox Width="100" Name="TyTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                        <TextBlock Margin="8,0,0,0">Yz:</TextBlock>
-                        <TextBox Width="100" Name="TzTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                    </StackPanel>
-                    <TextBlock Margin="4,0,0,0">Status:</TextBlock>
-                    <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
-                        <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxComboBox">
-                            <ComboBoxItem Content="Free" IsSelected="True"/>
-                            <ComboBoxItem Content="Fixed"/>
-                            <ComboBoxItem Content="Imposed"/>
-                        </ComboBox>
-                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyComboBox">
-                            <ComboBoxItem Content="Free" IsSelected="True"/>
-                            <ComboBoxItem Content="Fixed"/>
-                            <ComboBoxItem Content="Imposed"/>
-                        </ComboBox>
-                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzComboBox">
-                            <ComboBoxItem Content="Free" IsSelected="True"/>
-                            <ComboBoxItem Content="Fixed"/>
-                            <ComboBoxItem Content="Imposed"/>
-                        </ComboBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxComboBox">
-                            <ComboBoxItem Content="Free" IsSelected="True"/>
-                            <ComboBoxItem Content="Fixed"/>
-                            <ComboBoxItem Content="Imposed"/>
-                        </ComboBox>
-                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyComboBox">
-                            <ComboBoxItem Content="Free" IsSelected="True"/>
-                            <ComboBoxItem Content="Fixed"/>
-                            <ComboBoxItem Content="Imposed"/>
-                        </ComboBox>
-                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Tz:</TextBlock>
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzComboBox">
-                            <ComboBoxItem Content="Free" IsSelected="True"/>
-                            <ComboBoxItem Content="Fixed"/>
-                            <ComboBoxItem Content="Imposed"/>
-                        </ComboBox>
-                    </StackPanel>
-                    <TextBlock Margin="4,0,0,0">Imposed Displacements:</TextBlock>
-                    <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock>Fx:</TextBlock>
-                        <TextBox Width="100" Name="FxDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                        <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
-                        <TextBox Width="100" Name="FyDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                        <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
-                        <TextBox Width="100" Name="FzDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="4">
-                        <TextBlock >Tx:</TextBlock>
-                        <TextBox Width="100" Name="TxDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                        <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
-                        <TextBox Width="100" Name="TyDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                        <TextBlock Margin="8,0,0,0">Tz:</TextBlock>
-                        <TextBox Width="100" Name="TzDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock FontWeight="DemiBold" Margin="10,10,10,0">Start</TextBlock>
-                                <CheckBox VerticalAlignment="Bottom" Content="Design Only" Name="DesignCheckBoxStart" IsChecked="False"/>
+                <StackPanel Margin="6,0" Background="{StaticResource PrimaryBrush}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Margin="4,6,4,2" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Element: Line</TextBlock>
+                            <CheckBox Margin="4" VerticalAlignment="Bottom" Content="Design Only" Name="DesignCheckBoxLine" IsChecked="False" Foreground="{StaticResource FontBrush}"/>
+                        </StackPanel>
+                        <TextBlock Margin="4,4,4,0" Foreground="{StaticResource FontBrush}">Distributed Loads:</TextBlock>
+                        <Grid Margin="10,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Fx:</TextBlock>
+                            <TextBox Grid.Column="1" Name="FxTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                            <TextBlock Grid.Column="2" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Fy:</TextBlock>
+                            <TextBox Grid.Column="3" Name="FyTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                            <TextBlock Grid.Column="4" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Fz:</TextBlock>
+                            <TextBox Grid.Column="5" Name="FzTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                        </Grid>
+                        <Grid Margin="10,4,10,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Tx:</TextBlock>
+                            <TextBox Grid.Column="1" Name="TxTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                            <TextBlock Grid.Column="2" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Ty:</TextBlock>
+                            <TextBox Grid.Column="3" Name="TyTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                            <TextBlock Grid.Column="4" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Yz:</TextBlock>
+                            <TextBox Grid.Column="5" Name="TzTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                        </Grid>
+                        <TextBlock Margin="4,4,4,0" Foreground="{StaticResource FontBrush}">Status:</TextBlock>
+                        <StackPanel Orientation="Horizontal" Margin="6,4">
+                            <TextBlock VerticalAlignment="Center" Margin="8,2" Foreground="{StaticResource FontBrush}">Fx:</TextBlock>
+                            <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxComboBox">
+                                <ComboBoxItem Content="Free" IsSelected="True"/>
+                                <ComboBoxItem Content="Fixed"/>
+                                <ComboBoxItem Content="Imposed"/>
+                            </ComboBox>
+                            <TextBlock VerticalAlignment="Center" Margin="8,2" Foreground="{StaticResource FontBrush}">Fy:</TextBlock>
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyComboBox">
+                                <ComboBoxItem Content="Free" IsSelected="True"/>
+                                <ComboBoxItem Content="Fixed"/>
+                                <ComboBoxItem Content="Imposed"/>
+                            </ComboBox>
+                            <TextBlock VerticalAlignment="Center" Margin="8,2" Foreground="{StaticResource FontBrush}">Fz:</TextBlock>
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzComboBox">
+                                <ComboBoxItem Content="Free" IsSelected="True"/>
+                                <ComboBoxItem Content="Fixed"/>
+                                <ComboBoxItem Content="Imposed"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="6,4,6,6">
+                            <TextBlock VerticalAlignment="Center" Margin="8,2" Foreground="{StaticResource FontBrush}">Tx:</TextBlock>
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxComboBox">
+                                <ComboBoxItem Content="Free" IsSelected="True"/>
+                                <ComboBoxItem Content="Fixed"/>
+                                <ComboBoxItem Content="Imposed"/>
+                            </ComboBox>
+                            <TextBlock VerticalAlignment="Center" Margin="8,2" Foreground="{StaticResource FontBrush}">Ty:</TextBlock>
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyComboBox">
+                                <ComboBoxItem Content="Free" IsSelected="True"/>
+                                <ComboBoxItem Content="Fixed"/>
+                                <ComboBoxItem Content="Imposed"/>
+                            </ComboBox>
+                            <TextBlock VerticalAlignment="Center" Margin="8,2" Foreground="{StaticResource FontBrush}">Tz:</TextBlock>
+                            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzComboBox">
+                                <ComboBoxItem Content="Free" IsSelected="True"/>
+                                <ComboBoxItem Content="Fixed"/>
+                                <ComboBoxItem Content="Imposed"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <TextBlock Margin="4,0" Foreground="{StaticResource FontBrush}">Imposed Displacements:</TextBlock>
+                        <Grid Margin="10,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Fx:</TextBlock>
+                            <TextBox Grid.Column="1" Name="FxDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                            <TextBlock Grid.Column="2" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Fy:</TextBlock>
+                            <TextBox Grid.Column="3" Name="FyDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                            <TextBlock Grid.Column="4" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Fz:</TextBlock>
+                            <TextBox Grid.Column="5" Name="FzDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                        </Grid>
+                        <Grid Margin="10,4,10,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Tx:</TextBlock>
+                            <TextBox Grid.Column="1" Name="TxDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                            <TextBlock Grid.Column="2" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Ty:</TextBlock>
+                            <TextBox Grid.Column="3" Name="TyDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                            <TextBlock Grid.Column="4" Margin="8,2" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Tz:</TextBlock>
+                            <TextBox Grid.Column="5" Name="TzDispTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                        </Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Background="{StaticResource TertiaryBrush}" Margin="4">
+                                <StackPanel Orientation="Horizontal" >
+                                    <TextBlock FontWeight="DemiBold" Margin="4,8,4,0" Foreground="{StaticResource FontBrush}">Start</TextBlock>
+                                    <CheckBox VerticalAlignment="Bottom" Content="Design Only" Name="DesignCheckBoxStart" IsChecked="False" Foreground="{StaticResource FontBrush}"/>
+                                    <Button Click="StackPanel_ShowHide_OptionStart" Name="ButtonToggleStart" Margin="10,4,10,0" Height="16" Padding="4,0"
+                                            BorderThickness="0" Background="{StaticResource BackgroundBrush}">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="3"/>
+                                            </Style>
+                                        </Button.Resources>
+                                        Hide
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel Name="StackPanelStart">
+                                    <StackPanel Orientation="Horizontal" Margin="4,4,2,4">
+                                        <TextBlock VerticalAlignment="Center" Margin="4,0" Foreground="{StaticResource FontBrush}">Coordinate:</TextBlock>
+                                        <ComboBox Name="CoordinateComboBoxStart" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
+                                            <ComboBoxItem Content="Cartesian" IsSelected="True"/>
+                                            <ComboBoxItem Content="Cylindrical"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <Grid Margin="8,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Name="TextBlockCartesianCoord1Start" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">X:</TextBlock>
+                                        <TextBlock Grid.Column="0" Name="TextBlockCilyndricalCoord1Start" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">R:</TextBlock>
+                                        <TextBox Grid.Column="1" Name="XCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"/>
+                                        <TextBlock Grid.Column="2"  Name="TextBlockCartesianCoord2Start" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Y:</TextBlock>
+                                        <TextBlock Grid.Column="2" Name="TextBlockCilyndricalCoord2Start" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">θ:</TextBlock>
+                                        <TextBox Grid.Column="3" Name="YCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                        <TextBlock Grid.Column="4" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Z:</TextBlock>
+                                        <TextBox Grid.Column="5" Name="ZCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                    </Grid>
+                                    <Grid Margin="8,4,8,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="35"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="35"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="35"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Margin="2,1" Foreground="{StaticResource FontBrush}">Rot X:</TextBlock>
+                                        <TextBox Grid.Column="1" Name="RXCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                        <TextBlock Grid.Column="2" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Rot Y:</TextBlock>
+                                        <TextBox Grid.Column="3" Name="RYCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                        <TextBlock Grid.Column="4" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Rot Z:</TextBlock>
+                                        <TextBox Grid.Column="5" Name="RZCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                    </Grid>
+                                    <TextBlock Margin="4,0" Foreground="{StaticResource FontBrush}">Loads:</TextBlock>
+                                    <Grid Margin="8,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Fx:</TextBlock>
+                                        <TextBox Grid.Column="1" Name="FxTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                        <TextBlock Grid.Column="2" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Fy:</TextBlock>
+                                        <TextBox Grid.Column="3" Name="FyTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                        <TextBlock Grid.Column="4" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Fz:</TextBlock>
+                                        <TextBox Grid.Column="5" Name="FzTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                    </Grid>
+                                    <Grid Margin="8,4,8,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Tx:</TextBlock>
+                                        <TextBox Grid.Column="1" Name="TxTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                        <TextBlock Grid.Column="2" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Ty:</TextBlock>
+                                        <TextBox Grid.Column="3" Name="TyTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                        <TextBlock Grid.Column="4" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Yz:</TextBlock>
+                                        <TextBox Grid.Column="5" Name="TzTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                    </Grid>
+                                    <TextBlock Margin="4,0" Foreground="{StaticResource FontBrush}">Status:</TextBlock>
+                                    <StackPanel Orientation="Horizontal" Margin="8,4">
+                                        <TextBlock VerticalAlignment="Center" Margin="0,0,2,0" Foreground="{StaticResource FontBrush}">Fx:</TextBlock>
+                                        <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxComboBoxStart">
+                                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                                            <ComboBoxItem Content="Fixed"/>
+                                            <ComboBoxItem Content="Imposed"/>
+                                        </ComboBox>
+                                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0" Foreground="{StaticResource FontBrush}">Fy:</TextBlock>
+                                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyComboBoxStart">
+                                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                                            <ComboBoxItem Content="Fixed"/>
+                                            <ComboBoxItem Content="Imposed"/>
+                                        </ComboBox>
+                                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0" Foreground="{StaticResource FontBrush}">Fz:</TextBlock>
+                                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzComboBoxStart">
+                                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                                            <ComboBoxItem Content="Fixed"/>
+                                            <ComboBoxItem Content="Imposed"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="8,4">
+                                        <TextBlock VerticalAlignment="Center" Margin="0,0,2,0" Foreground="{StaticResource FontBrush}">Tx:</TextBlock>
+                                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxComboBoxStart">
+                                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                                            <ComboBoxItem Content="Fixed"/>
+                                            <ComboBoxItem Content="Imposed"/>
+                                        </ComboBox>
+                                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0" Foreground="{StaticResource FontBrush}">Ty:</TextBlock>
+                                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyComboBoxStart">
+                                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                                            <ComboBoxItem Content="Fixed"/>
+                                            <ComboBoxItem Content="Imposed"/>
+                                        </ComboBox>
+                                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0" Foreground="{StaticResource FontBrush}">Tz:</TextBlock>
+                                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzComboBoxStart">
+                                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                                            <ComboBoxItem Content="Fixed"/>
+                                            <ComboBoxItem Content="Imposed"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <TextBlock Margin="4,0" Foreground="{StaticResource FontBrush}">Imposed Displacements:</TextBlock>
+                                    <Grid Margin="8,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Fx:</TextBlock>
+                                        <TextBox Grid.Column="1" Name="FxDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                        <TextBlock Grid.Column="2" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Fy:</TextBlock>
+                                        <TextBox Grid.Column="3" Name="FyDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                        <TextBlock Grid.Column="4" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Fz:</TextBlock>
+                                        <TextBox Grid.Column="5" Name="FzDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                    </Grid>
+                                    <Grid Margin="8,4,8,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Tx:</TextBlock>
+                                        <TextBox Grid.Column="1" Name="TxDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                        <TextBlock Grid.Column="2" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Ty:</TextBlock>
+                                        <TextBox Grid.Column="3" Name="TyDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                        <TextBlock Grid.Column="4" Margin="2,1" HorizontalAlignment="Right" Foreground="{StaticResource FontBrush}">Tz:</TextBlock>
+                                        <TextBox Grid.Column="5" Name="TzDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                                    </Grid>
+                                </StackPanel>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
-                                <ComboBox Name="CoordinateComboBoxStart" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
-                                    <ComboBoxItem Content="Cartesian" IsSelected="True"/>
-                                    <ComboBoxItem Content="Cylindrical"/>
-                                </ComboBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock Name="TextBlockCartesianCoord1Start" Margin="0,0,2,0">X:</TextBlock>
-                                <TextBlock Name="TextBlockCilyndricalCoord1Start" Margin="0,0,2,0">R:</TextBlock>
-                                <TextBox Width="100" Name="XCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Name="TextBlockCartesianCoord2Start" Margin="8,0,2,0">Y:</TextBlock>
-                                <TextBlock Name="TextBlockCilyndricalCoord2Start" Margin="8,0,2,0">θ:</TextBlock>
-                                <TextBox Width="100" Name="YCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,2,0">Z:</TextBlock>
-                                <TextBox Width="100" Name="ZCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock Margin="0,0,2,0">rotation X:</TextBlock>
-                                <TextBox Width="60" Name="RXCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,2,0">Rotation Y:</TextBlock>
-                                <TextBox Width="60" Name="RYCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,2,0">Rotation Z:</TextBlock>
-                                <TextBox Width="60" Name="RZCoordTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                            </StackPanel>
-                            <TextBlock Margin="4,0,0,0">Loads:</TextBlock>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock >Fx:</TextBlock>
-                                <TextBox Width="100" Name="FxTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
-                                <TextBox Width="100" Name="FyTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
-                                <TextBox Width="100" Name="FzTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock >Tx:</TextBlock>
-                                <TextBox Width="100" Name="TxTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
-                                <TextBox Width="100" Name="TyTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Yz:</TextBlock>
-                                <TextBox Width="100" Name="TzTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                            </StackPanel>
-                            <TextBlock Margin="4,0,0,0">Status:</TextBlock>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
-                                <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxComboBoxStart">
-                                    <ComboBoxItem Content="Free" IsSelected="True"/>
-                                    <ComboBoxItem Content="Fixed"/>
-                                    <ComboBoxItem Content="Imposed"/>
-                                </ComboBox>
-                                <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
-                                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyComboBoxStart">
-                                    <ComboBoxItem Content="Free" IsSelected="True"/>
-                                    <ComboBoxItem Content="Fixed"/>
-                                    <ComboBoxItem Content="Imposed"/>
-                                </ComboBox>
-                                <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
-                                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzComboBoxStart">
-                                    <ComboBoxItem Content="Free" IsSelected="True"/>
-                                    <ComboBoxItem Content="Fixed"/>
-                                    <ComboBoxItem Content="Imposed"/>
-                                </ComboBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
-                                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxComboBoxStart">
-                                    <ComboBoxItem Content="Free" IsSelected="True"/>
-                                    <ComboBoxItem Content="Fixed"/>
-                                    <ComboBoxItem Content="Imposed"/>
-                                </ComboBox>
-                                <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
-                                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyComboBoxStart">
-                                    <ComboBoxItem Content="Free" IsSelected="True"/>
-                                    <ComboBoxItem Content="Fixed"/>
-                                    <ComboBoxItem Content="Imposed"/>
-                                </ComboBox>
-                                <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Tz:</TextBlock>
-                                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzComboBoxStart">
-                                    <ComboBoxItem Content="Free" IsSelected="True"/>
-                                    <ComboBoxItem Content="Fixed"/>
-                                    <ComboBoxItem Content="Imposed"/>
-                                </ComboBox>
-                            </StackPanel>
-                            <TextBlock Margin="4,0,0,0">Imposed Displacements:</TextBlock>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock >Fx:</TextBlock>
-                                <TextBox Width="100" Name="FxDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
-                                <TextBox Width="100" Name="FyDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
-                                <TextBox Width="100" Name="FzDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock >Tx:</TextBlock>
-                                <TextBox Width="100" Name="TxDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
-                                <TextBox Width="100" Name="TyDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Tz:</TextBlock>
-                                <TextBox Width="100" Name="TzDispTextBoxStart" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                            <StackPanel Background="{StaticResource QuaternaryBrush}" Margin="4">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontWeight="DemiBold" Margin="4,8,4,0">End</TextBlock>
+                                    <CheckBox VerticalAlignment="Bottom" Content="Design Only" Name="DesignCheckBoxEnd" IsChecked="False"/>
+                                    <Button Click="StackPanel_ShowHide_OptionEnd" Name="ButtonToggleEnd" Margin="10,4,10,0" Height="16" Padding="4,0"
+                                            BorderThickness="0" Background="{StaticResource BackgroundBrush}">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="2"/>
+                                            </Style>
+                                        </Button.Resources>
+                                        Hide
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel Name="StackPanelEnd">
+                                    <StackPanel Orientation="Horizontal" Margin="4">
+                                        <TextBlock VerticalAlignment="Center" Margin="4,0">Coordinate:</TextBlock>
+                                        <ComboBox Name="CoordinateComboBoxEnd" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
+                                            <ComboBoxItem Content="Cartesian" IsSelected="True"/>
+                                            <ComboBoxItem Content="Cylindrical"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <Grid Margin="8,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Name="TextBlockCartesianCoord1End" Margin="2,1">X:</TextBlock>
+                                        <TextBlock Grid.Column="0" Name="TextBlockCilyndricalCoord1End" Margin="2,1">R:</TextBlock>
+                                        <TextBox Grid.Column="1" Name="XCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                        <TextBlock Grid.Column="2" Name="TextBlockCartesianCoord2End" Margin="2,1">Y:</TextBlock>
+                                        <TextBlock Grid.Column="2" Name="TextBlockCilyndricalCoord2End" Margin="2,1">θ:</TextBlock>
+                                        <TextBox Grid.Column="3" Name="YCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                        <TextBlock Grid.Column="4" Margin="2,1">Z:</TextBlock>
+                                        <TextBox Grid.Column="5" Width="100" Name="ZCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                    </Grid>
+                                    <Grid Margin="8,4,8,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="35"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="35"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="35"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Margin="2,1">Rot X:</TextBlock>
+                                        <TextBox Grid.Column="1" Name="RXCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                        <TextBlock Grid.Column="2" Margin="2,1">Rot Y:</TextBlock>
+                                        <TextBox Grid.Column="3" Name="RYCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                        <TextBlock Grid.Column="4" Margin="2,1">Rot Z:</TextBlock>
+                                        <TextBox Grid.Column="5" Name="RZCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                    </Grid>
+                                    <TextBlock Margin="4,0">Loads:</TextBlock>
+                                    <Grid Margin="8,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Margin="2,1" >Fx:</TextBlock>
+                                        <TextBox Grid.Column="1" Name="FxTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                        <TextBlock Grid.Column="2" Margin="2,1">Fy:</TextBlock>
+                                        <TextBox Grid.Column="3" Name="FyTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                        <TextBlock Grid.Column="4" Margin="2,1">Fz:</TextBlock>
+                                        <TextBox Grid.Column="5" Name="FzTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                    </Grid>
+                                    <Grid Margin="8,4,8,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Margin="2,1">Tx:</TextBlock>
+                                        <TextBox Grid.Column="1" Name="TxTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                        <TextBlock Grid.Column="2" Margin="2,1">Ty:</TextBlock>
+                                        <TextBox Grid.Column="3" Name="TyTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                        <TextBlock Grid.Column="4" Margin="2,1">Yz:</TextBlock>
+                                        <TextBox Grid.Column="5" Name="TzTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                    </Grid>
+                                    <TextBlock Margin="4,0">Status:</TextBlock>
+                                    <StackPanel Orientation="Horizontal" Margin="8,4">
+                                        <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
+                                        <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxComboBoxEnd">
+                                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                                            <ComboBoxItem Content="Fixed"/>
+                                            <ComboBoxItem Content="Imposed"/>
+                                        </ComboBox>
+                                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
+                                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyComboBoxEnd">
+                                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                                            <ComboBoxItem Content="Fixed"/>
+                                            <ComboBoxItem Content="Imposed"/>
+                                        </ComboBox>
+                                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
+                                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzComboBoxEnd">
+                                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                                            <ComboBoxItem Content="Fixed"/>
+                                            <ComboBoxItem Content="Imposed"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="8,4,8,6">
+                                        <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
+                                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxComboBoxEnd">
+                                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                                            <ComboBoxItem Content="Fixed"/>
+                                            <ComboBoxItem Content="Imposed"/>
+                                        </ComboBox>
+                                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
+                                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyComboBoxEnd">
+                                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                                            <ComboBoxItem Content="Fixed"/>
+                                            <ComboBoxItem Content="Imposed"/>
+                                        </ComboBox>
+                                        <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Tz:</TextBlock>
+                                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzComboBoxEnd">
+                                            <ComboBoxItem Content="Free" IsSelected="True"/>
+                                            <ComboBoxItem Content="Fixed"/>
+                                            <ComboBoxItem Content="Imposed"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <TextBlock Margin="4,0">Imposed Displacements:</TextBlock>
+                                    <Grid Margin="8,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Margin="2,1">Fx:</TextBlock>
+                                        <TextBox Grid.Column="1" Name="FxDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                        <TextBlock Grid.Column="2" Margin="2,1">Fy:</TextBlock>
+                                        <TextBox Grid.Column="3" Name="FyDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                        <TextBlock Grid.Column="4" Margin="2,1">Fz:</TextBlock>
+                                        <TextBox Grid.Column="5" Name="FzDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                    </Grid>
+                                    <Grid Margin="8,4,8,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Margin="2,1">Tx:</TextBlock>
+                                        <TextBox Grid.Column="1" Name="TxDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                        <TextBlock Grid.Column="2" Margin="2,1">Ty:</TextBlock>
+                                        <TextBox Grid.Column="3" Name="TyDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                        <TextBlock Grid.Column="4" Margin="2,1">Yz:</TextBlock>
+                                        <TextBox Grid.Column="5" Name="TzDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
+                                    </Grid>
+                                </StackPanel>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock FontWeight="DemiBold" Margin="10,10,10,0">End</TextBlock>
-                                <CheckBox VerticalAlignment="Bottom" Content="Design Only" Name="DesignCheckBoxEnd" IsChecked="False"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock VerticalAlignment="Center" Margin="4,0,4,0">Coordinate:</TextBlock>
-                                <ComboBox Name="CoordinateComboBoxEnd" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100">
-                                    <ComboBoxItem Content="Cartesian" IsSelected="True"/>
-                                    <ComboBoxItem Content="Cylindrical"/>
-                                </ComboBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock Name="TextBlockCartesianCoord1End" Margin="0,0,2,0">X:</TextBlock>
-                                <TextBlock Name="TextBlockCilyndricalCoord1End" Margin="0,0,2,0">R:</TextBlock>
-                                <TextBox Width="100" Name="XCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Name="TextBlockCartesianCoord2End" Margin="8,0,2,0">Y:</TextBlock>
-                                <TextBlock Name="TextBlockCilyndricalCoord2End" Margin="8,0,2,0">θ:</TextBlock>
-                                <TextBox Width="100" Name="YCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,2,0">Z:</TextBlock>
-                                <TextBox Width="100" Name="ZCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock Margin="0,0,2,0">rotation X:</TextBlock>
-                                <TextBox Width="60" Name="RXCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,2,0">Rotation Y:</TextBlock>
-                                <TextBox Width="60" Name="RYCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,2,0">Rotation Z:</TextBlock>
-                                <TextBox Width="60" Name="RZCoordTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                            </StackPanel>
-                            <TextBlock Margin="4,0,0,0">Loads:</TextBlock>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock >Fx:</TextBlock>
-                                <TextBox Width="100" Name="FxTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
-                                <TextBox Width="100" Name="FyTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
-                                <TextBox Width="100" Name="FzTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock >Tx:</TextBlock>
-                                <TextBox Width="100" Name="TxTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
-                                <TextBox Width="100" Name="TyTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Yz:</TextBlock>
-                                <TextBox Width="100" Name="TzTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                            </StackPanel>
-                            <TextBlock Margin="4,0,0,0">Status:</TextBlock>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Fx:</TextBlock>
-                                <ComboBox  HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FxComboBoxEnd">
-                                    <ComboBoxItem Content="Free" IsSelected="True"/>
-                                    <ComboBoxItem Content="Fixed"/>
-                                    <ComboBoxItem Content="Imposed"/>
-                                </ComboBox>
-                                <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fy:</TextBlock>
-                                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FyComboBoxEnd">
-                                    <ComboBoxItem Content="Free" IsSelected="True"/>
-                                    <ComboBoxItem Content="Fixed"/>
-                                    <ComboBoxItem Content="Imposed"/>
-                                </ComboBox>
-                                <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Fz:</TextBlock>
-                                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="FzComboBoxEnd">
-                                    <ComboBoxItem Content="Free" IsSelected="True"/>
-                                    <ComboBoxItem Content="Fixed"/>
-                                    <ComboBoxItem Content="Imposed"/>
-                                </ComboBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock VerticalAlignment="Center" Margin="0,0,2,0">Tx:</TextBlock>
-                                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TxComboBoxEnd">
-                                    <ComboBoxItem Content="Free" IsSelected="True"/>
-                                    <ComboBoxItem Content="Fixed"/>
-                                    <ComboBoxItem Content="Imposed"/>
-                                </ComboBox>
-                                <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Ty:</TextBlock>
-                                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TyComboBoxEnd">
-                                    <ComboBoxItem Content="Free" IsSelected="True"/>
-                                    <ComboBoxItem Content="Fixed"/>
-                                    <ComboBoxItem Content="Imposed"/>
-                                </ComboBox>
-                                <TextBlock VerticalAlignment="Center" Margin="8,0,2,0">Tz:</TextBlock>
-                                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Name="TzComboBoxEnd">
-                                    <ComboBoxItem Content="Free" IsSelected="True"/>
-                                    <ComboBoxItem Content="Fixed"/>
-                                    <ComboBoxItem Content="Imposed"/>
-                                </ComboBox>
-                            </StackPanel>
-                            <TextBlock Margin="4,0,0,0">Imposed Displacements:</TextBlock>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock >Fx:</TextBlock>
-                                <TextBox Width="100" Name="FxDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Fy:</TextBlock>
-                                <TextBox Width="100" Name="FyDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Fz:</TextBlock>
-                                <TextBox Width="100" Name="FzDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <TextBlock >Tx:</TextBlock>
-                                <TextBox Width="100" Name="TxDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Ty:</TextBlock>
-                                <TextBox Width="100" Name="TyDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                                <TextBlock Margin="8,0,0,0">Yz:</TextBlock>
-                                <TextBox Width="100" Name="TzDispTextBoxEnd" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0"></TextBox>
-                            </StackPanel>
-                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Grid.Row="3" HorizontalAlignment="Right">
-                <Button Margin="5" Click="SubmitNewLayer" Name="SubmitButton">Submit</Button>
-            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right">
+            <Button Click="SubmitNewLayer" Name="SubmitButton" Margin="5,2" Padding="10,4" 
+                    Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                    FontWeight="SemiBold" Foreground="#FFFFFF">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </Button.Resources>
+                Submit
+            </Button>
         </StackPanel>
-    </ScrollViewer>
+    </Grid>
 </Window>

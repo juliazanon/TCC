@@ -35,6 +35,7 @@ namespace TCC
         public CylindricalLayerWindow(List<Layer> layers,List<LayerMaterial> materials)
         {
             InitializeComponent();
+            TitleTextBlock.Text = "Create New Cylindrical Layer";
             NameTextBox.Focus();
             NameTextBox.CaretIndex = NameTextBox.Text.Length;
             this.layers = layers;
@@ -59,6 +60,7 @@ namespace TCC
         public CylindricalLayerWindow(List<Layer> layers, List<LayerMaterial> materials, CylinderLayer layer)
         {
             InitializeComponent();
+            TitleTextBlock.Text = "Edit Cylindrical Layer";
             NameTextBox.Focus();
             NameTextBox.CaretIndex = NameTextBox.Text.Length;
             this.layers = layers;

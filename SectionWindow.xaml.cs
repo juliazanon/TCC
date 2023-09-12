@@ -33,7 +33,7 @@ namespace TCC
             InitializeComponent();
             NameTextBox.Focus();
             NameTextBox.CaretIndex = NameTextBox.Text.Length;
-            SectionTitle.Text = "Create New Section";
+            TitleTextBlock.Text = "Create New Section";
             this.sections = sections;
 
             Cylindrical.Visibility = Visibility.Collapsed;
@@ -45,7 +45,7 @@ namespace TCC
             InitializeComponent();
             NameTextBox.Focus();
             NameTextBox.CaretIndex = NameTextBox.Text.Length;
-            SectionTitle.Text = "Edit Section";
+            TitleTextBlock.Text = "Edit Section";
             this.sections = sections;
             editName = section.Name;
             TypeComboBox.IsEnabled = false;

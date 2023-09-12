@@ -11,7 +11,28 @@
         KeyDown="Window_KeyDown"
         Closing="Window_Closing"
         Name="Main">
-    <Grid Margin="12,12,12,12" ShowGridLines="True">
+    <Window.Resources>
+        <ResourceDictionary>
+            <!-- Define your color variables -->
+            <Color x:Key="PrimaryColor">#C6F0B4</Color>
+            <Color x:Key="SecundaryColor">#9CDB81</Color>
+            <Color x:Key="TertiaryColor">#98D99A</Color>
+            <Color x:Key="QuarternaryColor">#C2D998</Color>
+            <Color x:Key="BackgroundColor">#FCFFF8</Color>
+            <Color x:Key="FontColor">#24331E</Color>
+            <Color x:Key="Font2Color">#2A4A20</Color>
+
+            <!-- You can define SolidColorBrush resources using the color variables -->
+            <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+            <SolidColorBrush x:Key="SecundaryBrush" Color="{StaticResource SecundaryColor}"/>
+            <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource TertiaryColor}"/>
+            <SolidColorBrush x:Key="QuaternaryBrush" Color="{StaticResource QuarternaryColor}"/>
+            <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+            <SolidColorBrush x:Key="FontBrush" Color="{StaticResource FontColor}"/>
+            <SolidColorBrush x:Key="Font2Brush" Color="{StaticResource Font2Color}"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="12,12,12,12" Background="{StaticResource BackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>
             <RowDefinition Height="*" MaxHeight="200" MinHeight="150"/>
@@ -24,15 +45,29 @@
                            Background="LightGreen" FontWeight="DemiBold" Foreground="DarkSlateGray" Margin="4,0,4,0"/>
             </Border>
         </Popup>
-        <StackPanel Orientation="Horizontal">
-            <Button Margin="8,0,8,4" Name="OpenButton" Click="OpenButtonClick">
+        <StackPanel Orientation="Horizontal" Background="#DAF0D1">
+            <Button Margin="8,2" Padding="5,2" Name="OpenButton" Click="OpenButtonClick"
+                    Background="{StaticResource QuaternaryBrush}" BorderThickness="0"
+                    FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </Button.Resources>
                 Open
             </Button>
-            <Button Margin="8,0,8,4" Name="SaveButton" Click="SaveButtonClick">
+            <Button Margin="8,2" Padding="5,2" Name="SaveButton" Click="SaveButtonClick"
+                    Background="{StaticResource QuaternaryBrush}" BorderThickness="0"
+                    FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </Button.Resources>
                 Save
             </Button>
         </StackPanel>
-        <Grid Grid.Row="1" ShowGridLines="True" Background="#D9D9D9">
+        <Grid Grid.Row="1" Background="{StaticResource BackgroundBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="330"/>
                 <ColumnDefinition Width="200"/>
@@ -40,7 +75,7 @@
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Row="0" Margin="15" Background="#FFF4F4F5">
+            <Grid Grid.Row="0" Margin="15" Background="{StaticResource PrimaryBrush}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="28"/>
                     <RowDefinition Height="*"/>
@@ -49,8 +84,8 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock FontSize="18" Grid.Row="0" Margin="8,8,8,0" FontWeight="DemiBold">Tools</TextBlock>
-                <Grid Grid.Row="1" Grid.Column="0" Margin="4" Background="#E0E0E0">
+                <TextBlock FontSize="18" Grid.Row="0" Margin="8,8,8,0" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Tools</TextBlock>
+                <Grid Grid.Row="1" Grid.Column="0" Margin="6,4" Background="{StaticResource TertiaryBrush}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="24"/>
                         <RowDefinition Height="*"/>
@@ -60,13 +95,42 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock FontSize="16" Grid.Row="0" Margin="8, 0" FontWeight="DemiBold" VerticalAlignment="Center">Create</TextBlock>
-                    <Button Grid.Row="1" Grid.Column="0" Margin="4" Width="48" MaxHeight="48" BorderThickness="1" Click="ButtonNewCylinder">Cylindrical</Button>
-                    <Button Grid.Row="1" Grid.Column="1" Margin="4" Width="48" MaxHeight="48" BorderThickness="1" Click="ButtonNewHelix">Helix</Button>
-                    <Button Grid.Row="1" Grid.Column="2" Margin="4" Width="48" MaxHeight="48" BorderThickness="1" Click="ButtonNewConnection">Connection</Button>
+                    <TextBlock FontSize="16" Grid.Row="0" Margin="8, 0" FontWeight="DemiBold" VerticalAlignment="Center" Foreground="{StaticResource FontBrush}">Create</TextBlock>
+                    <Button Grid.Row="1" Grid.Column="0" Margin="4" Width="48" MaxHeight="48" Click="ButtonNewCylinder"
+                            Background="{StaticResource QuaternaryBrush}" BorderThickness="0"
+                            FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                        Cylindrical
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="1" Margin="4" Width="48" MaxHeight="48" Click="ButtonNewHelix"
+                            Background="{StaticResource QuaternaryBrush}" BorderThickness="0"
+                            FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                        Helix
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="2" Margin="4" Width="48" MaxHeight="48" Click="ButtonNewConnection"
+                            Background="{StaticResource QuaternaryBrush}" BorderThickness="0"
+                            FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                        Connection
+                    </Button>
                 </Grid>
                 <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-                    <Button Margin="3" BorderThickness="1" Click="ButtonEditLayer">
+                    <Button Margin="3" Click="ButtonEditLayer"
+                            Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                            FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="5"/>
@@ -74,7 +138,9 @@
                         </Button.Resources>
                         Edit
                     </Button>
-                    <Button Margin="3" BorderThickness="1" Click="ButtonDeleteLayer">
+                    <Button Margin="3" Click="ButtonDeleteLayer"
+                            Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                            FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="5"/>
@@ -84,32 +150,38 @@
                     </Button>
                 </StackPanel>
             </Grid>
-            <StackPanel Grid.Row="0" Grid.Column="1" Margin="15" Background="#FFF4F4F5">
-                <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold">Visualizer</TextBlock>
-                <Button Margin="36, 5" BorderThickness="1" Name="ButtonZoomIn" Click="ZoomButtonClick">
+            <StackPanel Grid.Row="0" Grid.Column="1" Margin="15" Background="{StaticResource PrimaryBrush}">
+                <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Visualizer</TextBlock>
+                <Button Margin="36, 5" Name="ButtonZoomIn" Click="ZoomButtonClick"
+                        Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                        FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
                         </Style>
                     </Button.Resources>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock>Zoom In</TextBlock>
+                        <TextBlock Foreground="{StaticResource FontBrush}">Zoom In</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="36, 5" BorderThickness="1" Name="ButtonZoomOut" Click="ZoomButtonClick">
+                <Button Margin="36, 5" Name="ButtonZoomOut" Click="ZoomButtonClick"
+                        Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                        FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
                         </Style>
                     </Button.Resources>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock>Zoom Out</TextBlock>
+                        <TextBlock Foreground="{StaticResource FontBrush}">Zoom Out</TextBlock>
                     </StackPanel>
                 </Button>
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="2" Margin="15" Background="#FFF4F4F5">
-                <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold">Materials</TextBlock>
-                <Button Margin="36, 5" BorderThickness="1" Click="ButtonNewMaterial">
+            <StackPanel Grid.Row="0" Grid.Column="2" Margin="15" Background="{StaticResource PrimaryBrush}">
+                <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Materials</TextBlock>
+                <Button Margin="36, 5" Click="ButtonNewMaterial"
+                        Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                        FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -119,7 +191,9 @@
                         <TextBlock>New Material</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="36, 5" BorderThickness="1" Click="ButtonMaterialList">
+                <Button Margin="36, 5" Click="ButtonMaterialList"
+                        Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                        FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
@@ -130,26 +204,30 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="3" Margin="15" Background="#FFF4F4F5">
-                <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold">Sections</TextBlock>
-                <Button Margin="36, 5" BorderThickness="1" Click="ButtonNewSection">
+            <StackPanel Grid.Row="0" Grid.Column="3" Margin="15" Background="{StaticResource PrimaryBrush}">
+                <TextBlock FontSize="18" Margin="4" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Sections</TextBlock>
+                <Button Margin="36, 5" Click="ButtonNewSection"
+                        Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                        FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
                         </Style>
                     </Button.Resources>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock>New Section</TextBlock>
+                        <TextBlock Foreground="{StaticResource FontBrush}">New Section</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Margin="36, 5" BorderThickness="1" Click="ButtonSectionList">
+                <Button Margin="36, 5" Click="ButtonSectionList"
+                        Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                        FontWeight="SemiBold" Foreground="{StaticResource FontBrush}">
                     <Button.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
                         </Style>
                     </Button.Resources>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock>List of Sections</TextBlock>
+                        <TextBlock Foreground="{StaticResource FontBrush}">List of Sections</TextBlock>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -158,19 +236,19 @@
                 <TextBox Name="teste" Language="en-US"/>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="2" ShowGridLines="True">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="4*" MinWidth="600"/>
             </Grid.ColumnDefinitions>
-            <Grid Background="#FFF0F0F5">
+            <Grid Background="{StaticResource TertiaryBrush}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" FontSize="18" Margin="4" HorizontalAlignment="Center" FontWeight="DemiBold">Layers</TextBlock>
+                <TextBlock Grid.Row="0" FontSize="18" Margin="4" HorizontalAlignment="Center" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Layers</TextBlock>
                 <ScrollViewer Grid.Row="1">
                     <ItemsControl x:Name="itemsControl" Margin="8,4" Background="#FFFFFF">
                         <ItemsControl.ItemTemplate>
@@ -189,7 +267,7 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
-                <TextBlock Grid.Row="2" FontSize="18" Margin="4" HorizontalAlignment="Center" FontWeight="DemiBold">Connections</TextBlock>
+                <TextBlock Grid.Row="2" FontSize="18" Margin="4" HorizontalAlignment="Center" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Connections</TextBlock>
                 <ScrollViewer Grid.Row="3">
                     <ItemsControl x:Name="connectionsControl" Margin="8,4" Background="#FFFFFF">
                         <ItemsControl.ItemTemplate>
