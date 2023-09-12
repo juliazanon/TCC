@@ -18,6 +18,7 @@ using Button = System.Windows.Controls.Button;
 using TCC.MainClasses;
 using Newtonsoft.Json;
 using System.IO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace TCC
 {
@@ -382,13 +383,58 @@ namespace TCC
         // Open json file and replace current cable
         private void OpenButtonClick(object sender, EventArgs e)
         {
-            // If connection is found, throw warning
-            WarningWindow windowWarning = new WarningWindow(
-            "This will ovewrite all current changes. Are you sure you want to continue?"
-            );
-            windowWarning.Owner = this;
+            // If changes are found, throw warning
+            if ((cable.Layers.Count != 0 || cable.LayerMaterials.Count != 0 || cable.Sections.Count != 0) && IsNotSavedWork())
+            {
+                WarningWindow windowWarning = new WarningWindow(
+                "This will ovewrite all current changes. Are you sure you want to continue?"
+                );
+                windowWarning.Owner = this;
 
-            if (windowWarning.ShowDialog() == true)
+                if (windowWarning.ShowDialog() == true)
+                {
+                    OpenFileDialog dialog = new OpenFileDialog
+                    {
+                        InitialDirectory = @"c:\\",
+                        Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                        FilterIndex = 2,
+                        RestoreDirectory = true
+                    };
+                    if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        string filePath = dialog.FileName;
+                        string json = File.ReadAllText(filePath);
+                        cable = JsonConvert.DeserializeObject<Cable>(json);
+                        observableConnection.Clear();
+                        observableLayer.Clear();
+
+                        foreach (Layer l in cable.Layers)
+                        {
+                            observableLayer.Add(l);
+                        }
+                        int lccount = 1;
+                        foreach (LayerConnection lc in cable.LayerConnections)
+                        {
+                            observableConnection.Add(lc);
+                            lc.Name = "Connection" + lccount.ToString();
+                            lccount++;
+                        }
+                        int mcount = 1;
+                        foreach (LayerMaterial m in cable.LayerMaterials)
+                        {
+                            m.Name = "Material" + mcount.ToString();
+                            mcount++;
+                        }
+                        int scount = 1;
+                        foreach (Section s in cable.Sections)
+                        {
+                            s.Name = "Section" + scount.ToString();
+                            scount++;
+                        }
+                    }
+                }
+            }
+            else
             {
                 OpenFileDialog dialog = new OpenFileDialog
                 {
@@ -428,6 +474,7 @@ namespace TCC
                         s.Name = "Section" + scount.ToString();
                         scount++;
                     }
+
                 }
             }
         }
