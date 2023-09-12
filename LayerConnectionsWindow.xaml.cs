@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TCC.Classes;
+using TCC.MainClasses;
 using static System.Collections.Specialized.BitVector32;
 
 namespace TCC
@@ -43,7 +43,7 @@ namespace TCC
             {
                 List<Layer> layerList = new List<Layer>
                 {
-                    new Layer { Name = "No Layer Created" },
+                    new CylinderLayer { Name = "No Layer Created" },
                 };
                 FirstLayerComboBox.ItemsSource = layerList;
                 FirstLayerComboBox.SelectedIndex = 0;
@@ -78,7 +78,7 @@ namespace TCC
             {
                 List<Layer> layerList = new List<Layer>
                 {
-                    new Layer { Name = "No Layer Created" },
+                    new CylinderLayer { Name = "No Layer Created" },
                 };
                 FirstLayerComboBox.ItemsSource = layerList;
                 FirstLayerComboBox.SelectedIndex = 0;

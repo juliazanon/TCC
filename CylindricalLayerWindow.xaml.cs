@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TCC.Classes;
+using TCC.MainClasses;
 
 namespace TCC
 {
@@ -45,7 +45,7 @@ namespace TCC
             {
                 List<LayerMaterial> materialList = new List<LayerMaterial>
                 {
-                    new LayerMaterial { ID = 0, Name = "No Material Created" },
+                    new Isotropic { ID = 0, Name = "No Material Created" },
                 };
                 MaterialComboBox.ItemsSource = materialList;
                 MaterialComboBox.SelectedIndex = 0;
@@ -71,7 +71,7 @@ namespace TCC
             {
                 List<LayerMaterial> materialList = new List<LayerMaterial>
                 {
-                    new LayerMaterial { ID = 0, Name = "No Material Created" },
+                    new Isotropic { ID = 0, Name = "No Material Created" },
                 };
                 MaterialComboBox.ItemsSource = materialList;
                 MaterialComboBox.SelectedIndex = 0;

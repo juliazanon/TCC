@@ -1,35 +1,24 @@
 ﻿using SharpGL;
 using SharpGL.Enumerations;
-using SharpGL.SceneGraph;
-using SharpGL.Shaders;
 using GlmNet;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.Win32;
-using System.IO;
-using System.Diagnostics;
-using System.Globalization;
-using System.Runtime.InteropServices;
-using SharpGL.WPF;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
-using System.Drawing.Drawing2D;
-using SharpGL.SceneGraph.Assets;
-using TCC.Classes;
+using System.Windows.Forms;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using System.Windows.Documents.DocumentStructures;
 using System.Windows.Threading;
 using System.Windows.Media.Media3D;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Linq;
+using Button = System.Windows.Controls.Button;
+using TCC.MainClasses;
+using Newtonsoft.Json;
+using System.IO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace TCC
 {
@@ -274,41 +263,37 @@ namespace TCC
                 }
                 else
                 {
+                    // If connection is found, throw warning
                     WarningWindow windowWarning = new WarningWindow(
                     "This Layer is part of a Connection. Deleting it will also delete the connection. Are you sure you want to continue?"
                     );
-                    windowWarning.ConfirmButtonClick += ConfirmButtonClick;
-                    windowWarning.CancelButtonClick += CancelButtonClick;
-                    windowWarning.Show();
+                    windowWarning.Owner = this;
+
+                    if (windowWarning.ShowDialog() == true)
+                    {
+                        for (int i = 0; i < cable.Layers.Count; i++)
+                        {
+                            if (cable.Layers[i].Name == selectedLayer)
+                            {
+                                observableLayer.Remove(cable.Layers[i]);
+                                PopUpTextBlock.Text = cable.Layers[i].Name + " Deleted Successfully";
+                                cable.Layers.Remove(cable.Layers[i]);
+                                popup.IsOpen = true;
+                            }
+                        }
+                        for (int i = 0; i < cable.LayerConnections.Count; i++)
+                        {
+                            if (cable.LayerConnections[i].FirstLayer == selectedLayer || cable.LayerConnections[i].SecondLayer == selectedLayer)
+                            {
+                                observableConnection.Remove(cable.LayerConnections[i]);
+                                PopUpTextBlock.Text = cable.LayerConnections[i].Name + " Deleted Successfully";
+                                cable.LayerConnections.Remove(cable.LayerConnections[i]);
+                                popup.IsOpen = true;
+                            }
+                        }
+                    }
                 }
             }
-        }
-        private void ConfirmButtonClick(object sender, EventArgs e)
-        {
-            for (int i = 0; i < cable.Layers.Count; i++)
-            {
-                if (cable.Layers[i].Name == selectedLayer)
-                {
-                    observableLayer.Remove(cable.Layers[i]);
-                    PopUpTextBlock.Text = cable.Layers[i].Name + " Deleted Successfully";
-                    cable.Layers.Remove(cable.Layers[i]);
-                    popup.IsOpen = true;
-                }
-            }
-            for (int i = 0; i < cable.LayerConnections.Count; i++)
-            {
-                if (cable.LayerConnections[i].FirstLayer == selectedLayer || cable.LayerConnections[i].SecondLayer == selectedLayer)
-                {
-                    observableConnection.Remove(cable.LayerConnections[i]);
-                    PopUpTextBlock.Text = cable.LayerConnections[i].Name + " Deleted Successfully";
-                    cable.LayerConnections.Remove(cable.LayerConnections[i]);
-                    popup.IsOpen = true;
-                }
-            }
-        }
-        private void CancelButtonClick(object sender, EventArgs e)
-        {
-            return;
         }
 
         //  Materials
@@ -342,7 +327,6 @@ namespace TCC
                 popup.IsOpen = true;
             }
         }
-
         private void ButtonMaterialList(object sender, RoutedEventArgs e)
         {
             MaterialListWindow windowMaterial = new MaterialListWindow(cable);
@@ -393,12 +377,106 @@ namespace TCC
         // Upper menu
         private void SaveButtonClick(object sender, EventArgs e)
         {
-            cable.SaveFile();
+            cable.SaveFile(); // Saves json file
         }
 
+        // Open json file and replace current cable
         private void OpenButtonClick(object sender, EventArgs e)
         {
-            // TODO;
+            // If changes are found, throw warning
+            if ((cable.Layers.Count != 0 || cable.LayerMaterials.Count != 0 || cable.Sections.Count != 0) && IsNotSavedWork())
+            {
+                WarningWindow windowWarning = new WarningWindow(
+                "This will ovewrite all current changes. Are you sure you want to continue?"
+                );
+                windowWarning.Owner = this;
+
+                if (windowWarning.ShowDialog() == true)
+                {
+                    OpenFileDialog dialog = new OpenFileDialog
+                    {
+                        InitialDirectory = @"c:\\",
+                        Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                        FilterIndex = 2,
+                        RestoreDirectory = true
+                    };
+                    if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        string filePath = dialog.FileName;
+                        string json = File.ReadAllText(filePath);
+                        cable = JsonConvert.DeserializeObject<Cable>(json);
+                        observableConnection.Clear();
+                        observableLayer.Clear();
+
+                        foreach (Layer l in cable.Layers)
+                        {
+                            observableLayer.Add(l);
+                        }
+                        int lccount = 1;
+                        foreach (LayerConnection lc in cable.LayerConnections)
+                        {
+                            observableConnection.Add(lc);
+                            lc.Name = "Connection" + lccount.ToString();
+                            lccount++;
+                        }
+                        int mcount = 1;
+                        foreach (LayerMaterial m in cable.LayerMaterials)
+                        {
+                            m.Name = "Material" + mcount.ToString();
+                            mcount++;
+                        }
+                        int scount = 1;
+                        foreach (Section s in cable.Sections)
+                        {
+                            s.Name = "Section" + scount.ToString();
+                            scount++;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                OpenFileDialog dialog = new OpenFileDialog
+                {
+                    InitialDirectory = @"c:\\",
+                    Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                    FilterIndex = 2,
+                    RestoreDirectory = true
+                };
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string filePath = dialog.FileName;
+                    string json = File.ReadAllText(filePath);
+                    cable = JsonConvert.DeserializeObject<Cable>(json);
+                    observableConnection.Clear();
+                    observableLayer.Clear();
+
+                    foreach (Layer l in cable.Layers)
+                    {
+                        observableLayer.Add(l);
+                    }
+                    int lccount = 1;
+                    foreach (LayerConnection lc in cable.LayerConnections)
+                    {
+                        observableConnection.Add(lc);
+                        lc.Name = "Connection" + lccount.ToString();
+                        lccount++;
+                    }
+                    int mcount = 1;
+                    foreach (LayerMaterial m in cable.LayerMaterials)
+                    {
+                        m.Name = "Material" + mcount.ToString();
+                        mcount++;
+                    }
+                    int scount = 1;
+                    foreach (Section s in cable.Sections)
+                    {
+                        s.Name = "Section" + scount.ToString();
+                        scount++;
+                    }
+
+                }
+            }
         }
 
         // List of layers and connections
@@ -482,6 +560,20 @@ namespace TCC
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (isChildWindowOpen) e.Cancel = true;
+
+            if ((cable.Layers.Count != 0 || cable.LayerMaterials.Count != 0 || cable.Sections.Count != 0) && IsNotSavedWork())
+            {
+                WarningWindow windowWarning = new WarningWindow("Your changes will be lost. Are you sure you want to close the application?");
+                windowWarning.Owner = this;
+
+                if (windowWarning.ShowDialog() == false) e.Cancel = true;
+            }
+        }
+        private bool IsNotSavedWork()
+        {
+            string json = JsonConvert.SerializeObject(cable, Formatting.Indented);
+
+            return (json != cable.LastSavedFile);
         }
 
         private void Popup_Opened(object sender, EventArgs e)

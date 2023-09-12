@@ -10,7 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using TCC.Classes;
+using TCC.MainClasses;
 
 namespace TCC
 {

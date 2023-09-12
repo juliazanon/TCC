@@ -31,11 +31,13 @@ namespace TCC
         private void YesButtonClick(object sender, RoutedEventArgs e)
         {
             ConfirmButtonClick?.Invoke(this, EventArgs.Empty);
+            DialogResult = true;
             Close();
         }
         private void NoButtonClick(object sender, RoutedEventArgs e)
         {
             CancelButtonClick?.Invoke(this, EventArgs.Empty);
+            DialogResult = false;
             Close();
         }
     }

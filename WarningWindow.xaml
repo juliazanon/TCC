@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
-        Title="Warning" Height="150" Width="350">
+        Title="Warning" Height="150" Width="350"
+        WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>

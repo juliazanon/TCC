@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TCC.Classes;
+using TCC.MainClasses;
 using System.Text.RegularExpressions;
 using System.Globalization;
 
@@ -64,15 +64,15 @@ namespace TCC
             {
                 Orthotropic ortho = material as Orthotropic;
                 OrthotropicRadioButton.IsChecked = true;
-                EXTextBox.Text = ortho.Young[0].ToString();
-                EYTextBox.Text = ortho.Young[1].ToString();
-                EZTextBox.Text = ortho.Young[2].ToString();
-                NuXYTextBox.Text = ortho.Poisson[0].ToString();
-                NuXZTextBox.Text = ortho.Poisson[1].ToString();
-                NuYZTextBox.Text = ortho.Poisson[2].ToString();
-                GXYTextBox.Text = ortho.Shear[0].ToString();
-                GXZTextBox.Text = ortho.Shear[1].ToString();
-                GYZTextBox.Text = ortho.Shear[2].ToString();
+                EXTextBox.Text = ortho.EX.ToString();
+                EYTextBox.Text = ortho.EY.ToString();
+                EZTextBox.Text = ortho.EZ.ToString();
+                NuXYTextBox.Text = ortho.NuXY.ToString();
+                NuXZTextBox.Text = ortho.NuXZ.ToString();
+                NuYZTextBox.Text = ortho.NuYZ.ToString();
+                GXYTextBox.Text = ortho.GXY.ToString();
+                GXZTextBox.Text = ortho.GXZ.ToString();
+                GYZTextBox.Text = ortho.GYZ.ToString();
             }
         }
         public Isotropic LayerIsotropic { get { return layerIsotropic; } }
@@ -146,20 +146,26 @@ namespace TCC
                 double.TryParse(DensityTextBox.Text, out double result);
                 layerOrthotropic.Density = result;
 
-                double.TryParse(EXTextBox.Text, out double xresult);
-                double.TryParse(EYTextBox.Text, out double yresult);
-                double.TryParse(EZTextBox.Text, out double zresult);
-                layerOrthotropic.Young = new double[] { xresult, yresult, zresult };
+                double.TryParse(EXTextBox.Text, out result);
+                layerOrthotropic.EX = result;
+                double.TryParse(EYTextBox.Text, out result);
+                layerOrthotropic.EY = result;
+                double.TryParse(EZTextBox.Text, out result);
+                layerOrthotropic.EZ = result;
 
-                double.TryParse(NuXYTextBox.Text, out xresult);
-                double.TryParse(NuXZTextBox.Text, out yresult);
-                double.TryParse(NuYZTextBox.Text, out zresult);
-                layerOrthotropic.Poisson = new double[] { xresult, yresult, zresult };
+                double.TryParse(NuXYTextBox.Text, out result);
+                layerOrthotropic.NuXY = result;
+                double.TryParse(NuXZTextBox.Text, out result);
+                layerOrthotropic.NuYZ = result;
+                double.TryParse(NuYZTextBox.Text, out result);
+                layerOrthotropic.NuXZ = result;
 
-                double.TryParse(GXYTextBox.Text, out xresult);
-                double.TryParse(GXZTextBox.Text, out yresult);
-                double.TryParse(GYZTextBox.Text, out zresult);
-                layerOrthotropic.Shear = new double[] { xresult, yresult, zresult };
+                double.TryParse(GXYTextBox.Text, out result);
+                layerOrthotropic.GXY = result;
+                double.TryParse(GXZTextBox.Text, out result);
+                layerOrthotropic.GXZ = result;
+                double.TryParse(GYZTextBox.Text, out result);
+                layerOrthotropic.GYZ = result;
             }
 
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);

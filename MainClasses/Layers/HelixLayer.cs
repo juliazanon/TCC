@@ -7,9 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Animation;
+using System.Runtime.Serialization;
 
-namespace TCC.Classes
+namespace TCC.MainClasses
 {
+    [DataContract]
     public class HelixLayer : Layer
     {
         private int wires;
@@ -20,30 +22,45 @@ namespace TCC.Classes
         private int divisions;
         private double radius;
 
+        public HelixLayer() { }
+
+        [DataMember(Name = "wires")]
         public int Wires {
             get { return wires; }
             set { wires = value; }
         }
+        
+        [DataMember(Name = "line")]
         public Line Line {
             get { return line; }
             set { line = value; }
         }
+        
+        [DataMember(Name = "section")]
         public Section Section {
             get { return section; }
             set { section = value; }
         }
+        
+        [DataMember(Name = "radius")]
         public double Radius {
             get { return radius; }
             set { radius = value; }
         }
+        
+        [DataMember(Name = "lay_angle")]
         public double LayAngle {
             get { return layAngle; }
             set { layAngle = value; }
         }
+        
+        [DataMember(Name = "initial_angle")]
         public double InitialAngle {
             get { return initialAngle; }
             set { initialAngle = value; }
         }
+        
+        [DataMember(Name = "divisions")]
         public int Divisions {
             get { return divisions; }
             set { divisions = value; }
