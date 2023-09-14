@@ -561,7 +561,7 @@ namespace TCC
         {
             if (isChildWindowOpen) e.Cancel = true;
 
-            if ((cable.Layers.Count != 0 || cable.LayerMaterials.Count != 0 || cable.Sections.Count != 0) && IsNotSavedWork())
+            else if ((cable.Layers.Count != 0 || cable.LayerMaterials.Count != 0 || cable.Sections.Count != 0) && IsNotSavedWork())
             {
                 WarningWindow windowWarning = new WarningWindow("Your changes will be lost. Are you sure you want to close the application?");
                 windowWarning.Owner = this;
