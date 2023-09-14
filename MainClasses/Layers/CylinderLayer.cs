@@ -16,7 +16,6 @@ namespace TCC.MainClasses
         private double radius;
         private double thickness;
         private int fourierOrder;
-        private int divisions;
         private int radialDivisions;
         private int axialDivisions;
         private List<Area> areas;
@@ -35,9 +34,6 @@ namespace TCC.MainClasses
         
         [DataMember(Name = "fourier_series_order")]
         public int FourierOrder { get { return fourierOrder; } set { fourierOrder = value; } }
-        
-        [DataMember(Name = "divisions")]
-        public int Divisions { get { return divisions; } set { divisions = value; } }
         
         [DataMember(Name = "radial_divisions")]
         public int RadialDivisions { get { return radialDivisions; } set { radialDivisions = value; } }

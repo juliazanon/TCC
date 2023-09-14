@@ -363,7 +363,7 @@ namespace TCC
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Check if the entered character is a digit or a dot
-            if (!char.IsDigit(e.Text, 0) && e.Text != ".")
+            if (!char.IsDigit(e.Text, 0) && e.Text != "." && e.Text != "-")
             {
                 e.Handled = true; // Prevent the character from being entered
             }

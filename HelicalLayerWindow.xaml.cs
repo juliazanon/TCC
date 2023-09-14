@@ -236,12 +236,12 @@ namespace TCC
         //  Show and Hide Start and End of line
         private void StackPanel_ShowHide_OptionStart(object sender, EventArgs e)
         {   
-            if ((sender as Button).Content == "Show")
+            if ((string)(sender as Button).Content == "Show")
             {
                 (sender as Button).Content = "Hide";
                 StackPanelStart.Visibility = Visibility.Visible;
             } 
-            else if ((sender as Button).Content == "Hide")
+            else if ((string)(sender as Button).Content == "Hide")
             {
                 (sender as Button).Content = "Show";
                 StackPanelStart.Visibility = Visibility.Collapsed;
@@ -249,12 +249,12 @@ namespace TCC
         }
         private void StackPanel_ShowHide_OptionEnd(object sender, EventArgs e)
         {
-            if ((sender as Button).Content == "Show")
+            if ((string)(sender as Button).Content == "Show")
             {
                 (sender as Button).Content = "Hide";
                 StackPanelEnd.Visibility = Visibility.Visible;
             }
-            else if ((sender as Button).Content == "Hide")
+            else if ((string)(sender as Button).Content == "Hide")
             {
                 (sender as Button).Content = "Show";
                 StackPanelEnd.Visibility = Visibility.Collapsed;
@@ -490,7 +490,7 @@ namespace TCC
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Check if the entered character is a digit or a dot
-            if (!char.IsDigit(e.Text, 0) && e.Text != ".")
+            if (!char.IsDigit(e.Text, 0) && e.Text != "." && e.Text != "-")
             {
                 e.Handled = true; // Prevent the character from being entered
             }

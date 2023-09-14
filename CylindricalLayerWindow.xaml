@@ -75,13 +75,9 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Margin="8,2" Foreground="{StaticResource FontBrush}">Divisions:</TextBlock>
-                    <TextBox Grid.Column="1" Margin="4,2" Name="DivisionsTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1" Foreground="{StaticResource FontBrush}"></TextBox>
-                    <TextBlock Grid.Column="2" Margin="8,2" Foreground="{StaticResource FontBrush}">Fourier Order:</TextBlock>
-                    <TextBox Grid.Column="3" Margin="4,2" Name="FourierTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1" Foreground="{StaticResource FontBrush}"></TextBox>
+                    <TextBlock Grid.Column="0" Margin="8,2" Foreground="{StaticResource FontBrush}">Fourier Order:</TextBlock>
+                    <TextBox Grid.Column="1" Margin="4,2" Name="FourierTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1" Foreground="{StaticResource FontBrush}"></TextBox>
                 </Grid>
                 <Grid Margin="0,4">
                     <Grid.ColumnDefinitions>
@@ -98,9 +94,11 @@
                 <TextBlock Margin="4,4,4,0">Body loads:</TextBlock>
                 <Grid Margin="0,4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="30"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Margin="8,2" Foreground="{StaticResource FontBrush}">X:</TextBlock>

@@ -87,7 +87,6 @@ namespace TCC
             ThicknessTextBox.Text = layer.Thickness.ToString();
             LengthTextBox.Text = layer.Length.ToString();
             MaterialComboBox.SelectedItem = layer.Material;
-            DivisionsTextBox.Text = layer.Divisions.ToString();
             FourierTextBox.Text = layer.FourierOrder.ToString();
             RadialTextBox.Text = layer.RadialDivisions.ToString();
             AxialTextBox.Text = layer.AxialDivisions.ToString();
@@ -206,9 +205,7 @@ namespace TCC
             cylinderLayer.Radius = result;
             double.TryParse(LengthTextBox.Text, out result);
             cylinderLayer.Length = result;
-            int.TryParse(DivisionsTextBox.Text, out int intresult);
-            cylinderLayer.Divisions = intresult;
-            int.TryParse(FourierTextBox.Text, out intresult);
+            int.TryParse(FourierTextBox.Text, out int intresult);
             cylinderLayer.FourierOrder = intresult;
             int.TryParse(RadialTextBox.Text, out intresult);
             cylinderLayer.RadialDivisions = intresult;
