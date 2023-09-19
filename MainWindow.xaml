@@ -238,10 +238,11 @@
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" MinWidth="200"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="4*" MinWidth="600"/>
             </Grid.ColumnDefinitions>
-            <Grid Margin="0,0,14,0" Background="{StaticResource TertiaryBrush}">
+            <Grid Margin="0" Background="{StaticResource TertiaryBrush}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="3*"/>
@@ -249,8 +250,8 @@
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" FontSize="18" Margin="4" HorizontalAlignment="Center" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Layers</TextBlock>
-                <ScrollViewer Grid.Row="1">
-                    <ItemsControl x:Name="itemsControl" Margin="8,4" Background="#FFFFFF">
+                <ScrollViewer Grid.Row="1" Margin="8,0">
+                    <ItemsControl x:Name="itemsControl" Background="#FFFFFF">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Button Click="ButtonSelectLayer" Background="#E0E0E0" BorderBrush="Transparent" Padding="0">
@@ -268,8 +269,8 @@
                     </ItemsControl>
                 </ScrollViewer>
                 <TextBlock Grid.Row="2" FontSize="18" Margin="4" HorizontalAlignment="Center" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Connections</TextBlock>
-                <ScrollViewer Grid.Row="3">
-                    <ItemsControl x:Name="connectionsControl" Margin="8,4" Background="#FFFFFF">
+                <ScrollViewer Grid.Row="3" Margin="8,0">
+                    <ItemsControl x:Name="connectionsControl" Background="#FFFFFF">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Button Click="ButtonSelectConnection" Background="#E0E0E0" BorderBrush="Transparent" Padding="0">
@@ -287,7 +288,8 @@
                     </ItemsControl>
                 </ScrollViewer>
             </Grid>
-            <gl:OpenGLControl x:Name="GLControl" OpenGLDraw="OpenGLDraw" Grid.Column="1"/>
+            <GridSplitter ResizeBehavior="PreviousAndNext" Grid.Column="1" Width="8" Background="{StaticResource QuaternaryBrush}" Focusable="False"/>
+            <gl:OpenGLControl x:Name="GLControl" OpenGLDraw="OpenGLDraw" Grid.Column="2"/>
         </Grid>
     </Grid>
 </Window>
