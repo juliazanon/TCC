@@ -210,6 +210,14 @@
   <ItemGroup>
     <None Include="Assets\zoom-out.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\helix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\link.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
