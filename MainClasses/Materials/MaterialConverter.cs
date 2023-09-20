@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TCC.MainClasses.Materials
 {
@@ -18,17 +19,23 @@ namespace TCC.MainClasses.Materials
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JObject jo = JObject.Load(reader);
-            switch (jo["type"].Value<string>())
+            try
             {
-                case "isotropic":
-                    return JsonConvert.DeserializeObject<Isotropic>(jo.ToString(), SpecifiedSubclassConversion);
-                case "orthotropic":
-                    return JsonConvert.DeserializeObject<Orthotropic>(jo.ToString(), SpecifiedSubclassConversion);
-                default:
-                    throw new Exception();
+                JObject jo = JObject.Load(reader);
+                switch (jo["type"].Value<string>())
+                {
+                    case "isotropic":
+                        return JsonConvert.DeserializeObject<Isotropic>(jo.ToString(), SpecifiedSubclassConversion);
+                    case "orthotropic":
+                        return JsonConvert.DeserializeObject<Orthotropic>(jo.ToString(), SpecifiedSubclassConversion);
+                    default:
+                        throw new JsonReaderException();
+                }
             }
-            throw new NotImplementedException();
+            catch (JsonReaderException)
+            {
+                throw new JsonReaderException();
+            }
         }
 
         public override bool CanWrite

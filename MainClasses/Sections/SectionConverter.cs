@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TCC.MainClasses.Sections
 {
@@ -19,17 +20,23 @@ namespace TCC.MainClasses.Sections
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JObject jo = JObject.Load(reader);
-            switch (jo["type"].Value<String>())
+            try
             {
-                case "rectangular":
-                    return JsonConvert.DeserializeObject<RectangularSection>(jo.ToString(), SpecifiedSubclassConversion);
-                case "tubular":
-                    return JsonConvert.DeserializeObject<TubularSection>(jo.ToString(), SpecifiedSubclassConversion);
-                default:
-                    throw new Exception();
+                JObject jo = JObject.Load(reader);
+                switch (jo["type"].Value<String>())
+                {
+                    case "rectangular":
+                        return JsonConvert.DeserializeObject<RectangularSection>(jo.ToString(), SpecifiedSubclassConversion);
+                    case "tubular":
+                        return JsonConvert.DeserializeObject<TubularSection>(jo.ToString(), SpecifiedSubclassConversion);
+                    default:
+                        throw new JsonReaderException();
+                }
             }
-            throw new NotImplementedException();
+            catch (JsonReaderException)
+            {
+                throw new JsonReaderException();
+            }
         }
 
         public override bool CanWrite
