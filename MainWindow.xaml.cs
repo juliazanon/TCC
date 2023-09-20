@@ -440,7 +440,7 @@ namespace TCC
                                     scount++;
                                 }
                             }
-                            catch (Exception)
+                            catch (JsonReaderException)
                             {
                                 MessageBox.Show("Please select a JSON file with the correct structure");
                             }
@@ -472,9 +472,16 @@ namespace TCC
                         try
                         {
                             string json = File.ReadAllText(filePath);
+                            Cable oldCable = cable;
                             cable = JsonConvert.DeserializeObject<Cable>(json);
                             observableConnection.Clear();
                             observableLayer.Clear();
+
+                            if (cable.Layers == null || cable.LayerConnections == null || cable.LayerMaterials == null || cable.Sections == null)
+                            {
+                                cable = oldCable;
+                                throw new Exception();
+                            }
 
                             foreach (Layer l in cable.Layers)
                             {
@@ -500,7 +507,7 @@ namespace TCC
                                 scount++;
                             }
                         }
-                        catch (JsonReaderException)
+                        catch (Exception ex)
                         {
                             MessageBox.Show("Please select a JSON file with the correct structure");
                         }
