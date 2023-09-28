@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TCC.Classes;
+using TCC.MainClasses;
 
 namespace TCC
 {
@@ -21,23 +21,31 @@ namespace TCC
     public partial class CylindricalLayerWindow : Window
     {
         private CylinderLayer cylinderLayer;
+        private List<Layer> layers;
         private LayerMaterial material;
         private List<Area> areas = new List<Area>();
         private bool isChildWindowOpen = false;
+        private string editName;
 
         public event EventHandler SubmitButtonClick;
 
         public CylinderLayer CylinderLayer { get { return cylinderLayer; } }
-        public CylindricalLayerWindow(List<LayerMaterial> materials)
+
+        // New Cylinder constructor
+        public CylindricalLayerWindow(List<Layer> layers,List<LayerMaterial> materials)
         {
             InitializeComponent();
+            TitleTextBlock.Text = "Create New Cylindrical Layer";
+            NameTextBox.Focus();
+            NameTextBox.CaretIndex = NameTextBox.Text.Length;
+            this.layers = layers;
 
             //  Materials comboBox
             if (materials.Count == 0)
             {
                 List<LayerMaterial> materialList = new List<LayerMaterial>
                 {
-                    new LayerMaterial { ID = 0, Name = "No Material Created" },
+                    new Isotropic { ID = 0, Name = "No Material Created" },
                 };
                 MaterialComboBox.ItemsSource = materialList;
                 MaterialComboBox.SelectedIndex = 0;
@@ -47,6 +55,45 @@ namespace TCC
                 MaterialComboBox.ItemsSource = materials;
                 MaterialComboBox.SelectedIndex = 0;
             }
+        }
+        // Edit Cylinder constructor
+        public CylindricalLayerWindow(List<Layer> layers, List<LayerMaterial> materials, CylinderLayer layer)
+        {
+            InitializeComponent();
+            TitleTextBlock.Text = "Edit Cylindrical Layer";
+            NameTextBox.Focus();
+            NameTextBox.CaretIndex = NameTextBox.Text.Length;
+            this.layers = layers;
+            editName = layer.Name;
+
+            //  Materials comboBox
+            if (materials.Count == 0)
+            {
+                List<LayerMaterial> materialList = new List<LayerMaterial>
+                {
+                    new Isotropic { ID = 0, Name = "No Material Created" },
+                };
+                MaterialComboBox.ItemsSource = materialList;
+                MaterialComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                MaterialComboBox.ItemsSource = materials;
+                MaterialComboBox.SelectedIndex = 0;
+            }
+
+            NameTextBox.Text = layer.Name;
+            RadiusTextBox.Text = layer.Radius.ToString();
+            ThicknessTextBox.Text = layer.Thickness.ToString();
+            LengthTextBox.Text = layer.Length.ToString();
+            MaterialComboBox.SelectedItem = layer.Material;
+            FourierTextBox.Text = layer.FourierOrder.ToString();
+            RadialTextBox.Text = layer.RadialDivisions.ToString();
+            AxialTextBox.Text = layer.AxialDivisions.ToString();
+            XTextBox.Text = layer.BodyLoad[0].ToString();
+            YTextBox.Text = layer.BodyLoad[1].ToString();
+            ZTextBox.Text = layer.BodyLoad[2].ToString();
+            areas = layer.Areas;
         }
 
         //  Material
@@ -83,12 +130,31 @@ namespace TCC
 
             if (areaType != "")
             {
-                CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
-                windowArea.SubmitButtonClick += SubmitAreaButtonClick;
-                windowArea.Closed += AreaWindow_Closed;
-                windowArea.Show();
-                this.IsEnabled = false;
-                isChildWindowOpen = true;
+                bool exists = false;
+                for (int i = 0; i < areas.Count; i++)
+                {
+                    if (areas[i].Surface == areaType)
+                    {
+                        exists = true;
+                        CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType, areas[i]);
+                        windowArea.SubmitButtonClick += SubmitAreaButtonClick;
+                        windowArea.Closed += AreaWindow_Closed;
+                        windowArea.Show();
+                        this.IsEnabled = false;
+                        isChildWindowOpen = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                {
+                    CylindricalAreasWindow windowArea = new CylindricalAreasWindow(areaType);
+                    windowArea.SubmitButtonClick += SubmitAreaButtonClick;
+                    windowArea.Closed += AreaWindow_Closed;
+                    windowArea.Show();
+                    this.IsEnabled = false;
+                    isChildWindowOpen = true;
+                }
             }
         }
         private void SubmitAreaButtonClick(object sender, EventArgs e)
@@ -96,7 +162,17 @@ namespace TCC
             CylindricalAreasWindow windowArea = sender as CylindricalAreasWindow;
             Area area = windowArea.Area;
 
-            areas.Add(area);
+            bool exists = false;
+            for (int i = 0; i < areas.Count; i++)
+            {
+                if (areas[i].Surface == area.Surface)
+                {
+                    exists = true;
+                    areas[i] = area;
+                    break;
+                }
+            }
+            if (!exists) areas.Add(area);
         }
         private void AreaWindow_Closed(object sender, EventArgs e)
         {
@@ -106,6 +182,15 @@ namespace TCC
 
         private void SubmitNewLayer(object sender, RoutedEventArgs e)
         {
+            if (layers.Count != 0)
+            {
+                if (layers.Any(obj => obj.Name == NameTextBox.Text) && NameTextBox.Text != editName)
+                {
+                    InputWarning("Name");
+                    return;
+                }
+            }
+
             cylinderLayer = new CylinderLayer
             {
                 Name = NameTextBox.Text,
@@ -120,9 +205,7 @@ namespace TCC
             cylinderLayer.Radius = result;
             double.TryParse(LengthTextBox.Text, out result);
             cylinderLayer.Length = result;
-            int.TryParse(DivisionsTextBox.Text, out int intresult);
-            cylinderLayer.Divisions = intresult;
-            int.TryParse(FourierTextBox.Text, out intresult);
+            int.TryParse(FourierTextBox.Text, out int intresult);
             cylinderLayer.FourierOrder = intresult;
             int.TryParse(RadialTextBox.Text, out intresult);
             cylinderLayer.RadialDivisions = intresult;
@@ -137,7 +220,15 @@ namespace TCC
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
         }
-
+        private void InputWarning(string inputfild)
+        {
+            if (inputfild == "Name")
+            {
+                NameWarningTextBlock.Text = "Name already used";
+                NameWarningTextBlock.Height = 18;
+            }
+        }
+        
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Check if the entered character is a digit or a dot

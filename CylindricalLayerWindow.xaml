@@ -6,76 +6,177 @@
         xmlns:local="clr-namespace:TCC"
         mc:Ignorable="d"
         Title="Cylindrical Layer"
+        SizeToContent="Height"
         MinHeight="400" Width="500"
         KeyDown="Window_KeyDown"
         Closing="Window_Closing">
-    <StackPanel>
-        <TextBlock Grid.Row="0" FontSize="18" Margin="8,8,8,0" FontWeight="DemiBold" >Create new Cylindrical Layer</TextBlock>
-        <StackPanel Grid.Row="1" Margin="4" Background="#E6E6E6">
-            <TextBlock Margin="4,4,4,0">Name:</TextBlock>
-            <TextBox Margin="4" Name="NameTextBox" Text="New Layer"></TextBox>
-            <TextBlock Margin="4,10,10,0" FontWeight="DemiBold">Geometric Parameters</TextBlock>
-            <StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
-                    <TextBlock Margin="4,0,3.5,0">Radius:</TextBlock>
-                    <TextBox Width="100" Name="RadiusTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                    <TextBlock Margin="4,0,2,0">Thickness:</TextBlock>
-                    <TextBox Width="100" Name="ThicknessTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+    <Window.Resources>
+        <ResourceDictionary>
+            <!-- Define your color variables -->
+            <Color x:Key="PrimaryColor">#C6F0B4</Color>
+            <Color x:Key="SecundaryColor">#9CDB81</Color>
+            <Color x:Key="BackgroundColor">#FCFFF8</Color>
+            <Color x:Key="FontColor">#24331E</Color>
+            <Color x:Key="Font2Color">#2A4A20</Color>
+
+            <!-- You can define SolidColorBrush resources using the color variables -->
+            <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+            <SolidColorBrush x:Key="SecundaryBrush" Color="{StaticResource SecundaryColor}"/>
+            <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+            <SolidColorBrush x:Key="FontBrush" Color="{StaticResource FontColor}"/>
+            <SolidColorBrush x:Key="Font2Brush" Color="{StaticResource Font2Color}"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="30" MaxHeight="35"/>
+            <RowDefinition/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+        <TextBlock Name="TitleTextBlock" Grid.Row="0" FontSize="18" Margin="10,4" FontWeight="DemiBold" Foreground="{StaticResource Font2Brush}"></TextBlock>
+        <StackPanel Grid.Row="1">
+            <StackPanel Margin="6,0,6,6" Background="{StaticResource PrimaryBrush}">
+                <TextBlock Margin="4" FontSize="14" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Name:</TextBlock>
+                <TextBox Margin="6,0,6,4" Name="NameTextBox" Text="New Layer" Foreground="{StaticResource FontBrush}"></TextBox>
+                <TextBlock Height="0" Margin="4,0" Name="NameWarningTextBlock" Foreground="Red"></TextBlock>
+                <TextBlock Margin="4,6,4,2" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Geometric Parameters</TextBlock>
+                <StackPanel>
+                    <Grid Margin="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Margin="8,2" Foreground="{StaticResource FontBrush}">Radius:</TextBlock>
+                        <TextBox Grid.Column="1"  Margin="4,2" Name="RadiusTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                        <TextBlock Grid.Column="2" Margin="8,2" Foreground="{StaticResource FontBrush}">Thickness:</TextBlock>
+                        <TextBox Grid.Column="3"  Margin="4,2" Name="ThicknessTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                    </Grid>
+                    <Grid Margin="0,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Margin="8,2" Foreground="{StaticResource FontBrush}">Length:</TextBlock>
+                        <TextBox Grid.Column="1" Margin="4,2" Name="LengthTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                    </Grid>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
-                    <TextBlock Margin="4,0,2,0">Length:</TextBlock>
-                    <TextBox Width="100" Name="LengthTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
+            </StackPanel>
+            <StackPanel Margin="6,0" Background="{StaticResource PrimaryBrush}">
+                <TextBlock Margin="4,10,4,2" FontWeight="DemiBold" Foreground="{StaticResource FontBrush}">Simulation Parameters</TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Margin="4,0,0,0" Foreground="{StaticResource FontBrush}">Material</TextBlock>
+                    <ComboBox Name="MaterialComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="7.5,5,10,5"
+                                      DisplayMemberPath="Name" SelectedValuePath="ID" SelectionChanged="MaterialComboBox_SelectionChanged">
+                    </ComboBox>
                 </StackPanel>
-            </StackPanel>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Margin="3">
-            <TextBlock Margin="4,10,10,0" FontWeight="DemiBold">Simulation Parameters</TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" Margin="4,0,0,0">Material</TextBlock>
-                <ComboBox Name="MaterialComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140" Margin="7.5,5,10,5"
-                                  DisplayMemberPath="Name" SelectedValuePath="ID" SelectionChanged="MaterialComboBox_SelectionChanged">
-                </ComboBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
-                <TextBlock Margin="4,2,4,2">Divisions</TextBlock>
-                <TextBox Width="140" Name="DivisionsTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
-                <TextBlock Margin="20,2,4,2">Fourier Order</TextBlock>
-                <TextBox Margin="5,0,0,0" Width="100" Name="FourierTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
-                <TextBlock Margin="4,0,2,0">Radial Divisions:</TextBlock>
-                <TextBox Width="104" Name="RadialTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
-                <TextBlock Margin="20,0,2,0">Axial Divisions:</TextBlock>
-                <TextBox Width="100" Name="AxialTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1"></TextBox>
-            </StackPanel>
-            <TextBlock Margin="4,2,4,2">Body loads:</TextBlock>
-            <StackPanel Orientation="Horizontal" Margin="4">
-                <TextBlock Margin="0,0,2,0">X:</TextBlock>
-                <TextBox Width="100" Name="XTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                <TextBlock Margin="8,0,2,0">Y:</TextBlock>
-                <TextBox Width="100" Name="YTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-                <TextBlock Margin="8,0,2,0">Z:</TextBlock>
-                <TextBox Width="100" Name="ZTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0"></TextBox>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Margin="4,10,10,0" FontWeight="DemiBold">Element: Area</TextBlock>
-                <Grid>
+                <Grid Margin="0,4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Margin="4" Click="ButtonNewArea" Name="InternalButton">Internal</Button>
-                    <Button Grid.Column="1" Margin="4" Click="ButtonNewArea" Name="BottomButton">Bottom</Button>
-                    <Button Grid.Column="2" Margin="4" Click="ButtonNewArea" Name="ExternalButton">External</Button>
-                    <Button Grid.Column="3" Margin="4" Click="ButtonNewArea" Name="TopButton">Top</Button>
+                    <TextBlock Grid.Column="0" Margin="8,2" Foreground="{StaticResource FontBrush}">Fourier Order:</TextBlock>
+                    <TextBox Grid.Column="1" Margin="4,2" Name="FourierTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1" Foreground="{StaticResource FontBrush}"></TextBox>
                 </Grid>
+                <Grid Margin="0,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Margin="8,2" Foreground="{StaticResource FontBrush}">Radial Divisions:</TextBlock>
+                    <TextBox Grid.Column="1" Margin="4,2" Name="RadialTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1" Foreground="{StaticResource FontBrush}"></TextBox>
+                    <TextBlock Grid.Column="2" Margin="8,2" Foreground="{StaticResource FontBrush}">Axial Divisions:</TextBlock>
+                    <TextBox Grid.Column="3" Margin="4,2" Name="AxialTextBox" PreviewTextInput="IntegerTextBox_PreviewTextInput" Text="1" Foreground="{StaticResource FontBrush}"></TextBox>
+                </Grid>
+                <TextBlock Margin="4,4,4,0">Body loads:</TextBlock>
+                <Grid Margin="0,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Margin="8,2" Foreground="{StaticResource FontBrush}">X:</TextBlock>
+                    <TextBox Grid.Column="1" Margin="4,2" Name="XTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                    <TextBlock Grid.Column="2" Margin="8,2" Foreground="{StaticResource FontBrush}">Y:</TextBlock>
+                    <TextBox Grid.Column="3" Margin="4,2" Name="YTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                    <TextBlock Grid.Column="4" Margin="8,2" Foreground="{StaticResource FontBrush}">Z:</TextBlock>
+                    <TextBox Grid.Column="5" Margin="4,2" Name="ZTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                </Grid>
+                <StackPanel>
+                    <TextBlock Margin="4,6,4,2" FontWeight="DemiBold">Element: Area</TextBlock>
+                    <Grid Margin="0,0,0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Click="ButtonNewArea" Name="InternalButton"
+                                Margin="5,4" Padding="10,4"
+                                Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                                FontWeight="SemiBold" Foreground="#FFFFFF">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="3"/>
+                                </Style>
+                            </Button.Resources>
+                            Internal
+                        </Button>
+                        <Button Grid.Column="1" Click="ButtonNewArea" Name="BottomButton"
+                                Margin="5,4" Padding="10,4"
+                                Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                                FontWeight="SemiBold" Foreground="#FFFFFF">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="3"/>
+                                </Style>
+                            </Button.Resources>
+                            Bottom
+                        </Button>
+                        <Button Grid.Column="2" Click="ButtonNewArea" Name="ExternalButton"
+                                Margin="5,4" Padding="10,4"
+                                Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                                FontWeight="SemiBold" Foreground="#FFFFFF">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="3"/>
+                                </Style>
+                            </Button.Resources>
+                            External
+                        </Button>
+                        <Button Grid.Column="3" Click="ButtonNewArea" Name="TopButton"
+                                Margin="5,4" Padding="10,4"
+                                Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                                FontWeight="SemiBold" Foreground="#FFFFFF">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="3"/>
+                                </Style>
+                            </Button.Resources>
+                            Top
+                        </Button>
+                    </Grid>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Row="3" HorizontalAlignment="Right">
-            <Button Margin="8,4,8,8" Click="SubmitNewLayer">Submit</Button>
+        <StackPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Button Click="SubmitNewLayer" Margin="6,2" Padding="10,4" 
+                    Background="{StaticResource SecundaryBrush}" BorderThickness="0"
+                    FontWeight="SemiBold" Foreground="#FFFFFF">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </Button.Resources>
+                Submit
+            </Button>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </Window>
 

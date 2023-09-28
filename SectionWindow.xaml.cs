@@ -10,7 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TCC.Classes;
+using TCC.MainClasses;
 
 namespace TCC
 {
@@ -22,17 +22,53 @@ namespace TCC
         private List<Section> sections;
         private RectangularSection rectangularSection;
         private TubularSection tubularSection;
-        private string section = "Rectangular";
+        private string section = "rectangular";
+        private string editName = "";
 
         public event EventHandler SubmitButtonClick;
 
+        // New Section constructor
         public SectionWindow(List<Section> sections)
         {
             InitializeComponent();
+            NameTextBox.Focus();
+            NameTextBox.CaretIndex = NameTextBox.Text.Length;
+            TitleTextBlock.Text = "Create New Section";
             this.sections = sections;
 
             Cylindrical.Visibility = Visibility.Collapsed;
-            sectionComboBox.SelectionChanged += SectionComboBox_SelectionChanged;
+            TypeComboBox.SelectionChanged += SectionComboBox_SelectionChanged;
+        }
+        // Edit Section constructor
+        public SectionWindow(List<Section> sections, Section section)
+        {
+            InitializeComponent();
+            NameTextBox.Focus();
+            NameTextBox.CaretIndex = NameTextBox.Text.Length;
+            TitleTextBlock.Text = "Edit Section";
+            this.sections = sections;
+            editName = section.Name;
+            TypeComboBox.IsEnabled = false;
+
+            NameTextBox.Text = section.Name;
+            if (section.Type == "rectangular")
+            {
+                Cylindrical.Visibility = Visibility.Collapsed;
+                TypeComboBox.SelectedIndex = 0;
+
+                RectangularSection rs = section as RectangularSection;
+                WidthTextBox.Text = rs.Width.ToString();
+                HeightTextBox.Text = rs.Height.ToString();
+            }
+            else if (section.Type == "tubular")
+            {
+                Rectangular.Visibility = Visibility.Collapsed;
+                TypeComboBox.SelectedIndex = 1;
+
+                TubularSection ts = section as TubularSection;
+                InternalRadiusTextBox.Text = ts.InternalRadius.ToString();
+                ExternalRadiusTextBox.Text = ts.ExternalRadius.ToString();
+            }
         }
 
         public RectangularSection RectangularSection { get { return rectangularSection; } }
@@ -44,18 +80,18 @@ namespace TCC
 
             string selectedParameter = ((ComboBoxItem)comboBox.SelectedItem).Content.ToString();
 
-            if (selectedParameter == "Rectangular")
+            if (selectedParameter == "rectangular")
             {
-                section = "Rectangular";
+                section = "rectangular";
                 // Show Rectangular
                 Rectangular.Visibility = Visibility.Visible;
 
                 // Hide Cylindrical
                 Cylindrical.Visibility = Visibility.Collapsed;
             }
-            else if (selectedParameter == "Tubular")
+            else if (selectedParameter == "tubular")
             {
-                section = "Tubular";
+                section = "tubular";
                 // Show Cylindrical
                 Cylindrical.Visibility = Visibility.Visible;
 
@@ -73,37 +109,46 @@ namespace TCC
         }
         private void SubmitNewSection(object sender, RoutedEventArgs e)
         {
-            if (section == "Rectangular")
+            if (sections.Count != 0)  // Conditions
+            {
+                if (sections.Any(obj => obj.Name == NameTextBox.Text) && NameTextBox.Text != editName)  // Name already used
+                {
+                    InputWarning("Name");
+                    return;
+                }
+            }
+
+            if (section == "rectangular")
             {
                 rectangularSection = new RectangularSection
                 {
                     Name = "New Section",
                     ID = 0,
-                    Type = "Rectangular",
+                    Type = "rectangular",
                     Width = 1.0,
                     Height = 1.0
                 };
 
-                rectangularSection.Name = SectionName.Text;
-                rectangularSection.ID = sections.Count + 1;
+                rectangularSection.Name = NameTextBox.Text;
+                if (editName == "") rectangularSection.ID = sections.Count + 1;
                 double.TryParse(WidthTextBox.Text, out double result);
                 rectangularSection.Width = result;
                 double.TryParse(HeightTextBox.Text, out result);
                 rectangularSection.Height = result;
             }
-            else if (section == "Tubular")
+            else if (section == "tubular")
             {
                 tubularSection = new TubularSection
                 {
                     Name = "New Section",
                     ID = 0,
-                    Type = "Tubular",
+                    Type = "tubular",
                     InternalRadius = 0.0,
                     ExternalRadius = 1.0
                 };
 
-                tubularSection.Name = SectionName.Text;
-                tubularSection.ID = sections.Count + 1;
+                tubularSection.Name = NameTextBox.Text;
+                if (editName == "") tubularSection.ID = sections.Count + 1;
                 double.TryParse(InternalRadiusTextBox.Text, out double result);
                 tubularSection.InternalRadius = result;
                 double.TryParse(ExternalRadiusTextBox.Text, out result);
@@ -113,7 +158,14 @@ namespace TCC
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
         }
-
+        private void InputWarning(string inputfild)
+        {
+            if (inputfild == "Name")
+            {
+                NameWarningTextBlock.Text = "Name already used";
+                NameWarningTextBlock.Height = 18;
+            }
+        }
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Check if the entered character is a digit or a dot
