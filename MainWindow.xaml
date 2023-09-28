@@ -180,6 +180,11 @@
                             <Setter Property="CornerRadius" Value="5"/>
                         </Style>
                     </Button.Resources>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            Keyboard "+"
+                        </ToolTip>
+                    </Button.ToolTip>
                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                         <Image Source="/zoom-in.png" Width="16" Height="16" Margin="0,0,3,0"/>
                         <TextBlock Foreground="{StaticResource FontBrush}">Zoom In</TextBlock>
@@ -193,6 +198,11 @@
                             <Setter Property="CornerRadius" Value="5"/>
                         </Style>
                     </Button.Resources>
+                    <Button.ToolTip>
+                        <ToolTip>
+                            Keyboard "-"
+                        </ToolTip>
+                    </Button.ToolTip>
                     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
                         <Image Source="/zoom-out.png" Width="16" Height="16" Margin="0,0,3,0"/>
                         <TextBlock Foreground="{StaticResource FontBrush}">Zoom Out</TextBlock>
@@ -311,7 +321,7 @@
                 </ScrollViewer>
             </Grid>
             <GridSplitter ResizeBehavior="PreviousAndNext" Grid.Column="1" Width="5" Background="DimGray" Focusable="False"/>
-            <gl:OpenGLControl x:Name="GLControl" OpenGLDraw="OpenGLDraw" Grid.Column="2"/>
+            <gl:OpenGLControl x:Name="GLControl" OpenGLDraw="OpenGLDraw" Grid.Column="2" MouseWheel="MouseWheelHandler"/>
         </Grid>
     </Grid>
 </Window>

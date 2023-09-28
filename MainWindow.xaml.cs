@@ -8,9 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Forms;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
-using System.Windows.Documents.DocumentStructures;
 using System.Windows.Threading;
-using System.Windows.Media.Media3D;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Linq;
@@ -18,7 +16,6 @@ using Button = System.Windows.Controls.Button;
 using TCC.MainClasses;
 using Newtonsoft.Json;
 using System.IO;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace TCC
@@ -507,7 +504,7 @@ namespace TCC
                                 scount++;
                             }
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             MessageBox.Show("Please select a JSON file with the correct structure");
                         }
@@ -589,10 +586,24 @@ namespace TCC
         }
 
         // Helper functions
+        private void MouseWheelHandler(object sender, MouseWheelEventArgs e)
+        {
+            int delta = e.Delta;
+            if (delta > 0)
+            {
+                // Zoom in
+                scale *= 1.1f;
+            }
+            else if (delta < 0)
+            {
+                // Zoom out
+                scale /= 1.1f;
+            }
+        }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.OemPlus || e.Key == Key.Add) { scale += 0.01f; }
-            else if (e.Key == Key.OemMinus || e.Key == Key.Subtract) { scale -= 0.01f; }
+            if ((e.Key == Key.OemPlus || e.Key == Key.Add)) { scale *= 1.1f; }
+            else if ((e.Key == Key.OemMinus || e.Key == Key.Subtract) && scale > 0) { scale /= 1.1f; }
         }
 
         private void ChildWindow_Closed(object sender, EventArgs e)
