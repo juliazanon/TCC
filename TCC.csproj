@@ -38,6 +38,9 @@
     <Reference Include="GlmNet, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\GlmNet.0.7.0\lib\net40\GlmNet.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SharpGL, Version=3.1.1.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
       <HintPath>packages\SharpGL.3.1.1\lib\net472\SharpGL.dll</HintPath>
     </Reference>
@@ -53,6 +56,8 @@
     <Reference Include="System.Drawing.Common, Version=4.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Drawing.Common.4.7.3\lib\net461\System.Drawing.Common.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,21 +76,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="JSONClasses\JSONCable.cs" />
-    <Compile Include="MainClasses\Area.cs" />
-    <Compile Include="MainClasses\Boundaries.cs" />
+    <Compile Include="MainClasses\Layers\Area.cs" />
+    <Compile Include="MainClasses\Layers\Boundaries.cs" />
     <Compile Include="MainClasses\Cable.cs" />
-    <Compile Include="MainClasses\CylinderLayer.cs" />
-    <Compile Include="MainClasses\TubularSection.cs" />
-    <Compile Include="MainClasses\HelixLayer.cs" />
-    <Compile Include="MainClasses\Isotropic.cs" />
-    <Compile Include="MainClasses\Layer.cs" />
+    <Compile Include="MainClasses\Layers\CylinderLayer.cs" />
+    <Compile Include="MainClasses\Layers\LayerConverter.cs" />
+    <Compile Include="MainClasses\Materials\MaterialConverter.cs" />
+    <Compile Include="MainClasses\Sections\SectionConverter.cs" />
+    <Compile Include="MainClasses\Sections\TubularSection.cs" />
+    <Compile Include="MainClasses\Layers\HelixLayer.cs" />
+    <Compile Include="MainClasses\Materials\Isotropic.cs" />
+    <Compile Include="MainClasses\Layers\Layer.cs" />
     <Compile Include="MainClasses\LayerConnection.cs" />
-    <Compile Include="MainClasses\LayerMaterial.cs" />
-    <Compile Include="MainClasses\Line.cs" />
-    <Compile Include="MainClasses\Orthotropic.cs" />
-    <Compile Include="MainClasses\RectangularSection.cs" />
-    <Compile Include="MainClasses\Section.cs" />
+    <Compile Include="MainClasses\Materials\LayerMaterial.cs" />
+    <Compile Include="MainClasses\Layers\Line.cs" />
+    <Compile Include="MainClasses\Materials\Orthotropic.cs" />
+    <Compile Include="MainClasses\Sections\RectangularSection.cs" />
+    <Compile Include="MainClasses\Sections\Section.cs" />
     <Compile Include="CylindricalAreasWindow.xaml.cs">
       <DependentUpon>CylindricalAreasWindow.xaml</DependentUpon>
     </Compile>
@@ -98,14 +105,24 @@
     <Compile Include="LayerConnectionsWindow.xaml.cs">
       <DependentUpon>LayerConnectionsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainClasses\SpecifiedConcreteClassConverter.cs" />
+    <Compile Include="MaterialListWindow.xaml.cs">
+      <DependentUpon>MaterialListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MaterialsWindow.xaml.cs">
       <DependentUpon>MaterialsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SectionListWindow.xaml.cs">
+      <DependentUpon>SectionListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SectionWindow.xaml.cs">
       <DependentUpon>SectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WarningWindow.xaml.cs">
+      <DependentUpon>WarningWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="CylindricalAreasWindow.xaml">
       <SubType>Designer</SubType>
@@ -135,7 +152,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MaterialListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MaterialsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SectionListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StartWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WarningWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -181,6 +210,20 @@
   <ItemGroup>
     <None Include="Assets\zoom-out.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\helix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\link.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="zoom-out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="zoom-in.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

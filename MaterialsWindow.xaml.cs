@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TCC.Classes;
+using TCC.MainClasses;
 using System.Text.RegularExpressions;
 using System.Globalization;
 
@@ -25,13 +25,55 @@ namespace TCC
         private List<LayerMaterial> materials;
         private Isotropic layerIsotropic;
         private Orthotropic layerOrthotropic;
+        private string editName = "";
 
         public event EventHandler SubmitButtonClick;
+
+        // New Material constructor
         public MaterialsWindow(List<LayerMaterial> materials)
         {
             InitializeComponent();
+            NameTextBox.Focus();
+            NameTextBox.CaretIndex = NameTextBox.Text.Length;
+            TitleTextBlock.Text = "Create New Material";
             this.materials = materials;
             IsotropicRadioButton.IsChecked = true;
+        }
+        // Edit Material constructor
+        public MaterialsWindow(List<LayerMaterial> materials, LayerMaterial material)
+        {
+            InitializeComponent();
+            NameTextBox.Focus();
+            NameTextBox.CaretIndex = NameTextBox.Text.Length;
+            TitleTextBlock.Text = "Edit Material";
+            this.materials = materials;
+            editName = material.Name;
+            IsotropicRadioButton.IsEnabled = false;
+            OrthotropicRadioButton.IsEnabled = false;
+
+            NameTextBox.Text = material.Name.ToString();
+            DensityTextBox.Text = material.Density.ToString();
+            if (material.Type == "isotropic")
+            {
+                Isotropic iso = material as Isotropic;
+                IsotropicRadioButton.IsChecked = true;
+                YoungTextBox.Text = iso.Young.ToString();
+                PoissonTextBox.Text = iso.Poisson.ToString();
+            }
+            else if (material.Type == "orthotropic")
+            {
+                Orthotropic ortho = material as Orthotropic;
+                OrthotropicRadioButton.IsChecked = true;
+                EXTextBox.Text = ortho.EX.ToString();
+                EYTextBox.Text = ortho.EY.ToString();
+                EZTextBox.Text = ortho.EZ.ToString();
+                NuXYTextBox.Text = ortho.NuXY.ToString();
+                NuXZTextBox.Text = ortho.NuXZ.ToString();
+                NuYZTextBox.Text = ortho.NuYZ.ToString();
+                GXYTextBox.Text = ortho.GXY.ToString();
+                GXZTextBox.Text = ortho.GXZ.ToString();
+                GYZTextBox.Text = ortho.GYZ.ToString();
+            }
         }
         public Isotropic LayerIsotropic { get { return layerIsotropic; } }
         public Orthotropic LayerOrthotropic { get { return layerOrthotropic; } }
@@ -49,23 +91,13 @@ namespace TCC
 
                 // Hide Orthotropic material fields
                 MaterialOrthotropic.Visibility = Visibility.Collapsed;
-                ETitle.Visibility = Visibility.Collapsed;
-                EInputs.Visibility = Visibility.Collapsed;
-                NuTitle.Visibility = Visibility.Collapsed;
-                NuInputs.Visibility = Visibility.Collapsed;
-                GTitle.Visibility = Visibility.Collapsed;
-                GInputs.Visibility = Visibility.Collapsed;
+                OrthotropicInputs.Visibility = Visibility.Collapsed;
             }
             else if (OrthotropicRadioButton.IsChecked == true)
             {
                 // Show Orthotropic material fields
                 MaterialOrthotropic.Visibility = Visibility.Visible;
-                ETitle.Visibility = Visibility.Visible;
-                EInputs.Visibility = Visibility.Visible;
-                NuTitle.Visibility = Visibility.Visible;
-                NuInputs.Visibility = Visibility.Visible;
-                GTitle.Visibility = Visibility.Visible;
-                GInputs.Visibility = Visibility.Visible;
+                OrthotropicInputs.Visibility = Visibility.Visible;
 
                 // Hide Isotropic material fields
                 MaterialIsotropic.Visibility = Visibility.Collapsed;
@@ -85,10 +117,19 @@ namespace TCC
         }
         private void SubmitNewMaterial(object sender, RoutedEventArgs e)
         {
+            if (materials.Count != 0)  // Conditions
+            {
+                if (materials.Any(obj => obj.Name == NameTextBox.Text) && NameTextBox.Text != editName)  // Name already used
+                {
+                    InputWarning("Name");
+                    return;
+                }
+            }
+
             if (IsotropicRadioButton.IsChecked == true)
             {
-                layerIsotropic = new Isotropic { Density = 1.0, ID = 1, Name = "New Material" };
-                layerIsotropic.ID = materials.Count + 1;
+                layerIsotropic = new Isotropic { Density = 1.0, ID = 1, Name = "New Material", Type = "isotropic" };
+                if (editName == "") layerIsotropic.ID = materials.Count + 1;
                 layerIsotropic.Name = NameTextBox.Text;
                 double.TryParse(DensityTextBox.Text, out double result);
                 layerIsotropic.Density = result;
@@ -99,33 +140,44 @@ namespace TCC
             }
             else if (OrthotropicRadioButton.IsChecked == true)
             {
-                layerOrthotropic = new Orthotropic { Density = 1.0, ID = 1, Name = "New Material" };
-                layerOrthotropic.ID = materials.Count + 1;
+                layerOrthotropic = new Orthotropic { Density = 1.0, ID = 1, Name = "New Material", Type = "orthotropic" };
+                if (editName == "") layerOrthotropic.ID = materials.Count + 1;
                 layerOrthotropic.Name = NameTextBox.Text;
                 double.TryParse(DensityTextBox.Text, out double result);
                 layerOrthotropic.Density = result;
+
                 double.TryParse(EXTextBox.Text, out result);
-                layerOrthotropic.Ex = result;
+                layerOrthotropic.EX = result;
                 double.TryParse(EYTextBox.Text, out result);
-                layerOrthotropic.Ey = result;
+                layerOrthotropic.EY = result;
                 double.TryParse(EZTextBox.Text, out result);
-                layerOrthotropic.Ez = result;
+                layerOrthotropic.EZ = result;
+
                 double.TryParse(NuXYTextBox.Text, out result);
-                layerOrthotropic.Nxy = result;
+                layerOrthotropic.NuXY = result;
                 double.TryParse(NuXZTextBox.Text, out result);
-                layerOrthotropic.Nxz = result;
+                layerOrthotropic.NuYZ = result;
                 double.TryParse(NuYZTextBox.Text, out result);
-                layerOrthotropic.Nyz = result;
+                layerOrthotropic.NuXZ = result;
+
                 double.TryParse(GXYTextBox.Text, out result);
-                layerOrthotropic.Gxy = result;
+                layerOrthotropic.GXY = result;
                 double.TryParse(GXZTextBox.Text, out result);
-                layerOrthotropic.Gxz = result;
+                layerOrthotropic.GXZ = result;
                 double.TryParse(GYZTextBox.Text, out result);
-                layerOrthotropic.Gyz = result;
+                layerOrthotropic.GYZ = result;
             }
 
             SubmitButtonClick?.Invoke(this, EventArgs.Empty);
             this.Close();
+        }
+        private void InputWarning(string inputfild)
+        {
+            if (inputfild == "Name")
+            {
+                NameWarningTextBlock.Text = "Name already used";
+                NameWarningTextBlock.Height = 18;
+            }
         }
 
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

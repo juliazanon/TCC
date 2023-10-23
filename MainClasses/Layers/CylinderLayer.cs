@@ -6,29 +6,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
-namespace TCC.Classes
+namespace TCC.MainClasses
 {
+    [DataContract]
     public class CylinderLayer : Layer
     {
         private double radius;
         private double thickness;
         private int fourierOrder;
-        private int divisions;
         private int radialDivisions;
         private int axialDivisions;
         private List<Area> areas;
-        private string label;
 
+        [Newtonsoft.Json.JsonConstructor]
+        public CylinderLayer() 
+        {
+            this.Type = "cylinder";
+        }
+
+        [DataMember(Name = "radius")]
         public double Radius { get { return radius; } set { radius = value; } }
-        public double Thickness { get { return thickness; } set { thickness = value; } }
-        public int FourierOrder { get { return fourierOrder; } set { fourierOrder = value; } }
-        public int Divisions { get { return divisions; } set { divisions = value; } }
-        public int RadialDivisions { get { return radialDivisions; } set { radialDivisions = value; } }
-        public int AxialDivisions { get { return axialDivisions; } set { axialDivisions = value; } }
-        public List<Area> Areas { get { return areas; } set { areas = value; } }
-        public string Label { get { return label; } set { label = value; } }
         
+        [DataMember(Name = "thickness")]
+        public double Thickness { get { return thickness; } set { thickness = value; } }
+        
+        [DataMember(Name = "fourier_series_order")]
+        public int FourierOrder { get { return fourierOrder; } set { fourierOrder = value; } }
+        
+        [DataMember(Name = "radial_divisions")]
+        public int RadialDivisions { get { return radialDivisions; } set { radialDivisions = value; } }
+        
+        [DataMember(Name = "axial_divisions")]
+        public int AxialDivisions { get { return axialDivisions; } set { axialDivisions = value; } }
+        
+        [DataMember(Name = "areas")]
+        public List<Area> Areas { get { return areas; } set { areas = value; } }
 
         public void Draw(OpenGL gl, vec3 rgb, int n, float prop, bool triangles)
         {
