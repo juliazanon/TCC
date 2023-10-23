@@ -26,6 +26,7 @@ namespace TCC.MainClasses
         public string Type { get; set; }
         
         [DataMember(Name = "material")]
+        public int MaterialID { get { return Material.ID; } }
         public LayerMaterial Material { get; set; }
         
         [DataMember(Name = "body_load")]

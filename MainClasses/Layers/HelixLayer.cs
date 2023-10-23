@@ -37,6 +37,9 @@ namespace TCC.MainClasses
         }
         
         [DataMember(Name = "section")]
+        public int SectionID {
+            get { return section.ID; }
+        }
         public Section Section {
             get { return section; }
             set { section = value; }
