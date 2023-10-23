@@ -259,7 +259,7 @@ namespace TCC
             }
 
             // Check if the text already contains a dot, and if so, prevent entering another dot
-            if (e.Text == "." && ((TextBox)sender).Text.Contains("."))
+            if ((e.Text == "." && ((TextBox)sender).Text.Contains(".")) || (e.Text == "-" && ((TextBox)sender).Text.Contains("-")))
             {
                 e.Handled = true;
             }

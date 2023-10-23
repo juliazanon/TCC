@@ -116,13 +116,13 @@ namespace TCC
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Check if the entered character is a digit or a dot
-            if (!char.IsDigit(e.Text, 0) && e.Text != ".")
+            if (!char.IsDigit(e.Text, 0) && e.Text != "." && e.Text != "-")
             {
                 e.Handled = true; // Prevent the character from being entered
             }
 
             // Check if the text already contains a dot, and if so, prevent entering another dot
-            if (e.Text == "." && ((TextBox)sender).Text.Contains("."))
+            if ((e.Text == "." && ((TextBox)sender).Text.Contains(".")) || (e.Text == "-" && ((TextBox)sender).Text.Contains("-")))
             {
                 e.Handled = true;
             }
