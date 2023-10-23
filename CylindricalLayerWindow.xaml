@@ -102,11 +102,11 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Margin="8,2" Foreground="{StaticResource FontBrush}">X:</TextBlock>
-                    <TextBox Grid.Column="1" Margin="4,2" Name="XTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                    <TextBox Grid.Column="1" Margin="4,2" Name="XTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
                     <TextBlock Grid.Column="2" Margin="8,2" Foreground="{StaticResource FontBrush}">Y:</TextBlock>
-                    <TextBox Grid.Column="3" Margin="4,2" Name="YTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                    <TextBox Grid.Column="3" Margin="4,2" Name="YTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
                     <TextBlock Grid.Column="4" Margin="8,2" Foreground="{StaticResource FontBrush}">Z:</TextBlock>
-                    <TextBox Grid.Column="5" Margin="4,2" Name="ZTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="1.0" Foreground="{StaticResource FontBrush}"></TextBox>
+                    <TextBox Grid.Column="5" Margin="4,2" Name="ZTextBox" PreviewTextInput="NumericTextBox_PreviewTextInput" Text="0.0" Foreground="{StaticResource FontBrush}"></TextBox>
                 </Grid>
                 <StackPanel>
                     <TextBlock Margin="4,6,4,2" FontWeight="DemiBold">Element: Area</TextBlock>
