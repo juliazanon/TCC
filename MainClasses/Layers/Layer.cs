@@ -15,6 +15,8 @@ namespace TCC.MainClasses
     public abstract class Layer
     {
         public Layer() { }
+        private int materialID;
+        private LayerMaterial material;
 
         [DataMember(Name = "name")]
         public string Name { get; set; }
@@ -26,8 +28,8 @@ namespace TCC.MainClasses
         public string Type { get; set; }
         
         [DataMember(Name = "material")]
-        public int MaterialID { get { return Material.ID; } }
-        public LayerMaterial Material { get; set; }
+        public int MaterialID { get { return materialID; } set { materialID = value; } }
+        public LayerMaterial Material { get { return material; } set { material = value; materialID = material.ID; } }
         
         [DataMember(Name = "body_load")]
         public double[] BodyLoad { get; set; }

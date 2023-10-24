@@ -17,6 +17,7 @@ using TCC.MainClasses;
 using Newtonsoft.Json;
 using System.IO;
 using MessageBox = System.Windows.Forms.MessageBox;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace TCC
 {
@@ -391,130 +392,95 @@ namespace TCC
 
                 if (windowWarning.ShowDialog() == true)
                 {
-                    OpenFileDialog dialog = new OpenFileDialog
-                    {
-                        InitialDirectory = @"c:\\",
-                        Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
-                        FilterIndex = 2,
-                        RestoreDirectory = true
-                    };
-                    if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        string filePath = dialog.FileName;
-                        string fileExtension = Path.GetExtension(filePath);
-
-                        if (fileExtension.Equals(".json", StringComparison.OrdinalIgnoreCase))
-                        {
-                            string json = File.ReadAllText(filePath);
-
-                            try
-                            {
-                                cable = JsonConvert.DeserializeObject<Cable>(json);
-                                observableConnection.Clear();
-                                observableLayer.Clear();
-
-                                foreach (Layer l in cable.Layers)
-                                {
-                                    observableLayer.Add(l);
-                                }
-                                int lccount = 1;
-                                foreach (LayerConnection lc in cable.LayerConnections)
-                                {
-                                    observableConnection.Add(lc);
-                                    lc.Name = "Connection" + lccount.ToString();
-                                    lccount++;
-                                }
-                                int mcount = 1;
-                                foreach (LayerMaterial m in cable.LayerMaterials)
-                                {
-                                    m.Name = "Material" + mcount.ToString();
-                                    mcount++;
-                                }
-                                int scount = 1;
-                                foreach (Section s in cable.Sections)
-                                {
-                                    s.Name = "Section" + scount.ToString();
-                                    scount++;
-                                }
-                            }
-                            catch (JsonReaderException)
-                            {
-                                MessageBox.Show("Please select a JSON file with the correct structure");
-                            }
-                        }
-                        else
-                        {
-                            // The selected file is not a JSON file
-                            MessageBox.Show("Please select a valid JSON file (.json).");
-                        }
-                    }
+                    UploadCableFile();
                 }
             }
             else
             {
-                OpenFileDialog dialog = new OpenFileDialog
-                {
-                    InitialDirectory = @"c:\\",
-                    Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
-                    FilterIndex = 2,
-                    RestoreDirectory = true
-                };
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    string filePath = dialog.FileName;
-                    string fileExtension = Path.GetExtension(filePath);
+                UploadCableFile();
+            }
+        }
 
-                    if (fileExtension.Equals(".json", StringComparison.OrdinalIgnoreCase))
+        private void UploadCableFile()
+        {
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                InitialDirectory = @"c:\\",
+                Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+                FilterIndex = 2,
+                RestoreDirectory = true
+            };
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string filePath = dialog.FileName;
+                string fileExtension = Path.GetExtension(filePath);
+
+                if (fileExtension.Equals(".json", StringComparison.OrdinalIgnoreCase))
+                {
+                    try
                     {
-                        try
+                        string json = File.ReadAllText(filePath);
+                        Cable oldCable = cable;
+                        cable = JsonConvert.DeserializeObject<Cable>(json);
+                        observableConnection.Clear();
+                        observableLayer.Clear();
+
+                        if (cable.Layers == null || cable.LayerConnections == null || cable.LayerMaterials == null || cable.Sections == null)
                         {
-                            string json = File.ReadAllText(filePath);
-                            Cable oldCable = cable;
-                            cable = JsonConvert.DeserializeObject<Cable>(json);
-                            observableConnection.Clear();
-                            observableLayer.Clear();
+                            cable = oldCable;
+                            throw new Exception();
+                        }
 
-                            if (cable.Layers == null || cable.LayerConnections == null || cable.LayerMaterials == null || cable.Sections == null)
-                            {
-                                cable = oldCable;
-                                throw new Exception();
-                            }
+                        foreach (Layer l in cable.Layers)
+                        {
+                            observableLayer.Add(l);
+                        }
+                        int lccount = 1;
+                        foreach (LayerConnection lc in cable.LayerConnections)
+                        {
+                            observableConnection.Add(lc);
+                            lc.Name = "Connection" + lccount.ToString();
+                            lccount++;
+                        }
+                        int mcount = 1;
+                        foreach (LayerMaterial m in cable.LayerMaterials)
+                        {
+                            m.Name = "Material" + mcount.ToString();
+                            mcount++;
+                        }
+                        int scount = 1;
+                        foreach (Section s in cable.Sections)
+                        {
+                            s.Name = "Section" + scount.ToString();
+                            scount++;
+                        }
 
-                            foreach (Layer l in cable.Layers)
-                            {
-                                observableLayer.Add(l);
-                            }
-                            int lccount = 1;
-                            foreach (LayerConnection lc in cable.LayerConnections)
-                            {
-                                observableConnection.Add(lc);
-                                lc.Name = "Connection" + lccount.ToString();
-                                lccount++;
-                            }
-                            int mcount = 1;
+                        // set sections and materials from IDs
+                        foreach (Layer l in cable.Layers)
+                        {
                             foreach (LayerMaterial m in cable.LayerMaterials)
                             {
-                                m.Name = "Material" + mcount.ToString();
-                                mcount++;
+                                if (m.ID == l.MaterialID) l.Material = m;
                             }
-                            int scount = 1;
-                            foreach (Section s in cable.Sections)
+                            if (l.Type == "helix" || l.Type == "armor")
                             {
-                                s.Name = "Section" + scount.ToString();
-                                scount++;
+                                foreach (Section s in cable.Sections)
+                                {
+                                    HelixLayer layer = l as HelixLayer;
+                                    if (s.ID == layer.SectionID) layer.Section = s;
+                                }
                             }
                         }
-                        catch (Exception)
-                        {
-                            MessageBox.Show("Please select a JSON file with the correct structure");
-                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        // The selected file is not a JSON file
-                        MessageBox.Show("Please select a valid JSON file (.json).");
+                        MessageBox.Show("Please select a JSON file with the correct structure");
                     }
-
+                }
+                else
+                {
+                    // The selected file is not a JSON file
+                    MessageBox.Show("Please select a valid JSON file (.json).");
                 }
             }
         }

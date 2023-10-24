@@ -17,6 +17,7 @@ namespace TCC.MainClasses
         private int wires;
         private Line line;
         private Section section;
+        private int sectionID;
         private double layAngle;
         private double initialAngle;
         private int divisions;
@@ -38,13 +39,14 @@ namespace TCC.MainClasses
         
         [DataMember(Name = "section")]
         public int SectionID {
-            get { return section.ID; }
+            get { return sectionID; }
+            set { sectionID = value; }
         }
         public Section Section {
             get { return section; }
-            set { section = value; }
+            set { section = value; sectionID = section.ID; }
         }
-        
+
         [DataMember(Name = "radius")]
         public double Radius {
             get { return radius; }
@@ -71,7 +73,7 @@ namespace TCC.MainClasses
 
         public void Draw(OpenGL gl, vec3 rgb)
         {
-            if (section.Type == "rectangular")
+            if (section != null && section.Type == "rectangular")
             {
                 RectangularSection rs = section as RectangularSection;
 
@@ -114,7 +116,7 @@ namespace TCC.MainClasses
                 gl.End();
                 gl.Flush();
             }
-            else if (section.Type == "tubular")
+            else if (section != null && section.Type == "tubular")
             {
                 TubularSection ts = section as TubularSection;
 
