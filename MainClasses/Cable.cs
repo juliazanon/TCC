@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Windows.Forms;
 using System.Runtime.Serialization;
+using Microsoft.Win32;
+using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 
 namespace TCC.MainClasses
 {
@@ -45,10 +47,26 @@ namespace TCC.MainClasses
                 Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
                 FilterIndex = 2,
                 RestoreDirectory = true
-            };
+            }; 
+            
+            string lastDirectory = Properties.Settings.Default.LastSaveDirectory;
+
+            if (!string.IsNullOrEmpty(lastDirectory) && System.IO.Directory.Exists(lastDirectory))
+            {
+                dialog.InitialDirectory = lastDirectory;
+            }
+            else
+            {
+                // Set a default initial directory if the last one doesn't exist
+                dialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            }
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
+                // User selected a file, update the last used directory
+                Properties.Settings.Default.LastSaveDirectory = System.IO.Path.GetDirectoryName(dialog.FileName);
+                Properties.Settings.Default.Save();
+
                 File.WriteAllText(dialog.FileName, json);
                 lastSavedFile = json;
             }
