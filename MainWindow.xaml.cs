@@ -673,7 +673,8 @@ namespace TCC
                 {
                     CylinderLayer layer = l as CylinderLayer;
                     rgb = new vec3(150, 150, 150) / 255;
-                    layer.Draw(gl, rgb, 10000, prop, false);
+                    if (layer.Thickness > 10) layer.Draw(gl, rgb, 10000, prop, true);
+                    else layer.Draw(gl, rgb, 10000, prop, false);
                 }
             }
         }

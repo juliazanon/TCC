@@ -46,7 +46,6 @@ namespace TCC.MainClasses
 
         public void Draw(OpenGL gl, vec3 rgb, int n, float prop, bool triangles)
         {
-            float w = (float)thickness * prop;
             if (!triangles)
             {
                 // Antialiasing
@@ -55,6 +54,7 @@ namespace TCC.MainClasses
                 gl.Enable(OpenGL.GL_LINE_SMOOTH);
                 gl.Hint(OpenGL.GL_LINE_SMOOTH_HINT, OpenGL.GL_NICEST);
 
+                float w = (float)thickness * prop;
                 gl.LineWidth(w);
                 gl.Begin(BeginMode.LineLoop);
                 gl.Color(rgb.x, rgb.y, rgb.z, 1);
@@ -80,21 +80,22 @@ namespace TCC.MainClasses
                 gl.Color(rgb.x, rgb.y, rgb.z, 1);
 
                 double theta;
-
+                float w = (float)thickness;
+                n /= 100;
                 for (int i = 0; i < n; i++)
                 {
                     // First triangle
                     theta = i * 2 * Math.PI / n;
-                    gl.Vertex(radius * Math.Cos(theta), radius * Math.Sin(theta));
-                    gl.Vertex(w * Math.Cos(theta), w * Math.Sin(theta));
+                    gl.Vertex((radius + w/2) * Math.Cos(theta), (radius + w/2) * Math.Sin(theta));
+                    gl.Vertex((radius - w/2) * Math.Cos(theta), (radius - w/2) * Math.Sin(theta));
                     theta = (i + 1) * 2 * Math.PI / n;
-                    gl.Vertex(radius * Math.Cos(theta), radius * Math.Sin(theta));
+                    gl.Vertex((radius + w/2) * Math.Cos(theta), (radius + w/2) * Math.Sin(theta));
 
                     // Second triangle
-                    gl.Vertex(radius * Math.Cos(theta), radius * Math.Sin(theta));
-                    gl.Vertex(w * Math.Cos(theta), w * Math.Sin(theta));
+                    gl.Vertex((radius + w/2) * Math.Cos(theta), (radius + w/2) * Math.Sin(theta));
+                    gl.Vertex((radius - w/2) * Math.Cos(theta), (radius - w/2) * Math.Sin(theta));
                     theta = i * 2 * Math.PI / n;
-                    gl.Vertex(w * Math.Cos(theta), w * Math.Sin(theta));
+                    gl.Vertex((radius - w/2) * Math.Cos(theta), (radius - w/2) * Math.Sin(theta));
                 }
                 gl.End();
                 gl.Flush();
